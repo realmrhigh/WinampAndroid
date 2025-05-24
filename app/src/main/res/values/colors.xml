@@ -7,4 +7,16 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Winamp Theme Colors -->
+    <color name="winamp_background_dark">#27263d</color>
+    <color name="winamp_text_green">#00FF00</color>
+    <color name="winamp_tab_unselected_gray">#808080</color>
+
+    <!-- Playlist Colors -->
+    <color name="winamp_playlist_background">#000000</color>
+    <color name="winamp_playlist_text_normal">#00AA00</color>
+    <color name="winamp_playlist_text_selected">#FFFFFF</color>
+    <color name="winamp_playlist_item_selected_bg">#0000CD</color>
+    <color name="winamp_border_black">#000000</color>
 </resources>

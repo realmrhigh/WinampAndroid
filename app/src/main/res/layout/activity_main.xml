@@ -12,7 +12,11 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@color/winamp_background_dark"
+        app:tabIndicatorColor="@color/winamp_text_green"
+        app:tabTextColor="@color/winamp_tab_unselected_gray"
+        app:tabSelectedTextColor="@color/winamp_text_green" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager"

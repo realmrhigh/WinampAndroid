@@ -12,10 +12,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.winampinspiredmp3player.R // Import R class for drawable resources
 import com.example.winampinspiredmp3player.databinding.FragmentPlayerBinding
 import com.example.winampinspiredmp3player.services.MusicService
-import com.example.winampinspiredmp3player.data.Track // Ensure Track is imported
+import com.example.winampinspiredmp3player.data.Track
 
 class PlayerFragment : Fragment() {
 
@@ -33,9 +35,9 @@ class PlayerFragment : Fragment() {
             musicService = binder.getService()
             isBound = true
 
-            setupVolumeControls() // Initial volume setup
-            updatePlayPauseButtonState() // Update button based on service state
-            observeLiveData() // Start observing LiveData from service
+            setupVolumeControls()
+            updatePlayPauseButtonState()
+            observeLiveData()
         }
 
         override fun onServiceDisconnected(name: ComponentName?) {
@@ -61,7 +63,7 @@ class PlayerFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupClickListeners()
         setupTrackProgressSeekBar()
-        setupVolumeControls() // Initial setup, might be re-applied if service connects
+        setupVolumeControls()
     }
 
     private fun setupClickListeners() {
@@ -70,21 +72,15 @@ class PlayerFragment : Fragment() {
                 if (musicService!!.isPlaying()) {
                     musicService!!.pauseTrack()
                 } else {
-                    // If there's a current track (e.g., paused), resume it
-                    // Otherwise, this button won't start a new track without selection from playlist
                     if (musicService!!.currentTrack != null) {
-                         // The service's playTrackAtIndex or playTrack (if URI is known)
-                         // should handle resuming or starting.
-                         // For now, assume if currentTrack is not null, it can be played/resumed.
-                         // A dedicated resume function in service might be better.
-                         // For simplicity, if a track is loaded (currentTrack != null) and not playing,
-                         // play it. This assumes playTrackAtIndex can handle resuming.
-                         musicService!!.playTrackAtIndex(musicService!!.currentTrackIndex)
+                        musicService!!.playTrackAtIndex(musicService!!.currentTrackIndex)
                     } else {
                         Log.d("PlayerFragment", "Play clicked, but no track is loaded/selected.")
+                        // Optionally play first track from list if available
+                        // musicService!!.playTrackAtIndex(0)
                     }
                 }
-                updatePlayPauseButtonState()
+                updatePlayPauseButtonState() // Update image after action
             } else {
                 Log.d("PlayerFragment", "Play/Pause button clicked, but service not bound.")
             }
@@ -93,7 +89,7 @@ class PlayerFragment : Fragment() {
         binding.btnStopTrack.setOnClickListener {
             if (isBound && musicService != null) {
                 musicService!!.stopTrack()
-                // UI updates will be handled by LiveData observers mostly
+                // UI updates for track info and play/pause button will be handled by LiveData observers
             } else {
                 Log.d("PlayerFragment", "Stop button clicked, but service not bound.")
             }
@@ -112,6 +108,14 @@ class PlayerFragment : Fragment() {
             } else {
                 Log.d("PlayerFragment", "Next Track Clicked, but service not bound.")
             }
+        }
+
+        binding.btnEject.setOnClickListener {
+            // For now, just a Toast message.
+            // In a future step, this could navigate to PlaylistFragment and trigger a scan,
+            // or trigger a scan via a shared ViewModel or service event.
+            Toast.makeText(requireContext(), "Eject button clicked - Connect to Scan for Music", Toast.LENGTH_LONG).show()
+            Log.d("PlayerFragment", "Eject button clicked.")
         }
     }
 
@@ -153,12 +157,12 @@ class PlayerFragment : Fragment() {
     private fun updatePlayPauseButtonState() {
         if (isBound && musicService != null) {
             if (musicService!!.isPlaying()) {
-                binding.btnPlayPause.text = "Pause"
+                binding.btnPlayPause.setImageResource(R.drawable.winamp_btn_pause)
             } else {
-                binding.btnPlayPause.text = "Play"
+                binding.btnPlayPause.setImageResource(R.drawable.winamp_btn_play)
             }
         } else {
-            binding.btnPlayPause.text = "Play" // Default state when not bound
+            binding.btnPlayPause.setImageResource(R.drawable.winamp_btn_play) // Default state
         }
     }
 
@@ -171,13 +175,16 @@ class PlayerFragment : Fragment() {
         }
         musicService?.currentPlayingTrack?.observe(viewLifecycleOwner) { track ->
             updateTrackInfoUI(track)
-            updatePlayPauseButtonState() // Also update button when track changes
+            updatePlayPauseButtonState() // Update play/pause button when track changes or stops
         }
     }
 
     private fun updateTrackInfoUI(track: Track?) {
         if (track != null) {
-            binding.tvCurrentTrackInfo.text = track.title ?: track.fileName
+            val titleToDisplay = if (track.title.isNullOrBlank()) track.fileName else track.title
+            val artistToDisplay = if (track.artist.isNullOrBlank()) "<Unknown Artist>" else track.artist
+            binding.tvCurrentTrackInfo.text = "$titleToDisplay - $artistToDisplay"
+            // Duration is handled by sb_track_progress.max and sb_track_progress.progress via LiveData
         } else {
             binding.tvCurrentTrackInfo.text = "No track playing"
             binding.sbTrackProgress.progress = 0
@@ -189,10 +196,6 @@ class PlayerFragment : Fragment() {
         super.onStart()
         Log.d("PlayerFragment", "onStart called, binding to service.")
         Intent(requireActivity(), MusicService::class.java).also { intent ->
-            // Start the service if it's not already running, so it can run in the background
-            // requireActivity().startService(intent) // This line is important for long-running playback
-            // For now, BIND_AUTO_CREATE will create it, but it will be destroyed if all clients unbind
-            // and it wasn't started. For a music player, startService is usually desired.
             requireActivity().bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE)
         }
     }
@@ -201,30 +204,19 @@ class PlayerFragment : Fragment() {
         super.onStop()
         Log.d("PlayerFragment", "onStop called, unbinding from service.")
         if (isBound) {
-            // Important: Remove observers to prevent issues when fragment view is destroyed
-            // but fragment instance might still be around (e.g. back stack)
-            // This is now handled in onServiceDisconnected for more robustness
-            // musicService?.playbackPosition?.removeObservers(viewLifecycleOwner)
-            // musicService?.currentTrackDuration?.removeObservers(viewLifecycleOwner)
-            // musicService?.currentPlayingTrack?.removeObservers(viewLifecycleOwner)
-
             requireActivity().unbindService(serviceConnection)
             isBound = false
-            // musicService = null // Nullified in onServiceDisconnected
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        Log.d("PlayerFragment", "onDestroyView called, _binding set to null")
-        // If service is not null and still bound, good to remove observers here too,
-        // though onStop should ideally handle unbinding.
-        // This check is more of a safeguard.
         if (isBound && musicService != null) {
-             musicService?.playbackPosition?.removeObservers(viewLifecycleOwner)
-             musicService?.currentTrackDuration?.removeObservers(viewLifecycleOwner)
-             musicService?.currentPlayingTrack?.removeObservers(viewLifecycleOwner)
+            musicService?.playbackPosition?.removeObservers(viewLifecycleOwner)
+            musicService?.currentTrackDuration?.removeObservers(viewLifecycleOwner)
+            musicService?.currentPlayingTrack?.removeObservers(viewLifecycleOwner)
         }
         _binding = null
+        Log.d("PlayerFragment", "onDestroyView called, _binding set to null")
     }
 }

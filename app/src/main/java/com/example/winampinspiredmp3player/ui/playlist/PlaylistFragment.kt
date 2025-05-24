@@ -143,18 +143,24 @@ class PlaylistFragment : Fragment() {
             val displayNameColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DISPLAY_NAME)
 
             Log.d("PlaylistFragment", "Found ${cursor.count} tracks.")
-
+            var tracksLogged = 0
             while (cursor.moveToNext()) {
                 val id = cursor.getLong(idColumn)
                 val title = cursor.getString(titleColumn)
                 val artist = cursor.getString(artistColumn)
                 val duration = cursor.getLong(durationColumn)
-                val fileName = cursor.getString(displayNameColumn)
+                val fileName = cursor.getString(displayNameColumn) // This is MediaStore.Audio.Media.DISPLAY_NAME
                 val contentUri = ContentUris.withAppendedId(
                     MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
                     id
                 )
-                currentTracks.add(Track(contentUri, title, artist, duration, fileName))
+                val track = Track(contentUri, title, artist, duration, fileName)
+                currentTracks.add(track)
+
+                if (tracksLogged < 3) { // Log first 3 tracks for verification
+                    Log.d("PlaylistFragment", "Sample Track ${tracksLogged + 1}: URI=${track.uri}, Title=${track.title}, Artist=${track.artist}, Duration=${track.duration}, FileName=${track.fileName}")
+                    tracksLogged++
+                }
             }
         }
         // Update the adapter's list
@@ -167,7 +173,7 @@ class PlaylistFragment : Fragment() {
         if (currentTracks.isEmpty()) {
             Toast.makeText(requireContext(), "No music files found.", Toast.LENGTH_SHORT).show()
         } else {
-             Toast.makeText(requireContext(), "Found ${currentTracks.size} music files.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Found ${currentTracks.size} music files.", Toast.LENGTH_SHORT).show()
         }
     }
 
