@@ -1,0 +1,317 @@
+-- Merging decision tree log ---
+manifest
+ADDED from C:\Users\stant\AndroidStudioProjects\WinampInspiredMP3Player\app\src\main\AndroidManifest.xml:2:1-31:12
+INJECTED from C:\Users\stant\AndroidStudioProjects\WinampInspiredMP3Player\app\src\main\AndroidManifest.xml:2:1-31:12
+INJECTED from C:\Users\stant\AndroidStudioProjects\WinampInspiredMP3Player\app\src\main\AndroidManifest.xml:2:1-31:12
+INJECTED from C:\Users\stant\AndroidStudioProjects\WinampInspiredMP3Player\app\src\main\AndroidManifest.xml:2:1-31:12
+MERGED from [com.android.databinding:viewbinding:8.10.0] C:\Users\stant\.gradle\caches\8.12\transforms\325926d4c5f2faf7346aa6dffaf4f925\transformed\viewbinding-8.10.0\AndroidManifest.xml:2:1-7:12
+MERGED from [com.google.android.material:material:1.10.0] C:\Users\stant\.gradle\caches\8.12\transforms\a004a6dd3d0264aa7b8c7ec112d0a6af\transformed\material-1.10.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] C:\Users\stant\.gradle\caches\8.12\transforms\36d5948814b54f38b48c5c74ddbfb3d6\transformed\constraintlayout-2.1.4\AndroidManifest.xml:2:1-11:12
+MERGED from [androidx.appcompat:appcompat-resources:1.6.1] C:\Users\stant\.gradle\caches\8.12\transforms\f3d6f8a6e39d6fab3ac3e0971a11a4b0\transformed\appcompat-resources-1.6.1\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.appcompat:appcompat:1.6.1] C:\Users\stant\.gradle\caches\8.12\transforms\b4451c2fe491ebf6b251b844b790e897\transformed\appcompat-1.6.1\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.media:media:1.7.0] C:\Users\stant\.gradle\caches\8.12\transforms\24a3c04f15b95841cf3da8df14f9196a\transformed\media-1.7.0\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.emoji2:emoji2-views-helper:1.2.0] C:\Users\stant\.gradle\caches\8.12\transforms\dcc35256be63c3739efd92da7aa36207\transformed\emoji2-views-helper-1.2.0\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.emoji2:emoji2:1.2.0] C:\Users\stant\.gradle\caches\8.12\transforms\56694780d0699c4f94cb56781dcd2c32\transformed\emoji2-1.2.0\AndroidManifest.xml:17:1-35:12
+MERGED from [androidx.viewpager2:viewpager2:1.0.0] C:\Users\stant\.gradle\caches\8.12\transforms\f47cd198670d92e85c1ace3a7735b8ac\transformed\viewpager2-1.0.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.fragment:fragment:1.3.6] C:\Users\stant\.gradle\caches\8.12\transforms\2e562677598b5f6db3af70637900a969\transformed\fragment-1.3.6\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.activity:activity:1.8.0] C:\Users\stant\.gradle\caches\8.12\transforms\6a5136e9cd927cb6ecb68a8166a3be69\transformed\activity-1.8.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.drawerlayout:drawerlayout:1.1.1] C:\Users\stant\.gradle\caches\8.12\transforms\5815af49c4deb2eb4d4ca9bdb701d728\transformed\drawerlayout-1.1.1\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] C:\Users\stant\.gradle\caches\8.12\transforms\25e8bd11bf7be46bd04aec5b9ddabda8\transformed\coordinatorlayout-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.dynamicanimation:dynamicanimation:1.0.0] C:\Users\stant\.gradle\caches\8.12\transforms\de1f62ab4e6a5bcceee79ebca167608f\transformed\dynamicanimation-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.transition:transition:1.2.0] C:\Users\stant\.gradle\caches\8.12\transforms\be2e760f23de791c600c2fd130ffa458\transformed\transition-1.2.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] C:\Users\stant\.gradle\caches\8.12\transforms\3f7a9a2362743e1b0b2d2703f240c251\transformed\vectordrawable-animated-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] C:\Users\stant\.gradle\caches\8.12\transforms\faafea569fab80fc80a6931fc12130f1\transformed\vectordrawable-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\stant\.gradle\caches\8.12\transforms\44a8b061db7f43eacba9ce8adcddae73\transformed\viewpager-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] C:\Users\stant\.gradle\caches\8.12\transforms\8c7314ee63840782638ea3268578fa36\transformed\legacy-support-core-utils-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\stant\.gradle\caches\8.12\transforms\18f8447c8fc6b4c567c3c78f68363a12\transformed\loader-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.recyclerview:recyclerview:1.1.0] C:\Users\stant\.gradle\caches\8.12\transforms\b0931f7620f75523bd1079bda578b376\transformed\recyclerview-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.customview:customview:1.1.0] C:\Users\stant\.gradle\caches\8.12\transforms\6588e3264d65342296af05ec46b5c4d2\transformed\customview-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.core:core:1.9.0] C:\Users\stant\.gradle\caches\8.12\transforms\0c92aad48cba27c25015c3fa91d007ca\transformed\core-1.9.0\AndroidManifest.xml:17:1-30:12
+MERGED from [androidx.savedstate:savedstate:1.2.1] C:\Users\stant\.gradle\caches\8.12\transforms\1764a13b26d604d0968c34e1499fd9e5\transformed\savedstate-1.2.1\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-process:2.6.1] C:\Users\stant\.gradle\caches\8.12\transforms\058f3c93672ea85099be7d926bccf597\transformed\lifecycle-process-2.6.1\AndroidManifest.xml:17:1-35:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.6.1] C:\Users\stant\.gradle\caches\8.12\transforms\6700ed3ce010e0264f378942f2bfd359\transformed\lifecycle-livedata-core-2.6.1\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.6.1] C:\Users\stant\.gradle\caches\8.12\transforms\db29b67cee6160647c5f2630a5b416ee\transformed\lifecycle-livedata-2.6.1\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.6.1] C:\Users\stant\.gradle\caches\8.12\transforms\a27c2c6ca1944e959b421afb97325f7b\transformed\lifecycle-viewmodel-2.6.1\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.6.1] C:\Users\stant\.gradle\caches\8.12\transforms\236c8da52e6501e9c25e796ed8c9be20\transformed\lifecycle-runtime-2.6.1\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.6.1] C:\Users\stant\.gradle\caches\8.12\transforms\272fd10f01ff0d4cefb645635f6a921c\transformed\lifecycle-viewmodel-savedstate-2.6.1\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.core:core-ktx:1.9.0] C:\Users\stant\.gradle\caches\8.12\transforms\5a07c8f6f1b7f22b30358e3c52280154\transformed\core-ktx-1.9.0\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.annotation:annotation-experimental:1.3.0] C:\Users\stant\.gradle\caches\8.12\transforms\f7b2518343f0506af817b03b286d4ca9\transformed\annotation-experimental-1.3.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\stant\.gradle\caches\8.12\transforms\051702a5e6f19845a10d14740ce930b5\transformed\cursoradapter-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\stant\.gradle\caches\8.12\transforms\f484730979d4a559748e51e3e64da2b9\transformed\cardview-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\stant\.gradle\caches\8.12\transforms\f7fc4f5b1f58aad85251a24ba4f7baa7\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:17:1-27:12
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\stant\.gradle\caches\8.12\transforms\6a127e3ecf045987d647843699451ac4\transformed\profileinstaller-1.3.0\AndroidManifest.xml:17:1-55:12
+MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\stant\.gradle\caches\8.12\transforms\34375878baf441170eec4216fa5e2f7e\transformed\startup-runtime-1.1.1\AndroidManifest.xml:17:1-33:12
+MERGED from [androidx.tracing:tracing:1.0.0] C:\Users\stant\.gradle\caches\8.12\transforms\b2eb51dc0d6656e6a9dd5d3239542610\transformed\tracing-1.0.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\stant\.gradle\caches\8.12\transforms\900b120b52752b6d7789f93989ca0b49\transformed\interpolator-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.arch.core:core-runtime:2.2.0] C:\Users\stant\.gradle\caches\8.12\transforms\8f575c9ac3862ce9716ce90816b1ef41\transformed\core-runtime-2.2.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\stant\.gradle\caches\8.12\transforms\eb1904f6d27c091344cc4345e0084673\transformed\documentfile-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\stant\.gradle\caches\8.12\transforms\0e2c4337a50a4a659de9d1d5e37ee12c\transformed\localbroadcastmanager-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.print:print:1.0.0] C:\Users\stant\.gradle\caches\8.12\transforms\4adf759e4c166c1ce320b44c9cd4a708\transformed\print-1.0.0\AndroidManifest.xml:17:1-22:12
+	package
+		ADDED from C:\Users\stant\AndroidStudioProjects\WinampInspiredMP3Player\app\src\main\AndroidManifest.xml:3:5-50
+		INJECTED from C:\Users\stant\AndroidStudioProjects\WinampInspiredMP3Player\app\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from C:\Users\stant\AndroidStudioProjects\WinampInspiredMP3Player\app\src\main\AndroidManifest.xml
+	android:versionCode
+		INJECTED from C:\Users\stant\AndroidStudioProjects\WinampInspiredMP3Player\app\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from C:\Users\stant\AndroidStudioProjects\WinampInspiredMP3Player\app\src\main\AndroidManifest.xml:2:11-69
+uses-permission#android.permission.READ_MEDIA_AUDIO
+ADDED from C:\Users\stant\AndroidStudioProjects\WinampInspiredMP3Player\app\src\main\AndroidManifest.xml:5:5-75
+	android:name
+		ADDED from C:\Users\stant\AndroidStudioProjects\WinampInspiredMP3Player\app\src\main\AndroidManifest.xml:5:22-72
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+ADDED from C:\Users\stant\AndroidStudioProjects\WinampInspiredMP3Player\app\src\main\AndroidManifest.xml:6:5-107
+	android:maxSdkVersion
+		ADDED from C:\Users\stant\AndroidStudioProjects\WinampInspiredMP3Player\app\src\main\AndroidManifest.xml:6:78-104
+	android:name
+		ADDED from C:\Users\stant\AndroidStudioProjects\WinampInspiredMP3Player\app\src\main\AndroidManifest.xml:6:22-77
+uses-permission#android.permission.FOREGROUND_SERVICE
+ADDED from C:\Users\stant\AndroidStudioProjects\WinampInspiredMP3Player\app\src\main\AndroidManifest.xml:7:5-77
+	android:name
+		ADDED from C:\Users\stant\AndroidStudioProjects\WinampInspiredMP3Player\app\src\main\AndroidManifest.xml:7:22-74
+uses-permission#android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK
+ADDED from C:\Users\stant\AndroidStudioProjects\WinampInspiredMP3Player\app\src\main\AndroidManifest.xml:8:5-92
+	android:name
+		ADDED from C:\Users\stant\AndroidStudioProjects\WinampInspiredMP3Player\app\src\main\AndroidManifest.xml:8:22-89
+application
+ADDED from C:\Users\stant\AndroidStudioProjects\WinampInspiredMP3Player\app\src\main\AndroidManifest.xml:11:5-29:19
+INJECTED from C:\Users\stant\AndroidStudioProjects\WinampInspiredMP3Player\app\src\main\AndroidManifest.xml:11:5-29:19
+MERGED from [com.google.android.material:material:1.10.0] C:\Users\stant\.gradle\caches\8.12\transforms\a004a6dd3d0264aa7b8c7ec112d0a6af\transformed\material-1.10.0\AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.material:material:1.10.0] C:\Users\stant\.gradle\caches\8.12\transforms\a004a6dd3d0264aa7b8c7ec112d0a6af\transformed\material-1.10.0\AndroidManifest.xml:22:5-20
+MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] C:\Users\stant\.gradle\caches\8.12\transforms\36d5948814b54f38b48c5c74ddbfb3d6\transformed\constraintlayout-2.1.4\AndroidManifest.xml:9:5-20
+MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] C:\Users\stant\.gradle\caches\8.12\transforms\36d5948814b54f38b48c5c74ddbfb3d6\transformed\constraintlayout-2.1.4\AndroidManifest.xml:9:5-20
+MERGED from [androidx.emoji2:emoji2:1.2.0] C:\Users\stant\.gradle\caches\8.12\transforms\56694780d0699c4f94cb56781dcd2c32\transformed\emoji2-1.2.0\AndroidManifest.xml:23:5-33:19
+MERGED from [androidx.emoji2:emoji2:1.2.0] C:\Users\stant\.gradle\caches\8.12\transforms\56694780d0699c4f94cb56781dcd2c32\transformed\emoji2-1.2.0\AndroidManifest.xml:23:5-33:19
+MERGED from [androidx.core:core:1.9.0] C:\Users\stant\.gradle\caches\8.12\transforms\0c92aad48cba27c25015c3fa91d007ca\transformed\core-1.9.0\AndroidManifest.xml:28:5-89
+MERGED from [androidx.core:core:1.9.0] C:\Users\stant\.gradle\caches\8.12\transforms\0c92aad48cba27c25015c3fa91d007ca\transformed\core-1.9.0\AndroidManifest.xml:28:5-89
+MERGED from [androidx.lifecycle:lifecycle-process:2.6.1] C:\Users\stant\.gradle\caches\8.12\transforms\058f3c93672ea85099be7d926bccf597\transformed\lifecycle-process-2.6.1\AndroidManifest.xml:23:5-33:19
+MERGED from [androidx.lifecycle:lifecycle-process:2.6.1] C:\Users\stant\.gradle\caches\8.12\transforms\058f3c93672ea85099be7d926bccf597\transformed\lifecycle-process-2.6.1\AndroidManifest.xml:23:5-33:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\stant\.gradle\caches\8.12\transforms\f7fc4f5b1f58aad85251a24ba4f7baa7\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:24:5-25:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\stant\.gradle\caches\8.12\transforms\f7fc4f5b1f58aad85251a24ba4f7baa7\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:24:5-25:19
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\stant\.gradle\caches\8.12\transforms\6a127e3ecf045987d647843699451ac4\transformed\profileinstaller-1.3.0\AndroidManifest.xml:23:5-53:19
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\stant\.gradle\caches\8.12\transforms\6a127e3ecf045987d647843699451ac4\transformed\profileinstaller-1.3.0\AndroidManifest.xml:23:5-53:19
+MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\stant\.gradle\caches\8.12\transforms\34375878baf441170eec4216fa5e2f7e\transformed\startup-runtime-1.1.1\AndroidManifest.xml:25:5-31:19
+MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\stant\.gradle\caches\8.12\transforms\34375878baf441170eec4216fa5e2f7e\transformed\startup-runtime-1.1.1\AndroidManifest.xml:25:5-31:19
+	android:extractNativeLibs
+		INJECTED from C:\Users\stant\AndroidStudioProjects\WinampInspiredMP3Player\app\src\main\AndroidManifest.xml
+	android:appComponentFactory
+		ADDED from [androidx.core:core:1.9.0] C:\Users\stant\.gradle\caches\8.12\transforms\0c92aad48cba27c25015c3fa91d007ca\transformed\core-1.9.0\AndroidManifest.xml:28:18-86
+	android:supportsRtl
+		ADDED from C:\Users\stant\AndroidStudioProjects\WinampInspiredMP3Player\app\src\main\AndroidManifest.xml:16:9-35
+	android:label
+		ADDED from C:\Users\stant\AndroidStudioProjects\WinampInspiredMP3Player\app\src\main\AndroidManifest.xml:14:9-41
+	android:roundIcon
+		ADDED from C:\Users\stant\AndroidStudioProjects\WinampInspiredMP3Player\app\src\main\AndroidManifest.xml:15:9-54
+	android:icon
+		ADDED from C:\Users\stant\AndroidStudioProjects\WinampInspiredMP3Player\app\src\main\AndroidManifest.xml:13:9-43
+	android:allowBackup
+		ADDED from C:\Users\stant\AndroidStudioProjects\WinampInspiredMP3Player\app\src\main\AndroidManifest.xml:12:9-35
+	android:theme
+		ADDED from C:\Users\stant\AndroidStudioProjects\WinampInspiredMP3Player\app\src\main\AndroidManifest.xml:17:9-61
+activity#com.example.winampinspiredmp3player.MainActivity
+ADDED from C:\Users\stant\AndroidStudioProjects\WinampInspiredMP3Player\app\src\main\AndroidManifest.xml:18:9-25:20
+	android:exported
+		ADDED from C:\Users\stant\AndroidStudioProjects\WinampInspiredMP3Player\app\src\main\AndroidManifest.xml:20:13-36
+	android:name
+		ADDED from C:\Users\stant\AndroidStudioProjects\WinampInspiredMP3Player\app\src\main\AndroidManifest.xml:19:13-41
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from C:\Users\stant\AndroidStudioProjects\WinampInspiredMP3Player\app\src\main\AndroidManifest.xml:21:13-24:29
+action#android.intent.action.MAIN
+ADDED from C:\Users\stant\AndroidStudioProjects\WinampInspiredMP3Player\app\src\main\AndroidManifest.xml:22:17-69
+	android:name
+		ADDED from C:\Users\stant\AndroidStudioProjects\WinampInspiredMP3Player\app\src\main\AndroidManifest.xml:22:25-66
+category#android.intent.category.LAUNCHER
+ADDED from C:\Users\stant\AndroidStudioProjects\WinampInspiredMP3Player\app\src\main\AndroidManifest.xml:23:17-77
+	android:name
+		ADDED from C:\Users\stant\AndroidStudioProjects\WinampInspiredMP3Player\app\src\main\AndroidManifest.xml:23:27-74
+service#com.example.winampinspiredmp3player.services.MusicService
+ADDED from C:\Users\stant\AndroidStudioProjects\WinampInspiredMP3Player\app\src\main\AndroidManifest.xml:27:9-28:61
+	android:foregroundServiceType
+		ADDED from C:\Users\stant\AndroidStudioProjects\WinampInspiredMP3Player\app\src\main\AndroidManifest.xml:28:13-58
+	android:name
+		ADDED from C:\Users\stant\AndroidStudioProjects\WinampInspiredMP3Player\app\src\main\AndroidManifest.xml:27:18-55
+uses-sdk
+INJECTED from C:\Users\stant\AndroidStudioProjects\WinampInspiredMP3Player\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from C:\Users\stant\AndroidStudioProjects\WinampInspiredMP3Player\app\src\main\AndroidManifest.xml
+INJECTED from C:\Users\stant\AndroidStudioProjects\WinampInspiredMP3Player\app\src\main\AndroidManifest.xml
+MERGED from [com.android.databinding:viewbinding:8.10.0] C:\Users\stant\.gradle\caches\8.12\transforms\325926d4c5f2faf7346aa6dffaf4f925\transformed\viewbinding-8.10.0\AndroidManifest.xml:5:5-44
+MERGED from [com.android.databinding:viewbinding:8.10.0] C:\Users\stant\.gradle\caches\8.12\transforms\325926d4c5f2faf7346aa6dffaf4f925\transformed\viewbinding-8.10.0\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.material:material:1.10.0] C:\Users\stant\.gradle\caches\8.12\transforms\a004a6dd3d0264aa7b8c7ec112d0a6af\transformed\material-1.10.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.material:material:1.10.0] C:\Users\stant\.gradle\caches\8.12\transforms\a004a6dd3d0264aa7b8c7ec112d0a6af\transformed\material-1.10.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] C:\Users\stant\.gradle\caches\8.12\transforms\36d5948814b54f38b48c5c74ddbfb3d6\transformed\constraintlayout-2.1.4\AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] C:\Users\stant\.gradle\caches\8.12\transforms\36d5948814b54f38b48c5c74ddbfb3d6\transformed\constraintlayout-2.1.4\AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.appcompat:appcompat-resources:1.6.1] C:\Users\stant\.gradle\caches\8.12\transforms\f3d6f8a6e39d6fab3ac3e0971a11a4b0\transformed\appcompat-resources-1.6.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.appcompat:appcompat-resources:1.6.1] C:\Users\stant\.gradle\caches\8.12\transforms\f3d6f8a6e39d6fab3ac3e0971a11a4b0\transformed\appcompat-resources-1.6.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.appcompat:appcompat:1.6.1] C:\Users\stant\.gradle\caches\8.12\transforms\b4451c2fe491ebf6b251b844b790e897\transformed\appcompat-1.6.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.appcompat:appcompat:1.6.1] C:\Users\stant\.gradle\caches\8.12\transforms\b4451c2fe491ebf6b251b844b790e897\transformed\appcompat-1.6.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.media:media:1.7.0] C:\Users\stant\.gradle\caches\8.12\transforms\24a3c04f15b95841cf3da8df14f9196a\transformed\media-1.7.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.media:media:1.7.0] C:\Users\stant\.gradle\caches\8.12\transforms\24a3c04f15b95841cf3da8df14f9196a\transformed\media-1.7.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.emoji2:emoji2-views-helper:1.2.0] C:\Users\stant\.gradle\caches\8.12\transforms\dcc35256be63c3739efd92da7aa36207\transformed\emoji2-views-helper-1.2.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.emoji2:emoji2-views-helper:1.2.0] C:\Users\stant\.gradle\caches\8.12\transforms\dcc35256be63c3739efd92da7aa36207\transformed\emoji2-views-helper-1.2.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.emoji2:emoji2:1.2.0] C:\Users\stant\.gradle\caches\8.12\transforms\56694780d0699c4f94cb56781dcd2c32\transformed\emoji2-1.2.0\AndroidManifest.xml:21:5-44
+MERGED from [androidx.emoji2:emoji2:1.2.0] C:\Users\stant\.gradle\caches\8.12\transforms\56694780d0699c4f94cb56781dcd2c32\transformed\emoji2-1.2.0\AndroidManifest.xml:21:5-44
+MERGED from [androidx.viewpager2:viewpager2:1.0.0] C:\Users\stant\.gradle\caches\8.12\transforms\f47cd198670d92e85c1ace3a7735b8ac\transformed\viewpager2-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.viewpager2:viewpager2:1.0.0] C:\Users\stant\.gradle\caches\8.12\transforms\f47cd198670d92e85c1ace3a7735b8ac\transformed\viewpager2-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.fragment:fragment:1.3.6] C:\Users\stant\.gradle\caches\8.12\transforms\2e562677598b5f6db3af70637900a969\transformed\fragment-1.3.6\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.fragment:fragment:1.3.6] C:\Users\stant\.gradle\caches\8.12\transforms\2e562677598b5f6db3af70637900a969\transformed\fragment-1.3.6\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.activity:activity:1.8.0] C:\Users\stant\.gradle\caches\8.12\transforms\6a5136e9cd927cb6ecb68a8166a3be69\transformed\activity-1.8.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.activity:activity:1.8.0] C:\Users\stant\.gradle\caches\8.12\transforms\6a5136e9cd927cb6ecb68a8166a3be69\transformed\activity-1.8.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.drawerlayout:drawerlayout:1.1.1] C:\Users\stant\.gradle\caches\8.12\transforms\5815af49c4deb2eb4d4ca9bdb701d728\transformed\drawerlayout-1.1.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.drawerlayout:drawerlayout:1.1.1] C:\Users\stant\.gradle\caches\8.12\transforms\5815af49c4deb2eb4d4ca9bdb701d728\transformed\drawerlayout-1.1.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] C:\Users\stant\.gradle\caches\8.12\transforms\25e8bd11bf7be46bd04aec5b9ddabda8\transformed\coordinatorlayout-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] C:\Users\stant\.gradle\caches\8.12\transforms\25e8bd11bf7be46bd04aec5b9ddabda8\transformed\coordinatorlayout-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.dynamicanimation:dynamicanimation:1.0.0] C:\Users\stant\.gradle\caches\8.12\transforms\de1f62ab4e6a5bcceee79ebca167608f\transformed\dynamicanimation-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.dynamicanimation:dynamicanimation:1.0.0] C:\Users\stant\.gradle\caches\8.12\transforms\de1f62ab4e6a5bcceee79ebca167608f\transformed\dynamicanimation-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.transition:transition:1.2.0] C:\Users\stant\.gradle\caches\8.12\transforms\be2e760f23de791c600c2fd130ffa458\transformed\transition-1.2.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.transition:transition:1.2.0] C:\Users\stant\.gradle\caches\8.12\transforms\be2e760f23de791c600c2fd130ffa458\transformed\transition-1.2.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] C:\Users\stant\.gradle\caches\8.12\transforms\3f7a9a2362743e1b0b2d2703f240c251\transformed\vectordrawable-animated-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] C:\Users\stant\.gradle\caches\8.12\transforms\3f7a9a2362743e1b0b2d2703f240c251\transformed\vectordrawable-animated-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] C:\Users\stant\.gradle\caches\8.12\transforms\faafea569fab80fc80a6931fc12130f1\transformed\vectordrawable-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] C:\Users\stant\.gradle\caches\8.12\transforms\faafea569fab80fc80a6931fc12130f1\transformed\vectordrawable-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\stant\.gradle\caches\8.12\transforms\44a8b061db7f43eacba9ce8adcddae73\transformed\viewpager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\stant\.gradle\caches\8.12\transforms\44a8b061db7f43eacba9ce8adcddae73\transformed\viewpager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] C:\Users\stant\.gradle\caches\8.12\transforms\8c7314ee63840782638ea3268578fa36\transformed\legacy-support-core-utils-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] C:\Users\stant\.gradle\caches\8.12\transforms\8c7314ee63840782638ea3268578fa36\transformed\legacy-support-core-utils-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\stant\.gradle\caches\8.12\transforms\18f8447c8fc6b4c567c3c78f68363a12\transformed\loader-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\stant\.gradle\caches\8.12\transforms\18f8447c8fc6b4c567c3c78f68363a12\transformed\loader-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.recyclerview:recyclerview:1.1.0] C:\Users\stant\.gradle\caches\8.12\transforms\b0931f7620f75523bd1079bda578b376\transformed\recyclerview-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.recyclerview:recyclerview:1.1.0] C:\Users\stant\.gradle\caches\8.12\transforms\b0931f7620f75523bd1079bda578b376\transformed\recyclerview-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.customview:customview:1.1.0] C:\Users\stant\.gradle\caches\8.12\transforms\6588e3264d65342296af05ec46b5c4d2\transformed\customview-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.customview:customview:1.1.0] C:\Users\stant\.gradle\caches\8.12\transforms\6588e3264d65342296af05ec46b5c4d2\transformed\customview-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.core:core:1.9.0] C:\Users\stant\.gradle\caches\8.12\transforms\0c92aad48cba27c25015c3fa91d007ca\transformed\core-1.9.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core:1.9.0] C:\Users\stant\.gradle\caches\8.12\transforms\0c92aad48cba27c25015c3fa91d007ca\transformed\core-1.9.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.savedstate:savedstate:1.2.1] C:\Users\stant\.gradle\caches\8.12\transforms\1764a13b26d604d0968c34e1499fd9e5\transformed\savedstate-1.2.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.savedstate:savedstate:1.2.1] C:\Users\stant\.gradle\caches\8.12\transforms\1764a13b26d604d0968c34e1499fd9e5\transformed\savedstate-1.2.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-process:2.6.1] C:\Users\stant\.gradle\caches\8.12\transforms\058f3c93672ea85099be7d926bccf597\transformed\lifecycle-process-2.6.1\AndroidManifest.xml:21:5-44
+MERGED from [androidx.lifecycle:lifecycle-process:2.6.1] C:\Users\stant\.gradle\caches\8.12\transforms\058f3c93672ea85099be7d926bccf597\transformed\lifecycle-process-2.6.1\AndroidManifest.xml:21:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.6.1] C:\Users\stant\.gradle\caches\8.12\transforms\6700ed3ce010e0264f378942f2bfd359\transformed\lifecycle-livedata-core-2.6.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.6.1] C:\Users\stant\.gradle\caches\8.12\transforms\6700ed3ce010e0264f378942f2bfd359\transformed\lifecycle-livedata-core-2.6.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.6.1] C:\Users\stant\.gradle\caches\8.12\transforms\db29b67cee6160647c5f2630a5b416ee\transformed\lifecycle-livedata-2.6.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.6.1] C:\Users\stant\.gradle\caches\8.12\transforms\db29b67cee6160647c5f2630a5b416ee\transformed\lifecycle-livedata-2.6.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.6.1] C:\Users\stant\.gradle\caches\8.12\transforms\a27c2c6ca1944e959b421afb97325f7b\transformed\lifecycle-viewmodel-2.6.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.6.1] C:\Users\stant\.gradle\caches\8.12\transforms\a27c2c6ca1944e959b421afb97325f7b\transformed\lifecycle-viewmodel-2.6.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.6.1] C:\Users\stant\.gradle\caches\8.12\transforms\236c8da52e6501e9c25e796ed8c9be20\transformed\lifecycle-runtime-2.6.1\AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.6.1] C:\Users\stant\.gradle\caches\8.12\transforms\236c8da52e6501e9c25e796ed8c9be20\transformed\lifecycle-runtime-2.6.1\AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.6.1] C:\Users\stant\.gradle\caches\8.12\transforms\272fd10f01ff0d4cefb645635f6a921c\transformed\lifecycle-viewmodel-savedstate-2.6.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.6.1] C:\Users\stant\.gradle\caches\8.12\transforms\272fd10f01ff0d4cefb645635f6a921c\transformed\lifecycle-viewmodel-savedstate-2.6.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core-ktx:1.9.0] C:\Users\stant\.gradle\caches\8.12\transforms\5a07c8f6f1b7f22b30358e3c52280154\transformed\core-ktx-1.9.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.core:core-ktx:1.9.0] C:\Users\stant\.gradle\caches\8.12\transforms\5a07c8f6f1b7f22b30358e3c52280154\transformed\core-ktx-1.9.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.annotation:annotation-experimental:1.3.0] C:\Users\stant\.gradle\caches\8.12\transforms\f7b2518343f0506af817b03b286d4ca9\transformed\annotation-experimental-1.3.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.annotation:annotation-experimental:1.3.0] C:\Users\stant\.gradle\caches\8.12\transforms\f7b2518343f0506af817b03b286d4ca9\transformed\annotation-experimental-1.3.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\stant\.gradle\caches\8.12\transforms\051702a5e6f19845a10d14740ce930b5\transformed\cursoradapter-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\stant\.gradle\caches\8.12\transforms\051702a5e6f19845a10d14740ce930b5\transformed\cursoradapter-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\stant\.gradle\caches\8.12\transforms\f484730979d4a559748e51e3e64da2b9\transformed\cardview-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\stant\.gradle\caches\8.12\transforms\f484730979d4a559748e51e3e64da2b9\transformed\cardview-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\stant\.gradle\caches\8.12\transforms\f7fc4f5b1f58aad85251a24ba4f7baa7\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\stant\.gradle\caches\8.12\transforms\f7fc4f5b1f58aad85251a24ba4f7baa7\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\stant\.gradle\caches\8.12\transforms\6a127e3ecf045987d647843699451ac4\transformed\profileinstaller-1.3.0\AndroidManifest.xml:21:5-44
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\stant\.gradle\caches\8.12\transforms\6a127e3ecf045987d647843699451ac4\transformed\profileinstaller-1.3.0\AndroidManifest.xml:21:5-44
+MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\stant\.gradle\caches\8.12\transforms\34375878baf441170eec4216fa5e2f7e\transformed\startup-runtime-1.1.1\AndroidManifest.xml:21:5-23:41
+MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\stant\.gradle\caches\8.12\transforms\34375878baf441170eec4216fa5e2f7e\transformed\startup-runtime-1.1.1\AndroidManifest.xml:21:5-23:41
+MERGED from [androidx.tracing:tracing:1.0.0] C:\Users\stant\.gradle\caches\8.12\transforms\b2eb51dc0d6656e6a9dd5d3239542610\transformed\tracing-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.tracing:tracing:1.0.0] C:\Users\stant\.gradle\caches\8.12\transforms\b2eb51dc0d6656e6a9dd5d3239542610\transformed\tracing-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\stant\.gradle\caches\8.12\transforms\900b120b52752b6d7789f93989ca0b49\transformed\interpolator-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\stant\.gradle\caches\8.12\transforms\900b120b52752b6d7789f93989ca0b49\transformed\interpolator-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.arch.core:core-runtime:2.2.0] C:\Users\stant\.gradle\caches\8.12\transforms\8f575c9ac3862ce9716ce90816b1ef41\transformed\core-runtime-2.2.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.arch.core:core-runtime:2.2.0] C:\Users\stant\.gradle\caches\8.12\transforms\8f575c9ac3862ce9716ce90816b1ef41\transformed\core-runtime-2.2.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\stant\.gradle\caches\8.12\transforms\eb1904f6d27c091344cc4345e0084673\transformed\documentfile-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\stant\.gradle\caches\8.12\transforms\eb1904f6d27c091344cc4345e0084673\transformed\documentfile-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\stant\.gradle\caches\8.12\transforms\0e2c4337a50a4a659de9d1d5e37ee12c\transformed\localbroadcastmanager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\stant\.gradle\caches\8.12\transforms\0e2c4337a50a4a659de9d1d5e37ee12c\transformed\localbroadcastmanager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] C:\Users\stant\.gradle\caches\8.12\transforms\4adf759e4c166c1ce320b44c9cd4a708\transformed\print-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] C:\Users\stant\.gradle\caches\8.12\transforms\4adf759e4c166c1ce320b44c9cd4a708\transformed\print-1.0.0\AndroidManifest.xml:20:5-44
+	android:targetSdkVersion
+		INJECTED from C:\Users\stant\AndroidStudioProjects\WinampInspiredMP3Player\app\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from C:\Users\stant\AndroidStudioProjects\WinampInspiredMP3Player\app\src\main\AndroidManifest.xml
+provider#androidx.startup.InitializationProvider
+ADDED from [androidx.emoji2:emoji2:1.2.0] C:\Users\stant\.gradle\caches\8.12\transforms\56694780d0699c4f94cb56781dcd2c32\transformed\emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.lifecycle:lifecycle-process:2.6.1] C:\Users\stant\.gradle\caches\8.12\transforms\058f3c93672ea85099be7d926bccf597\transformed\lifecycle-process-2.6.1\AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.lifecycle:lifecycle-process:2.6.1] C:\Users\stant\.gradle\caches\8.12\transforms\058f3c93672ea85099be7d926bccf597\transformed\lifecycle-process-2.6.1\AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\stant\.gradle\caches\8.12\transforms\6a127e3ecf045987d647843699451ac4\transformed\profileinstaller-1.3.0\AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\stant\.gradle\caches\8.12\transforms\6a127e3ecf045987d647843699451ac4\transformed\profileinstaller-1.3.0\AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\stant\.gradle\caches\8.12\transforms\34375878baf441170eec4216fa5e2f7e\transformed\startup-runtime-1.1.1\AndroidManifest.xml:26:9-30:34
+MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\stant\.gradle\caches\8.12\transforms\34375878baf441170eec4216fa5e2f7e\transformed\startup-runtime-1.1.1\AndroidManifest.xml:26:9-30:34
+	tools:node
+		ADDED from [androidx.emoji2:emoji2:1.2.0] C:\Users\stant\.gradle\caches\8.12\transforms\56694780d0699c4f94cb56781dcd2c32\transformed\emoji2-1.2.0\AndroidManifest.xml:28:13-31
+	android:authorities
+		ADDED from [androidx.emoji2:emoji2:1.2.0] C:\Users\stant\.gradle\caches\8.12\transforms\56694780d0699c4f94cb56781dcd2c32\transformed\emoji2-1.2.0\AndroidManifest.xml:26:13-68
+	android:exported
+		ADDED from [androidx.emoji2:emoji2:1.2.0] C:\Users\stant\.gradle\caches\8.12\transforms\56694780d0699c4f94cb56781dcd2c32\transformed\emoji2-1.2.0\AndroidManifest.xml:27:13-37
+	android:name
+		ADDED from [androidx.emoji2:emoji2:1.2.0] C:\Users\stant\.gradle\caches\8.12\transforms\56694780d0699c4f94cb56781dcd2c32\transformed\emoji2-1.2.0\AndroidManifest.xml:25:13-67
+meta-data#androidx.emoji2.text.EmojiCompatInitializer
+ADDED from [androidx.emoji2:emoji2:1.2.0] C:\Users\stant\.gradle\caches\8.12\transforms\56694780d0699c4f94cb56781dcd2c32\transformed\emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
+	android:value
+		ADDED from [androidx.emoji2:emoji2:1.2.0] C:\Users\stant\.gradle\caches\8.12\transforms\56694780d0699c4f94cb56781dcd2c32\transformed\emoji2-1.2.0\AndroidManifest.xml:31:17-49
+	android:name
+		ADDED from [androidx.emoji2:emoji2:1.2.0] C:\Users\stant\.gradle\caches\8.12\transforms\56694780d0699c4f94cb56781dcd2c32\transformed\emoji2-1.2.0\AndroidManifest.xml:30:17-75
+permission#${applicationId}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.9.0] C:\Users\stant\.gradle\caches\8.12\transforms\0c92aad48cba27c25015c3fa91d007ca\transformed\core-1.9.0\AndroidManifest.xml:22:5-24:47
+	android:protectionLevel
+		ADDED from [androidx.core:core:1.9.0] C:\Users\stant\.gradle\caches\8.12\transforms\0c92aad48cba27c25015c3fa91d007ca\transformed\core-1.9.0\AndroidManifest.xml:24:9-44
+	android:name
+		ADDED from [androidx.core:core:1.9.0] C:\Users\stant\.gradle\caches\8.12\transforms\0c92aad48cba27c25015c3fa91d007ca\transformed\core-1.9.0\AndroidManifest.xml:23:9-81
+permission#com.example.winampinspiredmp3player.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.9.0] C:\Users\stant\.gradle\caches\8.12\transforms\0c92aad48cba27c25015c3fa91d007ca\transformed\core-1.9.0\AndroidManifest.xml:22:5-24:47
+	android:protectionLevel
+		ADDED from [androidx.core:core:1.9.0] C:\Users\stant\.gradle\caches\8.12\transforms\0c92aad48cba27c25015c3fa91d007ca\transformed\core-1.9.0\AndroidManifest.xml:24:9-44
+	android:name
+		ADDED from [androidx.core:core:1.9.0] C:\Users\stant\.gradle\caches\8.12\transforms\0c92aad48cba27c25015c3fa91d007ca\transformed\core-1.9.0\AndroidManifest.xml:23:9-81
+uses-permission#${applicationId}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.9.0] C:\Users\stant\.gradle\caches\8.12\transforms\0c92aad48cba27c25015c3fa91d007ca\transformed\core-1.9.0\AndroidManifest.xml:26:5-97
+	android:name
+		ADDED from [androidx.core:core:1.9.0] C:\Users\stant\.gradle\caches\8.12\transforms\0c92aad48cba27c25015c3fa91d007ca\transformed\core-1.9.0\AndroidManifest.xml:26:22-94
+uses-permission#com.example.winampinspiredmp3player.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.9.0] C:\Users\stant\.gradle\caches\8.12\transforms\0c92aad48cba27c25015c3fa91d007ca\transformed\core-1.9.0\AndroidManifest.xml:26:5-97
+	android:name
+		ADDED from [androidx.core:core:1.9.0] C:\Users\stant\.gradle\caches\8.12\transforms\0c92aad48cba27c25015c3fa91d007ca\transformed\core-1.9.0\AndroidManifest.xml:26:22-94
+meta-data#androidx.lifecycle.ProcessLifecycleInitializer
+ADDED from [androidx.lifecycle:lifecycle-process:2.6.1] C:\Users\stant\.gradle\caches\8.12\transforms\058f3c93672ea85099be7d926bccf597\transformed\lifecycle-process-2.6.1\AndroidManifest.xml:29:13-31:52
+	android:value
+		ADDED from [androidx.lifecycle:lifecycle-process:2.6.1] C:\Users\stant\.gradle\caches\8.12\transforms\058f3c93672ea85099be7d926bccf597\transformed\lifecycle-process-2.6.1\AndroidManifest.xml:31:17-49
+	android:name
+		ADDED from [androidx.lifecycle:lifecycle-process:2.6.1] C:\Users\stant\.gradle\caches\8.12\transforms\058f3c93672ea85099be7d926bccf597\transformed\lifecycle-process-2.6.1\AndroidManifest.xml:30:17-78
+meta-data#androidx.profileinstaller.ProfileInstallerInitializer
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\stant\.gradle\caches\8.12\transforms\6a127e3ecf045987d647843699451ac4\transformed\profileinstaller-1.3.0\AndroidManifest.xml:29:13-31:52
+	android:value
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\stant\.gradle\caches\8.12\transforms\6a127e3ecf045987d647843699451ac4\transformed\profileinstaller-1.3.0\AndroidManifest.xml:31:17-49
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\stant\.gradle\caches\8.12\transforms\6a127e3ecf045987d647843699451ac4\transformed\profileinstaller-1.3.0\AndroidManifest.xml:30:17-85
+receiver#androidx.profileinstaller.ProfileInstallReceiver
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\stant\.gradle\caches\8.12\transforms\6a127e3ecf045987d647843699451ac4\transformed\profileinstaller-1.3.0\AndroidManifest.xml:34:9-52:20
+	android:enabled
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\stant\.gradle\caches\8.12\transforms\6a127e3ecf045987d647843699451ac4\transformed\profileinstaller-1.3.0\AndroidManifest.xml:37:13-35
+	android:exported
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\stant\.gradle\caches\8.12\transforms\6a127e3ecf045987d647843699451ac4\transformed\profileinstaller-1.3.0\AndroidManifest.xml:38:13-36
+	android:permission
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\stant\.gradle\caches\8.12\transforms\6a127e3ecf045987d647843699451ac4\transformed\profileinstaller-1.3.0\AndroidManifest.xml:39:13-57
+	android:directBootAware
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\stant\.gradle\caches\8.12\transforms\6a127e3ecf045987d647843699451ac4\transformed\profileinstaller-1.3.0\AndroidManifest.xml:36:13-44
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\stant\.gradle\caches\8.12\transforms\6a127e3ecf045987d647843699451ac4\transformed\profileinstaller-1.3.0\AndroidManifest.xml:35:13-76
+intent-filter#action:name:androidx.profileinstaller.action.INSTALL_PROFILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\stant\.gradle\caches\8.12\transforms\6a127e3ecf045987d647843699451ac4\transformed\profileinstaller-1.3.0\AndroidManifest.xml:40:13-42:29
+action#androidx.profileinstaller.action.INSTALL_PROFILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\stant\.gradle\caches\8.12\transforms\6a127e3ecf045987d647843699451ac4\transformed\profileinstaller-1.3.0\AndroidManifest.xml:41:17-91
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\stant\.gradle\caches\8.12\transforms\6a127e3ecf045987d647843699451ac4\transformed\profileinstaller-1.3.0\AndroidManifest.xml:41:25-88
+intent-filter#action:name:androidx.profileinstaller.action.SKIP_FILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\stant\.gradle\caches\8.12\transforms\6a127e3ecf045987d647843699451ac4\transformed\profileinstaller-1.3.0\AndroidManifest.xml:43:13-45:29
+action#androidx.profileinstaller.action.SKIP_FILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\stant\.gradle\caches\8.12\transforms\6a127e3ecf045987d647843699451ac4\transformed\profileinstaller-1.3.0\AndroidManifest.xml:44:17-85
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\stant\.gradle\caches\8.12\transforms\6a127e3ecf045987d647843699451ac4\transformed\profileinstaller-1.3.0\AndroidManifest.xml:44:25-82
+intent-filter#action:name:androidx.profileinstaller.action.SAVE_PROFILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\stant\.gradle\caches\8.12\transforms\6a127e3ecf045987d647843699451ac4\transformed\profileinstaller-1.3.0\AndroidManifest.xml:46:13-48:29
+action#androidx.profileinstaller.action.SAVE_PROFILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\stant\.gradle\caches\8.12\transforms\6a127e3ecf045987d647843699451ac4\transformed\profileinstaller-1.3.0\AndroidManifest.xml:47:17-88
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\stant\.gradle\caches\8.12\transforms\6a127e3ecf045987d647843699451ac4\transformed\profileinstaller-1.3.0\AndroidManifest.xml:47:25-85
+intent-filter#action:name:androidx.profileinstaller.action.BENCHMARK_OPERATION
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\stant\.gradle\caches\8.12\transforms\6a127e3ecf045987d647843699451ac4\transformed\profileinstaller-1.3.0\AndroidManifest.xml:49:13-51:29
+action#androidx.profileinstaller.action.BENCHMARK_OPERATION
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\stant\.gradle\caches\8.12\transforms\6a127e3ecf045987d647843699451ac4\transformed\profileinstaller-1.3.0\AndroidManifest.xml:50:17-95
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\stant\.gradle\caches\8.12\transforms\6a127e3ecf045987d647843699451ac4\transformed\profileinstaller-1.3.0\AndroidManifest.xml:50:25-92
