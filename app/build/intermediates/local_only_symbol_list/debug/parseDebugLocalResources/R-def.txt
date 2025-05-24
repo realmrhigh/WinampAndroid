@@ -17,9 +17,12 @@ color winamp_tab_unselected_gray
 color winamp_text_green
 drawable back
 drawable eject
+drawable ic_launcher_background
 drawable ic_launcher_foreground
+drawable list_item_selector
 drawable pause
 drawable play
+drawable playlist_item_selected_bg
 drawable skip
 drawable stop
 drawable volsliderbar
@@ -36,7 +39,9 @@ layout activity_main
 layout fragment_player
 layout fragment_playlist
 layout fragment_visualizer
+layout list_item_selector
 layout list_item_track
+layout playlist_item_selected_bg
 mipmap ic_launcher
 mipmap ic_launcher_round
 raw visualization_loop

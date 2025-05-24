@@ -1,5 +1,9 @@
 [
     {
+        "merged": "com.example.winampinspiredmp3player.app-mergeDebugResources-31:/layout/playlist_item_selected_bg.xml",
+        "source": "com.example.winampinspiredmp3player.app-main-34:/layout/playlist_item_selected_bg.xml"
+    },
+    {
         "merged": "com.example.winampinspiredmp3player.app-mergeDebugResources-31:/layout/fragment_visualizer.xml",
         "source": "com.example.winampinspiredmp3player.app-main-34:/layout/fragment_visualizer.xml"
     },
@@ -10,6 +14,10 @@
     {
         "merged": "com.example.winampinspiredmp3player.app-mergeDebugResources-31:/layout/list_item_track.xml",
         "source": "com.example.winampinspiredmp3player.app-main-34:/layout/list_item_track.xml"
+    },
+    {
+        "merged": "com.example.winampinspiredmp3player.app-mergeDebugResources-31:/layout/list_item_selector.xml",
+        "source": "com.example.winampinspiredmp3player.app-main-34:/layout/list_item_selector.xml"
     },
     {
         "merged": "com.example.winampinspiredmp3player.app-mergeDebugResources-31:/layout/fragment_player.xml",

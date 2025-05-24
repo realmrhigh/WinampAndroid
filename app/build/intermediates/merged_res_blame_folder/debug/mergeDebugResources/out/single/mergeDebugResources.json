@@ -1,70 +1,90 @@
 [
     {
-        "merged": "com.example.winampinspiredmp3player.app-debug-32:/raw_visualization_loop.mp4.flat",
-        "source": "com.example.winampinspiredmp3player.app-main-34:/raw/visualization_loop.mp4"
+        "merged": "C:\\Users\\stant\\.gradle\\daemon\\8.12\\com.example.winampinspiredmp3player.app-debug-32:\\drawable_volsliderbar.png.flat",
+        "source": "C:\\Users\\stant\\.gradle\\daemon\\8.12\\com.example.winampinspiredmp3player.app-main-34:\\drawable\\volsliderbar.png"
     },
     {
-        "merged": "com.example.winampinspiredmp3player.app-debug-32:/drawable_stop.png.flat",
-        "source": "com.example.winampinspiredmp3player.app-main-34:/drawable/stop.png"
+        "merged": "C:\\Users\\stant\\.gradle\\daemon\\8.12\\com.example.winampinspiredmp3player.app-debug-32:\\layout_list_item_selector.xml.flat",
+        "source": "C:\\Users\\stant\\.gradle\\daemon\\8.12\\com.example.winampinspiredmp3player.app-main-34:\\layout\\list_item_selector.xml"
     },
     {
-        "merged": "com.example.winampinspiredmp3player.app-debug-32:/layout_list_item_track.xml.flat",
-        "source": "com.example.winampinspiredmp3player.app-main-34:/layout/list_item_track.xml"
+        "merged": "C:\\Users\\stant\\.gradle\\daemon\\8.12\\com.example.winampinspiredmp3player.app-debug-32:\\drawable_volsliderthumb.png.flat",
+        "source": "C:\\Users\\stant\\.gradle\\daemon\\8.12\\com.example.winampinspiredmp3player.app-main-34:\\drawable\\volsliderthumb.png"
     },
     {
-        "merged": "com.example.winampinspiredmp3player.app-debug-32:/drawable_skip.png.flat",
-        "source": "com.example.winampinspiredmp3player.app-main-34:/drawable/skip.png"
+        "merged": "C:\\Users\\stant\\.gradle\\daemon\\8.12\\com.example.winampinspiredmp3player.app-debug-32:\\layout_playlist_item_selected_bg.xml.flat",
+        "source": "C:\\Users\\stant\\.gradle\\daemon\\8.12\\com.example.winampinspiredmp3player.app-main-34:\\layout\\playlist_item_selected_bg.xml"
     },
     {
-        "merged": "com.example.winampinspiredmp3player.app-debug-32:/drawable_play.png.flat",
-        "source": "com.example.winampinspiredmp3player.app-main-34:/drawable/play.png"
+        "merged": "C:\\Users\\stant\\.gradle\\daemon\\8.12\\com.example.winampinspiredmp3player.app-debug-32:\\raw_visualization_loop.mp4.flat",
+        "source": "C:\\Users\\stant\\.gradle\\daemon\\8.12\\com.example.winampinspiredmp3player.app-main-34:\\raw\\visualization_loop.mp4"
     },
     {
-        "merged": "com.example.winampinspiredmp3player.app-debug-32:/drawable_eject.png.flat",
-        "source": "com.example.winampinspiredmp3player.app-main-34:/drawable/eject.png"
+        "merged": "C:\\Users\\stant\\.gradle\\daemon\\8.12\\com.example.winampinspiredmp3player.app-debug-32:\\drawable_eject.png.flat",
+        "source": "C:\\Users\\stant\\.gradle\\daemon\\8.12\\com.example.winampinspiredmp3player.app-main-34:\\drawable\\eject.png"
     },
     {
-        "merged": "com.example.winampinspiredmp3player.app-debug-32:/layout_fragment_player.xml.flat",
-        "source": "com.example.winampinspiredmp3player.app-main-34:/layout/fragment_player.xml"
+        "merged": "C:\\Users\\stant\\.gradle\\daemon\\8.12\\com.example.winampinspiredmp3player.app-debug-32:\\mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "C:\\Users\\stant\\.gradle\\daemon\\8.12\\com.example.winampinspiredmp3player.app-main-34:\\mipmap-anydpi-v26\\ic_launcher.xml"
     },
     {
-        "merged": "com.example.winampinspiredmp3player.app-debug-32:/mipmap-anydpi-v26_ic_launcher.xml.flat",
-        "source": "com.example.winampinspiredmp3player.app-main-34:/mipmap-anydpi-v26/ic_launcher.xml"
+        "merged": "C:\\Users\\stant\\.gradle\\daemon\\8.12\\com.example.winampinspiredmp3player.app-debug-32:\\layout_fragment_playlist.xml.flat",
+        "source": "C:\\Users\\stant\\.gradle\\daemon\\8.12\\com.example.winampinspiredmp3player.app-main-34:\\layout\\fragment_playlist.xml"
     },
     {
-        "merged": "com.example.winampinspiredmp3player.app-debug-32:/drawable_volsliderbar.png.flat",
-        "source": "com.example.winampinspiredmp3player.app-main-34:/drawable/volsliderbar.png"
+        "merged": "C:\\Users\\stant\\.gradle\\daemon\\8.12\\com.example.winampinspiredmp3player.app-debug-32:\\drawable_ic_launcher_background.xml.flat",
+        "source": "C:\\Users\\stant\\.gradle\\daemon\\8.12\\com.example.winampinspiredmp3player.app-main-34:\\drawable\\ic_launcher_background.xml"
     },
     {
-        "merged": "com.example.winampinspiredmp3player.app-debug-32:/layout_fragment_playlist.xml.flat",
-        "source": "com.example.winampinspiredmp3player.app-main-34:/layout/fragment_playlist.xml"
+        "merged": "C:\\Users\\stant\\.gradle\\daemon\\8.12\\com.example.winampinspiredmp3player.app-debug-32:\\layout_fragment_player.xml.flat",
+        "source": "C:\\Users\\stant\\.gradle\\daemon\\8.12\\com.example.winampinspiredmp3player.app-main-34:\\layout\\fragment_player.xml"
     },
     {
-        "merged": "com.example.winampinspiredmp3player.app-debug-32:/drawable_volsliderthumb.png.flat",
-        "source": "com.example.winampinspiredmp3player.app-main-34:/drawable/volsliderthumb.png"
+        "merged": "C:\\Users\\stant\\.gradle\\daemon\\8.12\\com.example.winampinspiredmp3player.app-debug-32:\\drawable_back.png.flat",
+        "source": "C:\\Users\\stant\\.gradle\\daemon\\8.12\\com.example.winampinspiredmp3player.app-main-34:\\drawable\\back.png"
     },
     {
-        "merged": "com.example.winampinspiredmp3player.app-debug-32:/drawable_back.png.flat",
-        "source": "com.example.winampinspiredmp3player.app-main-34:/drawable/back.png"
+        "merged": "C:\\Users\\stant\\.gradle\\daemon\\8.12\\com.example.winampinspiredmp3player.app-debug-32:\\drawable_ic_launcher_foreground.xml.flat",
+        "source": "C:\\Users\\stant\\.gradle\\daemon\\8.12\\com.example.winampinspiredmp3player.app-main-34:\\drawable\\ic_launcher_foreground.xml"
     },
     {
-        "merged": "com.example.winampinspiredmp3player.app-debug-32:/drawable_ic_launcher_foreground.xml.flat",
-        "source": "com.example.winampinspiredmp3player.app-main-34:/drawable/ic_launcher_foreground.xml"
+        "merged": "C:\\Users\\stant\\.gradle\\daemon\\8.12\\com.example.winampinspiredmp3player.app-debug-32:\\drawable_stop.png.flat",
+        "source": "C:\\Users\\stant\\.gradle\\daemon\\8.12\\com.example.winampinspiredmp3player.app-main-34:\\drawable\\stop.png"
     },
     {
-        "merged": "com.example.winampinspiredmp3player.app-debug-32:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
-        "source": "com.example.winampinspiredmp3player.app-main-34:/mipmap-anydpi-v26/ic_launcher_round.xml"
+        "merged": "com.example.winampinspiredmp3player.app-debug-32:/drawable_playlist_item_selected_bg.xml.flat",
+        "source": "com.example.winampinspiredmp3player.app-main-34:/drawable/playlist_item_selected_bg.xml"
     },
     {
-        "merged": "com.example.winampinspiredmp3player.app-debug-32:/layout_fragment_visualizer.xml.flat",
-        "source": "com.example.winampinspiredmp3player.app-main-34:/layout/fragment_visualizer.xml"
+        "merged": "C:\\Users\\stant\\.gradle\\daemon\\8.12\\com.example.winampinspiredmp3player.app-debug-32:\\mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "C:\\Users\\stant\\.gradle\\daemon\\8.12\\com.example.winampinspiredmp3player.app-main-34:\\mipmap-anydpi-v26\\ic_launcher_round.xml"
     },
     {
-        "merged": "com.example.winampinspiredmp3player.app-debug-32:/drawable_pause.png.flat",
-        "source": "com.example.winampinspiredmp3player.app-main-34:/drawable/pause.png"
+        "merged": "C:\\Users\\stant\\.gradle\\daemon\\8.12\\com.example.winampinspiredmp3player.app-debug-32:\\layout_list_item_track.xml.flat",
+        "source": "C:\\Users\\stant\\.gradle\\daemon\\8.12\\com.example.winampinspiredmp3player.app-main-34:\\layout\\list_item_track.xml"
     },
     {
-        "merged": "com.example.winampinspiredmp3player.app-debug-32:/layout_activity_main.xml.flat",
-        "source": "com.example.winampinspiredmp3player.app-main-34:/layout/activity_main.xml"
+        "merged": "C:\\Users\\stant\\.gradle\\daemon\\8.12\\com.example.winampinspiredmp3player.app-debug-32:\\drawable_pause.png.flat",
+        "source": "C:\\Users\\stant\\.gradle\\daemon\\8.12\\com.example.winampinspiredmp3player.app-main-34:\\drawable\\pause.png"
+    },
+    {
+        "merged": "C:\\Users\\stant\\.gradle\\daemon\\8.12\\com.example.winampinspiredmp3player.app-debug-32:\\layout_fragment_visualizer.xml.flat",
+        "source": "C:\\Users\\stant\\.gradle\\daemon\\8.12\\com.example.winampinspiredmp3player.app-main-34:\\layout\\fragment_visualizer.xml"
+    },
+    {
+        "merged": "C:\\Users\\stant\\.gradle\\daemon\\8.12\\com.example.winampinspiredmp3player.app-debug-32:\\drawable_skip.png.flat",
+        "source": "C:\\Users\\stant\\.gradle\\daemon\\8.12\\com.example.winampinspiredmp3player.app-main-34:\\drawable\\skip.png"
+    },
+    {
+        "merged": "C:\\Users\\stant\\.gradle\\daemon\\8.12\\com.example.winampinspiredmp3player.app-debug-32:\\drawable_play.png.flat",
+        "source": "C:\\Users\\stant\\.gradle\\daemon\\8.12\\com.example.winampinspiredmp3player.app-main-34:\\drawable\\play.png"
+    },
+    {
+        "merged": "com.example.winampinspiredmp3player.app-debug-32:/drawable_list_item_selector.xml.flat",
+        "source": "com.example.winampinspiredmp3player.app-main-34:/drawable/list_item_selector.xml"
+    },
+    {
+        "merged": "C:\\Users\\stant\\.gradle\\daemon\\8.12\\com.example.winampinspiredmp3player.app-debug-32:\\layout_activity_main.xml.flat",
+        "source": "C:\\Users\\stant\\.gradle\\daemon\\8.12\\com.example.winampinspiredmp3player.app-main-34:\\layout\\activity_main.xml"
     }
 ]
