@@ -388,7 +388,7 @@ class MusicService : Service() {
         val state: Int
         if (mediaPlayer == null) {
             state = PlaybackStateCompat.STATE_NONE
-            actions = PlaybackStateCompat.ACTION_NONE
+            actions = 0L
         } else if (mediaPlayer!!.isPlaying) {
             state = PlaybackStateCompat.STATE_PLAYING
             actions = actions or PlaybackStateCompat.ACTION_PAUSE // Can be paused
