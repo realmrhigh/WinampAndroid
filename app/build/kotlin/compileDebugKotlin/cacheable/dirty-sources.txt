@@ -1,0 +1,8 @@
+C:\Users\stant\AndroidStudioProjects\WinampInspiredMP3Player\app\src\main\java\com\example\winampinspiredmp3player\ui\playlist\PlaylistAdapter.kt
+C:\Users\stant\AndroidStudioProjects\WinampInspiredMP3Player\app\src\main\java\com\example\winampinspiredmp3player\data\Track.kt
+C:\Users\stant\AndroidStudioProjects\WinampInspiredMP3Player\app\src\main\java\com\example\winampinspiredmp3player\ui\playlist\PlaylistFragment.kt
+C:\Users\stant\AndroidStudioProjects\WinampInspiredMP3Player\app\src\main\java\com\example\winampinspiredmp3player\ui\player\PlayerFragment.kt
+C:\Users\stant\AndroidStudioProjects\WinampInspiredMP3Player\app\src\main\java\com\example\winampinspiredmp3player\MainActivity.kt
+C:\Users\stant\AndroidStudioProjects\WinampInspiredMP3Player\app\src\main\java\com\example\winampinspiredmp3player\services\MusicService.kt
+C:\Users\stant\AndroidStudioProjects\WinampInspiredMP3Player\app\src\main\java\com\example\winampinspiredmp3player\ui\ViewPagerAdapter.kt
+C:\Users\stant\AndroidStudioProjects\WinampInspiredMP3Player\app\src\main\java\com\example\winampinspiredmp3player\ui\visualizer\VisualizerFragment.kt
