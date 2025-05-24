@@ -5,6 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.SeekBar;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -21,16 +24,52 @@ public final class FragmentPlayerBinding implements ViewBinding {
   private final ConstraintLayout rootView;
 
   @NonNull
-  public final ImageButton btnScanMusic;
+  public final ImageButton btnEject;
+
+  @NonNull
+  public final ImageButton btnNextTrack;
+
+  @NonNull
+  public final ImageButton btnPlayPause;
+
+  @NonNull
+  public final ImageButton btnPreviousTrack;
+
+  @NonNull
+  public final ImageButton btnStopTrack;
+
+  @NonNull
+  public final LinearLayout layoutPlayerControls;
 
   @NonNull
   public final RecyclerView rvPlaylist;
 
-  private FragmentPlayerBinding(@NonNull ConstraintLayout rootView,
-      @NonNull ImageButton btnScanMusic, @NonNull RecyclerView rvPlaylist) {
+  @NonNull
+  public final SeekBar sbTrackProgress;
+
+  @NonNull
+  public final SeekBar sbVolumeControl;
+
+  @NonNull
+  public final TextView tvCurrentTrackInfo;
+
+  private FragmentPlayerBinding(@NonNull ConstraintLayout rootView, @NonNull ImageButton btnEject,
+      @NonNull ImageButton btnNextTrack, @NonNull ImageButton btnPlayPause,
+      @NonNull ImageButton btnPreviousTrack, @NonNull ImageButton btnStopTrack,
+      @NonNull LinearLayout layoutPlayerControls, @NonNull RecyclerView rvPlaylist,
+      @NonNull SeekBar sbTrackProgress, @NonNull SeekBar sbVolumeControl,
+      @NonNull TextView tvCurrentTrackInfo) {
     this.rootView = rootView;
-    this.btnScanMusic = btnScanMusic;
+    this.btnEject = btnEject;
+    this.btnNextTrack = btnNextTrack;
+    this.btnPlayPause = btnPlayPause;
+    this.btnPreviousTrack = btnPreviousTrack;
+    this.btnStopTrack = btnStopTrack;
+    this.layoutPlayerControls = layoutPlayerControls;
     this.rvPlaylist = rvPlaylist;
+    this.sbTrackProgress = sbTrackProgress;
+    this.sbVolumeControl = sbVolumeControl;
+    this.tvCurrentTrackInfo = tvCurrentTrackInfo;
   }
 
   @Override
@@ -60,9 +99,39 @@ public final class FragmentPlayerBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
-      id = R.id.btn_scan_music;
-      ImageButton btnScanMusic = ViewBindings.findChildViewById(rootView, id);
-      if (btnScanMusic == null) {
+      id = R.id.btn_eject;
+      ImageButton btnEject = ViewBindings.findChildViewById(rootView, id);
+      if (btnEject == null) {
+        break missingId;
+      }
+
+      id = R.id.btn_next_track;
+      ImageButton btnNextTrack = ViewBindings.findChildViewById(rootView, id);
+      if (btnNextTrack == null) {
+        break missingId;
+      }
+
+      id = R.id.btn_play_pause;
+      ImageButton btnPlayPause = ViewBindings.findChildViewById(rootView, id);
+      if (btnPlayPause == null) {
+        break missingId;
+      }
+
+      id = R.id.btn_previous_track;
+      ImageButton btnPreviousTrack = ViewBindings.findChildViewById(rootView, id);
+      if (btnPreviousTrack == null) {
+        break missingId;
+      }
+
+      id = R.id.btn_stop_track;
+      ImageButton btnStopTrack = ViewBindings.findChildViewById(rootView, id);
+      if (btnStopTrack == null) {
+        break missingId;
+      }
+
+      id = R.id.layout_player_controls;
+      LinearLayout layoutPlayerControls = ViewBindings.findChildViewById(rootView, id);
+      if (layoutPlayerControls == null) {
         break missingId;
       }
 
@@ -72,7 +141,27 @@ public final class FragmentPlayerBinding implements ViewBinding {
         break missingId;
       }
 
-      return new FragmentPlayerBinding((ConstraintLayout) rootView, btnScanMusic, rvPlaylist);
+      id = R.id.sb_track_progress;
+      SeekBar sbTrackProgress = ViewBindings.findChildViewById(rootView, id);
+      if (sbTrackProgress == null) {
+        break missingId;
+      }
+
+      id = R.id.sb_volume_control;
+      SeekBar sbVolumeControl = ViewBindings.findChildViewById(rootView, id);
+      if (sbVolumeControl == null) {
+        break missingId;
+      }
+
+      id = R.id.tv_current_track_info;
+      TextView tvCurrentTrackInfo = ViewBindings.findChildViewById(rootView, id);
+      if (tvCurrentTrackInfo == null) {
+        break missingId;
+      }
+
+      return new FragmentPlayerBinding((ConstraintLayout) rootView, btnEject, btnNextTrack,
+          btnPlayPause, btnPreviousTrack, btnStopTrack, layoutPlayerControls, rvPlaylist,
+          sbTrackProgress, sbVolumeControl, tvCurrentTrackInfo);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

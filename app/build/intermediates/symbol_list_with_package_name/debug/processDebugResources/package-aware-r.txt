@@ -2981,7 +2981,12 @@ drawable ic_mtrl_checked_circle
 drawable ic_mtrl_chip_checked_black
 drawable ic_mtrl_chip_checked_circle
 drawable ic_mtrl_chip_close_circle
+drawable ic_music_note
+drawable ic_pause
+drawable ic_play_arrow
 drawable ic_search_black_24
+drawable ic_skip_next
+drawable ic_skip_previous
 drawable list_item_selector
 drawable m3_appbar_background
 drawable m3_avd_hide_password
@@ -3065,6 +3070,8 @@ drawable tooltip_frame_dark
 drawable tooltip_frame_light
 drawable volsliderbar
 drawable volsliderthumb
+drawable winamp_btn_pause
+drawable winamp_btn_play
 id ALT
 id BOTTOM_END
 id BOTTOM_START
@@ -3164,7 +3171,12 @@ id bounce
 id bounceBoth
 id bounceEnd
 id bounceStart
+id btn_eject
+id btn_next_track
+id btn_play_pause
+id btn_previous_track
 id btn_scan_music
+id btn_stop_track
 id buttonPanel
 id cache_measures
 id callMeasure
@@ -3299,6 +3311,7 @@ id jumpToEnd
 id jumpToStart
 id labeled
 id layout
+id layout_player_controls
 id left
 id leftToRight
 id legacy
@@ -3439,6 +3452,8 @@ id rv_playlist
 id save_non_transition_alpha
 id save_overlay_view
 id sawtooth
+id sb_track_progress
+id sb_volume_control
 id scale
 id screen
 id scroll
@@ -3545,6 +3560,7 @@ id transition_position
 id transition_scene_layoutid_cache
 id transition_transform
 id triangle
+id tv_current_track_info
 id tv_track_artist
 id tv_track_duration
 id tv_track_title
