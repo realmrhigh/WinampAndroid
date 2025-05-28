@@ -157,12 +157,12 @@ class PlayerFragment : Fragment() {
     private fun updatePlayPauseButtonState() {
         if (isBound && musicService != null) {
             if (musicService!!.isPlaying()) {
-                binding.btnPlayPause.setImageResource(R.drawable.winamp_btn_pause)
+                binding.btnPlayPause.text = "Pause"
             } else {
-                binding.btnPlayPause.setImageResource(R.drawable.winamp_btn_play)
+                binding.btnPlayPause.text = "Play"
             }
         } else {
-            binding.btnPlayPause.setImageResource(R.drawable.winamp_btn_play) // Default state
+            binding.btnPlayPause.text = "Play" // Default state
         }
     }
 

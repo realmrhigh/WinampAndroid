@@ -7,15 +7,11 @@
     android:background="@color/winamp_playlist_background"
     tools:context=".ui.playlist.PlaylistFragment">
 
-    <ImageButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_scan_music"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/eject"
-        android:background="@android:color/transparent"
-        android:foreground="?attr/selectableItemBackgroundBorderless"
-        android:padding="8dp"
-        android:contentDescription="Scan for Music"
+        android:text="Scan Music"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
