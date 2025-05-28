@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
 import android.provider.MediaStore
@@ -96,19 +97,25 @@ class PlaylistFragment : Fragment() {
     }
 
     private fun checkAndRequestPermission() {
+        val permissionToRequest = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            Manifest.permission.READ_MEDIA_AUDIO
+        } else {
+            Manifest.permission.READ_EXTERNAL_STORAGE
+        }
+
         when {
             ContextCompat.checkSelfPermission(
                 requireContext(),
-                Manifest.permission.READ_MEDIA_AUDIO
+                permissionToRequest
             ) == PackageManager.PERMISSION_GRANTED -> {
                 scanForMusicFiles()
             }
-            shouldShowRequestPermissionRationale(Manifest.permission.READ_MEDIA_AUDIO) -> {
+            shouldShowRequestPermissionRationale(permissionToRequest) -> {
                 Toast.makeText(requireContext(), "Permission needed to access music files.", Toast.LENGTH_LONG).show()
-                requestPermissionLauncher.launch(Manifest.permission.READ_MEDIA_AUDIO)
+                requestPermissionLauncher.launch(permissionToRequest)
             }
             else -> {
-                requestPermissionLauncher.launch(Manifest.permission.READ_MEDIA_AUDIO)
+                requestPermissionLauncher.launch(permissionToRequest)
             }
         }
     }
