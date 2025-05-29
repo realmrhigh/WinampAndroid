@@ -114,15 +114,20 @@ class VisualizerFragment : Fragment() {
                         musicService!!.playTrackAtIndex(musicService!!.currentTrackIndex)
                         Log.d("VisualizerFragment", "Visualizer touched: Playing current track.")
                     } else {
-                        // Attempt to play the first track if playlist is not empty.
-                        // Assumes getPlaylistSize() is implemented in MusicService and returns playlist size.
-                        if (musicService!!.getPlaylistSize() > 0) {
+                        // TODO: Implement robust playCurrentOrFirstTrack logic in MusicService,
+                        // including getPlaylistSize, and uncomment/refine this block.
+                        // For now, if there's no current track, we just show a message.
+                        /*
+                        if (musicService!!.getPlaylistSize() > 0) { // This method needs to be implemented in MusicService
                             musicService!!.playTrackAtIndex(0)
                             Log.d("VisualizerFragment", "Visualizer touched: Playing first track.")
                         } else {
                             Log.d("VisualizerFragment", "Visualizer touched: No track available to play.")
                             Toast.makeText(requireContext(), "No track to play", Toast.LENGTH_SHORT).show()
                         }
+                        */
+                        Log.d("VisualizerFragment", "Visualizer touched: No current track. MusicService would need to decide to play first track.")
+                        Toast.makeText(requireContext(), "No track to play", Toast.LENGTH_SHORT).show()
                     }
                 }
             } else {

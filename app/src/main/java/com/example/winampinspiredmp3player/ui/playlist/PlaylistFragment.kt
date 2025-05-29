@@ -22,6 +22,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.winampinspiredmp3player.MainActivity
+import com.example.winampinspiredmp3player.R // Ensure R is imported for string resources
 import com.example.winampinspiredmp3player.data.Track
 import com.example.winampinspiredmp3player.databinding.FragmentPlaylistBinding
 import com.example.winampinspiredmp3player.services.MusicService
@@ -125,8 +126,9 @@ class PlaylistFragment : Fragment() {
         // Notify MusicService about the playlist reordering
         // This is important if playback is ongoing or if the service maintains its own copy of the playlist order.
         if (isBound && musicService != null) {
-            musicService?.updatePlaylistOrder(ArrayList(musicTracks)) // Pass a copy
-            Log.d("PlaylistFragment", "Notified MusicService of playlist reorder for sort: $sortOption")
+            // TODO: Implement updatePlaylistOrder in MusicService and uncomment this line
+            // musicService?.updatePlaylistOrder(ArrayList(musicTracks)) // Pass a copy
+            Log.d("PlaylistFragment", "Notified MusicService of playlist reorder for sort: $sortOption (currently commented out)")
         }
     }
 
@@ -150,7 +152,7 @@ class PlaylistFragment : Fragment() {
                     Log.d("PlaylistFragment", "Track clicked: ${track.title}, Position: $position")
                     musicService!!.setTrackList(fullPlaylist)
                     musicService!!.playTrackAtIndex(position)
-                    (activity as? MainActivity)?.switchToPlayerTab()
+                    // (activity as? MainActivity)?.switchToPlayerTab() // Removed as per subtask
                 } else {
                     Log.w("PlaylistFragment", "Track clicked but service not bound or null.")
                     Toast.makeText(requireContext(), "Music service not ready. Try again.", Toast.LENGTH_SHORT).show()
@@ -159,7 +161,8 @@ class PlaylistFragment : Fragment() {
             { track, position -> // onRemoveClick
                 Log.d("PlaylistFragment", "Attempting to remove track: ${track.title} at position $position")
                 // Inform the service to remove the track from its own list and handle playback adjustments
-                musicService?.removeTrack(track) // Anticipate this method in MusicService
+                // TODO: Implement removeTrack(track: Track) in MusicService and uncomment this line
+                // musicService?.removeTrack(track) // Anticipate this method in MusicService
 
                 // Tell the adapter to remove the item from its view and internal list
                 // This will also modify 'musicTracks' in the fragment as they share the same list instance
