@@ -72,6 +72,7 @@ class PlaylistFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        Log.d("PlaylistFragment", "onViewCreated: View creation started.");
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView() // Initialize adapter here
         setupSortSpinner() // Setup spinner for sorting
@@ -79,6 +80,7 @@ class PlaylistFragment : Fragment() {
             checkAndRequestPermission()
         }
         checkAndRequestPermission() // Auto-scan on view created
+        Log.d("PlaylistFragment", "onViewCreated: Called checkAndRequestPermission for auto-scan.");
     }
 
     private fun setupSortSpinner() {
@@ -175,6 +177,8 @@ class PlaylistFragment : Fragment() {
             adapter = playlistAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
+        Log.d("PlaylistFragment", "setupRecyclerView: PlaylistAdapter initialized. Initial item count from musicTracks: ${musicTracks.size}");
+        Log.d("PlaylistFragment", "setupRecyclerView: RecyclerView setup complete. Adapter item count: ${binding.rvPlaylist.adapter?.itemCount}");
     }
 
     private fun checkAndRequestPermission() {
@@ -207,14 +211,17 @@ class PlaylistFragment : Fragment() {
             MediaStore.Audio.Media.DATE_ADDED
         )
 
-        val selection = "${MediaStore.Audio.Media.MIME_TYPE} = ? OR ${MediaStore.Audio.Media.MIME_TYPE} = ?"
-        val selectionArgs = arrayOf("audio/mpeg", "audio/wav")
+        // val selection = "${MediaStore.Audio.Media.MIME_TYPE} = ? OR ${MediaStore.Audio.Media.MIME_TYPE} = ?"
+        // val selectionArgs = arrayOf("audio/mpeg", "audio/wav")
+        val selection: String? = null
+        val selectionArgs: Array<String>? = null
 
+        Log.d("PlaylistFragment", "scanForMusicFiles: Starting scan. URI: ${MediaStore.Audio.Media.EXTERNAL_CONTENT_URI}");
         val query = requireContext().contentResolver.query(
             MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
             projection,
-            selection,
-            selectionArgs,
+            selection, // Changed to null
+            selectionArgs, // Changed to null
             "${MediaStore.Audio.Media.DISPLAY_NAME} ASC"
         )
 
@@ -241,6 +248,7 @@ class PlaylistFragment : Fragment() {
                 )
                 val track = Track(contentUri, title, artist, duration, fileName, dateAdded)
                 currentTracks.add(track)
+                Log.d("PlaylistFragment", "scanForMusicFiles: Found track: ${track.title} - ${track.fileName}, DateAdded: ${track.dateAdded}");
 
                 if (tracksLogged < 3) { // Log first 3 tracks for verification
                     Log.d("PlaylistFragment", "Sample Track ${tracksLogged + 1}: URI=${track.uri}, Title=${track.title}, Artist=${track.artist}, Duration=${track.duration}, FileName=${track.fileName}, DateAdded=${track.dateAdded}")
@@ -248,20 +256,26 @@ class PlaylistFragment : Fragment() {
                 }
             }
         }
+        Log.d("PlaylistFragment", "scanForMusicFiles: Scan complete. Found ${currentTracks.size} tracks initially.");
         // Update the fragment's own list (if needed for other purposes, though adapter now holds the primary list for click handling)
         musicTracks.clear()
         musicTracks.addAll(currentTracks)
+        Log.d("PlaylistFragment", "scanForMusicFiles: Updated fragment's musicTracks list. Size: ${musicTracks.size}");
         // Update the adapter's list - This will now happen after sorting
         // playlistAdapter.updateTracks(musicTracks) // Moved to after sortPlaylistBasedOnSpinner
 
         if (currentTracks.isEmpty()) {
             Toast.makeText(requireContext(), "No music files found.", Toast.LENGTH_SHORT).show()
+            Log.d("PlaylistFragment", "scanForMusicFiles: No music files found message displayed.");
             playlistAdapter.updateTracks(musicTracks) // Update with empty list if needed
         } else {
             Toast.makeText(requireContext(), "Found ${currentTracks.size} music files.", Toast.LENGTH_SHORT).show()
+            Log.d("PlaylistFragment", "scanForMusicFiles: Found ${currentTracks.size} music files message displayed.");
             // Apply initial sort based on current spinner selection (or default)
             // This ensures the list is sorted when first displayed after a scan.
             sortPlaylistBasedOnSpinner()
+            // Log after sortPlaylistBasedOnSpinner calls playlistAdapter.updateTracks
+            Log.d("PlaylistFragment", "scanForMusicFiles: Called playlistAdapter.updateTracks via sortPlaylistBasedOnSpinner. Adapter item count: ${playlistAdapter.itemCount}");
         }
     }
 
