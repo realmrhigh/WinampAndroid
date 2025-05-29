@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_skip_previous"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:padding="16dp"
+            android:padding="36dp"
             android:contentDescription="Previous Track" />
 
         <ImageButton
@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_play_arrow"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:padding="16dp"
+            android:padding="36dp"
             android:contentDescription="Play/Pause" />
 
         <ImageButton
@@ -69,7 +69,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_skip_next"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:padding="16dp"
+            android:padding="36dp"
             android:contentDescription="Next Track" />
 
         <ImageButton
@@ -78,7 +78,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/stop"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:padding="16dp"
+            android:padding="36dp"
             android:contentDescription="Stop Track" />
     </LinearLayout>
 

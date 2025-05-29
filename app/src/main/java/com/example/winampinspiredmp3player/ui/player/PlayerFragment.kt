@@ -4,6 +4,7 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
+import android.media.AudioManager
 import android.os.Bundle
 import android.os.IBinder
 import android.util.Log
@@ -22,6 +23,7 @@ class PlayerFragment : Fragment() {
     private var _binding: FragmentPlayerBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var audioManager: AudioManager // Added AudioManager instance
     private var musicService: MusicService? = null
     private var isBound: Boolean = false
 
@@ -31,6 +33,21 @@ class PlayerFragment : Fragment() {
             val binder = service as MusicService.MusicBinder
             musicService = binder.getService()
             isBound = true
+
+            Log.d("PlayerFragment", "onServiceConnected: Diagnosing audio volume.")
+            val maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
+            val currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)
+            Log.d("PlayerFragment", "Max volume: $maxVolume, Current volume: $currentVolume")
+
+            val targetVolume = maxVolume / 2 // Set to 50%
+            if (currentVolume == 0 && maxVolume > 0) { // also check maxVolume to avoid division by zero if something is weird
+                Log.d("PlayerFragment", "Current volume is 0. Setting to 50% ($targetVolume) for diagnosis.")
+                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, targetVolume, 0)
+                val newCurrentVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)
+                Log.d("PlayerFragment", "Volume after setting: $newCurrentVolume")
+            } else {
+                Log.d("PlayerFragment", "Current volume is not 0 or maxVolume is 0. No diagnostic change made to volume by PlayerFragment.")
+            }
 
             updatePlayPauseButtonState()
             observeLiveData()
@@ -51,6 +68,7 @@ class PlayerFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentPlayerBinding.inflate(inflater, container, false)
+        audioManager = requireContext().getSystemService(Context.AUDIO_SERVICE) as AudioManager // Initialize AudioManager
         return binding.root
     }
 
