@@ -3723,7 +3723,6 @@ layout design_text_input_start_icon
 layout fragment_player
 layout fragment_playlist
 layout fragment_visualizer
-layout list_item_selector
 layout list_item_track
 layout m3_alert_dialog
 layout m3_alert_dialog_actions
@@ -3791,7 +3790,6 @@ layout notification_template_media
 layout notification_template_media_custom
 layout notification_template_part_chronometer
 layout notification_template_part_time
-layout playlist_item_selected_bg
 layout select_dialog_item_material
 layout select_dialog_multichoice_material
 layout select_dialog_singlechoice_material

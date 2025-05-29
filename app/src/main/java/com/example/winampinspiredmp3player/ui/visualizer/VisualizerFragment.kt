@@ -4,14 +4,13 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
-import android.media.MediaPlayer
-import android.net.Uri
 import android.os.Bundle
 import android.os.IBinder
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import com.example.winampinspiredmp3player.R
 import com.example.winampinspiredmp3player.databinding.FragmentVisualizerBinding
@@ -79,7 +78,8 @@ class VisualizerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.d("VisualizerFragment", "onViewCreated")
-        val videoUri = Uri.parse("android.resource://" + requireActivity().packageName + "/" + R.raw.visualization_loop)
+        val videoUri =
+            ("android.resource://" + requireActivity().packageName + "/" + R.raw.visualization_loop).toUri()
         binding.videoViewVisualizer.setVideoURI(videoUri)
 
         binding.videoViewVisualizer.setOnPreparedListener { mediaPlayer ->
@@ -97,7 +97,7 @@ class VisualizerFragment : Fragment() {
             }
         }
 
-        binding.videoViewVisualizer.setOnErrorListener { mp, what, extra ->
+        binding.videoViewVisualizer.setOnErrorListener { _, what, extra ->
             Log.e("VisualizerFragment", "VideoView Error: what: $what, extra: $extra")
             videoIsPrepared = false
             true

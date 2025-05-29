@@ -7,6 +7,8 @@ import android.app.PendingIntent
 import android.app.Service
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.media.AudioManager
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Binder
@@ -20,6 +22,7 @@ import android.support.v4.media.session.PlaybackStateCompat
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.media.session.MediaButtonReceiver
 import com.example.winampinspiredmp3player.MainActivity
@@ -37,6 +40,9 @@ class MusicService : Service() {
     private val binder = MusicBinder()
     private lateinit var mediaSession: MediaSessionCompat
     private lateinit var notificationManager: NotificationManagerCompat
+    private lateinit var audioManager: AudioManager
+    private lateinit var audioFocusChangeListener: AudioManager.OnAudioFocusChangeListener
+    private var pausedByTransientLoss: Boolean = false
 
 
     // Member variables
@@ -71,15 +77,41 @@ class MusicService : Service() {
         override fun onPlay() {
             super.onPlay()
             Log.d("MusicService", "MediaSessionCallback: onPlay")
-            if (currentTrack != null && mediaPlayer !=null && !mediaPlayer!!.isPlaying) {
-                mediaPlayer!!.start()
-                isPlayingState.postValue(true)
-                handler.post(updateProgressRunnable)
-                startForeground(NOTIFICATION_ID, buildNotification())
-            } else if (currentTrack != null) {
-                playTrackAtIndex(currentTrackIndex)
+
+            val result = audioManager.requestAudioFocus(
+                audioFocusChangeListener,
+                AudioManager.STREAM_MUSIC,
+                AudioManager.AUDIOFOCUS_GAIN
+            )
+
+            if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
+                Log.d("MusicService", "Audio focus granted")
+                if (currentTrack != null && mediaPlayer != null && !mediaPlayer!!.isPlaying) {
+                    mediaPlayer!!.start()
+                    isPlayingState.postValue(true)
+                    handler.post(updateProgressRunnable)
+                    startForeground(NOTIFICATION_ID, buildNotification())
+                } else if (currentTrack != null) {
+                    // This case handles playing a new track or resuming a paused one
+                    // If it's a new track, playTrackAtIndex will set it up and start it (which calls playTrack -> mediaPlayer.start)
+                    // If it's resuming a paused track, mediaPlayer.start() would be called here.
+                    // The original logic was a bit mixed. Clarifying:
+                    if (mediaPlayer != null && !mediaPlayer!!.isPlaying && currentTrack != null && currentTrackIndex != -1) {
+                        // Likely resuming a paused track that already has media player prepared for it
+                        mediaPlayer!!.start()
+                        isPlayingState.postValue(true)
+                        handler.post(updateProgressRunnable)
+                        startForeground(NOTIFICATION_ID, buildNotification())
+                    } else if (currentTrack != null) {
+                        // This implies we need to load and play the track (e.g., first play, or after stop)
+                        playTrackAtIndex(currentTrackIndex)
+                    }
+                }
+                updatePlaybackState() // This will also trigger notification update
+            } else {
+                Log.w("MusicService", "Audio focus not granted.")
+                // Optionally, inform the user or stop the service if focus is critical
             }
-            updatePlaybackState() // This will also trigger notification update
         }
 
         override fun onPause() {
@@ -91,7 +123,7 @@ class MusicService : Service() {
         override fun onStop() {
             super.onStop()
             Log.d("MusicService", "MediaSessionCallback: onStop")
-            stopTrack()
+            stopTrack() // stopTrack will handle abandoning audio focus
         }
 
         override fun onSkipToNext() {
@@ -127,23 +159,64 @@ class MusicService : Service() {
         mediaSession = MediaSessionCompat(this, "WinampInspiredMP3PlayerSession")
         mediaSession.setCallback(mediaSessionCallback)
         mediaSession.isActive = true
-        Log.d("MusicService", "Service Created, MediaPlayer Initialized, MediaSession Active")
+
+        audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
+        audioFocusChangeListener = AudioManager.OnAudioFocusChangeListener { focusChange ->
+            when (focusChange) {
+                AudioManager.AUDIOFOCUS_LOSS -> {
+                    Log.d("MusicService", "AudioFocus: AUDIOFOCUS_LOSS. Stopping playback.")
+                    // Consider calling a method that ensures a full stop and resource cleanup if not expecting to resume.
+                    // For now, mediaSessionCallback.onStop() should handle this.
+                    mediaSessionCallback.onStop()
+                    pausedByTransientLoss = false // Reset flag
+                }
+                AudioManager.AUDIOFOCUS_LOSS_TRANSIENT -> {
+                    if (isPlaying()) {
+                        Log.d("MusicService", "AudioFocus: AUDIOFOCUS_LOSS_TRANSIENT. Pausing playback.")
+                        mediaSessionCallback.onPause()
+                        pausedByTransientLoss = true
+                    }
+                }
+                AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK -> {
+                    // For now, pause like transient loss. Could lower volume instead.
+                    if (isPlaying()) {
+                        Log.d("MusicService", "AudioFocus: AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK. Pausing playback.")
+                        mediaSessionCallback.onPause()
+                        pausedByTransientLoss = true
+                    }
+                }
+                AudioManager.AUDIOFOCUS_GAIN -> {
+                    Log.d("MusicService", "AudioFocus: AUDIOFOCUS_GAIN.")
+                    if (pausedByTransientLoss) {
+                        Log.d("MusicService", "Resuming playback after transient loss.")
+                        mediaSessionCallback.onPlay() // Or directly start player if appropriate
+                        pausedByTransientLoss = false
+                    } else if (mediaPlayer != null && !mediaPlayer!!.isPlaying && currentTrack != null) {
+                        // This case might be if focus was gained after a complete loss, or app started with focus
+                        // If currentTrack is set, it implies we might want to resume or start.
+                        // mediaSessionCallback.onPlay() handles the logic of starting if appropriate.
+                        // Log.d("MusicService", "Audio focus gained, attempting to play.")
+                        // mediaSessionCallback.onPlay() // Be cautious with auto-play on GAIN if not from transient loss
+                    }
+                }
+            }
+        }
+
+        Log.d("MusicService", "Service Created, MediaPlayer Initialized, MediaSession Active, AudioManager Initialized")
         updatePlaybackState()
         updateMediaMetadata()
     }
 
     private fun createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(
-                NOTIFICATION_CHANNEL_ID,
-                "Music Playback",
-                NotificationManager.IMPORTANCE_LOW
-            )
-            channel.description = "Channel for music playback controls and information"
-            val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            manager.createNotificationChannel(channel)
-            Log.d("MusicService", "Notification channel created.")
-        }
+        val channel = NotificationChannel(
+            NOTIFICATION_CHANNEL_ID,
+            "Music Playback",
+            NotificationManager.IMPORTANCE_LOW
+        )
+        channel.description = "Channel for music playback controls and information"
+        val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        manager.createNotificationChannel(channel)
+        Log.d("MusicService", "Notification channel created.")
     }
 
 
@@ -241,7 +314,7 @@ class MusicService : Service() {
                     Log.d("MusicService", "MediaPlayer prepared, starting playback")
                     mp.start()
                     isPlayingState.postValue(true)
-                    currentTrackDuration.postValue(mp.duration ?: 0)
+                    currentTrackDuration.postValue(mp.duration)
                     handler.post(updateProgressRunnable)
                     updatePlaybackState() // This will trigger notification update via its own logic
                     updateMediaMetadata() // This will also trigger notification update
@@ -335,6 +408,8 @@ class MusicService : Service() {
         updatePlaybackState()
         updateMediaMetadata()
         stopForeground(true) // Remove notification
+        Log.d("MusicService", "Abandoning audio focus in stopTrack.")
+        audioManager.abandonAudioFocus(audioFocusChangeListener)
     }
 
     fun isPlaying(): Boolean {
@@ -412,7 +487,15 @@ class MusicService : Service() {
         // Update notification if not stopped (foreground service handles its own notification)
         if (state != PlaybackStateCompat.STATE_STOPPED && state != PlaybackStateCompat.STATE_NONE) {
             if(mediaPlayer?.isPlaying == false) { // Only if paused
-                notificationManager.notify(NOTIFICATION_ID, buildNotification())
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
+                        notificationManager.notify(NOTIFICATION_ID, buildNotification())
+                    } else {
+                        Log.w("MusicService", "POST_NOTIFICATIONS permission denied. Cannot update notification via notify() in updatePlaybackState.")
+                    }
+                } else {
+                    notificationManager.notify(NOTIFICATION_ID, buildNotification())
+                }
             }
             // If playing, startForeground will be called which updates notification
         }
@@ -437,7 +520,15 @@ class MusicService : Service() {
         // Update notification with new metadata if service is in a state where notification is visible but not foreground
         // (e.g., paused). If playing, startForeground will handle it. If stopped, notification is removed.
         if (mediaPlayer?.isPlaying == false && currentTrack != null) {
-            notificationManager.notify(NOTIFICATION_ID, buildNotification())
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
+                    notificationManager.notify(NOTIFICATION_ID, buildNotification())
+                } else {
+                    Log.w("MusicService", "POST_NOTIFICATIONS permission denied. Cannot update notification via notify() in updateMediaMetadata.")
+                }
+            } else {
+                notificationManager.notify(NOTIFICATION_ID, buildNotification())
+            }
         }
     }
 
@@ -449,5 +540,7 @@ class MusicService : Service() {
         mediaPlayer?.release()
         mediaPlayer = null
         mediaSession.release()
+        Log.d("MusicService", "Abandoning audio focus in onDestroy.")
+        audioManager.abandonAudioFocus(audioFocusChangeListener)
     }
 }

@@ -55,9 +55,7 @@ layout activity_main
 layout fragment_player
 layout fragment_playlist
 layout fragment_visualizer
-layout list_item_selector
 layout list_item_track
-layout playlist_item_selected_bg
 mipmap ic_launcher
 mipmap ic_launcher_round
 raw visualization_loop
