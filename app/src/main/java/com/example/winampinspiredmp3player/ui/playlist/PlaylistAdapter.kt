@@ -46,8 +46,13 @@ class PlaylistAdapter(
 
     fun updateTracks(newTracks: List<Track>) {
         Log.d("PlaylistAdapter", "updateTracks: Updating tracks. New track count: ${newTracks.size}, Current internal track count before update: ${this.tracks.size}");
-        tracks.clear()
-        tracks.addAll(newTracks)
+        
+        // Create a copy to avoid issues if newTracks and this.tracks are the same instance
+        val tracksToAdd = ArrayList(newTracks) 
+        
+        this.tracks.clear()
+        this.tracks.addAll(tracksToAdd) // Use the copy here
+
         Log.d("PlaylistAdapter", "updateTracks: Internal tracks list updated. New size: ${this.tracks.size}");
         selectedPosition = RecyclerView.NO_POSITION // Reset selection when list updates
         notifyDataSetChanged()
