@@ -2,11 +2,10 @@ package com.example.winampinspiredmp3player
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.viewpager2.widget.ViewPager2
-import com.example.winampinspiredmp3player.ui.ViewPagerAdapter
-import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayoutMediator
 import com.example.winampinspiredmp3player.databinding.ActivityMainBinding // Import ViewBinding class
+import com.example.winampinspiredmp3player.ui.player.PlayerFragment // Import PlayerFragment
+import com.example.winampinspiredmp3player.ui.playlist.PlaylistFragment // Import PlaylistFragment
+import com.example.winampinspiredmp3player.ui.visualizer.VisualizerFragment // Import VisualizerFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,28 +16,12 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater) // Initialize binding
         setContentView(binding.root) // Set content view to binding.root
 
-        // val viewPager: ViewPager2 = findViewById(R.id.view_pager) // Original
-        // val tabLayout: TabLayout = findViewById(R.id.tab_layout) // Original
-        // Use binding to access views
-        val viewPager: ViewPager2 = binding.viewPager
-        val tabLayout: TabLayout = binding.tabLayout
-
-
-        val adapter = ViewPagerAdapter(this)
-        viewPager.adapter = adapter
-
-        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-            tab.text = when (position) {
-                0 -> "Player"
-                1 -> "Playlist"
-                2 -> "Visualizer"
-                else -> null
-            }
-        }.attach()
-    }
-
-    // Public method to switch tabs
-    fun switchToPlayerTab() {
-        binding.viewPager.currentItem = 0 // Assuming 0 is the index for PlayerFragment
+        if (savedInstanceState == null) { // Important to avoid adding fragments on config change
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.player_controls_container, PlayerFragment())
+                .replace(R.id.playlist_container, PlaylistFragment())
+                .replace(R.id.visualizer_container, VisualizerFragment())
+                .commitNow() // or commit()
+        }
     }
 }

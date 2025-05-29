@@ -7,5 +7,6 @@ data class Track(
     val title: String?,
     val artist: String?,
     val duration: Long, // milliseconds
-    val fileName: String
+    val fileName: String,
+    val dateAdded: Long
 )

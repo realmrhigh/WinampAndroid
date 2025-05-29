@@ -4,7 +4,6 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
-import android.media.AudioManager
 import android.os.Bundle
 import android.os.IBinder
 import android.util.Log
@@ -12,7 +11,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.winampinspiredmp3player.R // Import R class for drawable resources
 import com.example.winampinspiredmp3player.databinding.FragmentPlayerBinding
@@ -26,7 +24,6 @@ class PlayerFragment : Fragment() {
 
     private var musicService: MusicService? = null
     private var isBound: Boolean = false
-    private lateinit var audioManager: AudioManager
 
     private val serviceConnection = object : ServiceConnection {
         override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
@@ -35,7 +32,6 @@ class PlayerFragment : Fragment() {
             musicService = binder.getService()
             isBound = true
 
-            setupVolumeControls()
             updatePlayPauseButtonState()
             observeLiveData()
         }
@@ -55,7 +51,6 @@ class PlayerFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentPlayerBinding.inflate(inflater, container, false)
-        audioManager = requireContext().getSystemService(Context.AUDIO_SERVICE) as AudioManager
         return binding.root
     }
 
@@ -63,7 +58,6 @@ class PlayerFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupClickListeners()
         setupTrackProgressSeekBar()
-        setupVolumeControls()
     }
 
     private fun setupClickListeners() {
@@ -110,13 +104,6 @@ class PlayerFragment : Fragment() {
             }
         }
 
-        binding.btnEject.setOnClickListener {
-            // For now, just a Toast message.
-            // In a future step, this could navigate to PlaylistFragment and trigger a scan,
-            // or trigger a scan via a shared ViewModel or service event.
-            Toast.makeText(requireContext(), "Eject button clicked - Connect to Scan for Music", Toast.LENGTH_LONG).show()
-            Log.d("PlayerFragment", "Eject button clicked.")
-        }
     }
 
     private fun setupTrackProgressSeekBar() {
@@ -132,25 +119,6 @@ class PlayerFragment : Fragment() {
                     }
                 }
             }
-        })
-    }
-
-
-    private fun setupVolumeControls() {
-        val maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
-        val currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)
-
-        binding.sbVolumeControl.max = maxVolume
-        binding.sbVolumeControl.progress = currentVolume
-
-        binding.sbVolumeControl.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                if (fromUser) {
-                    audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, progress, 0)
-                }
-            }
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
         })
     }
 

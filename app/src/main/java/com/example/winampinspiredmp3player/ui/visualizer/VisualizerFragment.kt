@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import com.example.winampinspiredmp3player.R
@@ -101,6 +102,33 @@ class VisualizerFragment : Fragment() {
             Log.e("VisualizerFragment", "VideoView Error: what: $what, extra: $extra")
             videoIsPrepared = false
             true
+        }
+
+        binding.videoViewVisualizer.setOnClickListener {
+            if (isBound && musicService != null) {
+                if (musicService!!.isPlaying()) {
+                    musicService!!.pauseTrack()
+                    Log.d("VisualizerFragment", "Visualizer touched: Pausing track.")
+                } else {
+                    if (musicService!!.currentTrack != null) {
+                        musicService!!.playTrackAtIndex(musicService!!.currentTrackIndex)
+                        Log.d("VisualizerFragment", "Visualizer touched: Playing current track.")
+                    } else {
+                        // Attempt to play the first track if playlist is not empty.
+                        // Assumes getPlaylistSize() is implemented in MusicService and returns playlist size.
+                        if (musicService!!.getPlaylistSize() > 0) {
+                            musicService!!.playTrackAtIndex(0)
+                            Log.d("VisualizerFragment", "Visualizer touched: Playing first track.")
+                        } else {
+                            Log.d("VisualizerFragment", "Visualizer touched: No track available to play.")
+                            Toast.makeText(requireContext(), "No track to play", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+            } else {
+                Log.d("VisualizerFragment", "Visualizer touched, but service not bound.")
+                Toast.makeText(requireContext(), "Service not connected", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

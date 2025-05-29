@@ -12,7 +12,8 @@ import java.util.concurrent.TimeUnit
 
 class PlaylistAdapter(
     private var tracks: MutableList<Track>,
-    private val actualOnTrackClickListener: (Track, Int, List<Track>) -> Unit // Renamed for clarity
+    private val actualOnTrackClickListener: (Track, Int, List<Track>) -> Unit, // Renamed for clarity
+    private val onRemoveClickListener: (Track, Int) -> Unit
 ) : RecyclerView.Adapter<PlaylistAdapter.TrackViewHolder>() {
 
     private var selectedPosition = RecyclerView.NO_POSITION
@@ -43,6 +44,29 @@ class PlaylistAdapter(
         tracks.addAll(newTracks)
         selectedPosition = RecyclerView.NO_POSITION // Reset selection when list updates
         notifyDataSetChanged()
+    }
+
+    fun removeItem(position: Int) {
+        if (position >= 0 && position < tracks.size) {
+            tracks.removeAt(position)
+            notifyItemRemoved(position)
+            // Optional: notifyItemRangeChanged if positions below are affected by this removal
+            // This is important if your item views have anything that depends on their absolute position
+            // or if you have special decorations that might need recalculating.
+            // For simple lists, notifyItemRemoved might be enough.
+            // However, if selection highlighting or other features depend on subsequent items,
+            // it's safer to use notifyItemRangeChanged.
+            if (position < tracks.size) { // If it wasn't the last item
+                notifyItemRangeChanged(position, tracks.size - position)
+            }
+            // If the removed item was selected, reset selection
+            if (selectedPosition == position) {
+                selectedPosition = RecyclerView.NO_POSITION
+            } else if (selectedPosition > position) {
+                // If an item before the selected one was removed, adjust selection index
+                selectedPosition--
+            }
+        }
     }
 
     // Call this when a track starts playing from outside (e.g. service)
@@ -82,6 +106,13 @@ class PlaylistAdapter(
                 binding.tvTrackTitle.setTextColor(ContextCompat.getColor(context, R.color.winamp_playlist_text_normal))
                 binding.tvTrackArtist.setTextColor(ContextCompat.getColor(context, R.color.winamp_playlist_text_normal))
                 binding.tvTrackDuration.setTextColor(ContextCompat.getColor(context, R.color.winamp_playlist_text_normal))
+            }
+
+            binding.btnRemoveTrack.setOnClickListener {
+                // adapterPosition is reliable here for click events
+                if (adapterPosition != RecyclerView.NO_POSITION) {
+                    onRemoveClickListener(track, adapterPosition)
+                }
             }
         }
 
