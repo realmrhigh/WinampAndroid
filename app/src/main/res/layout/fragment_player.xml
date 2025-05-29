@@ -76,10 +76,10 @@
             android:id="@+id/btn_stop_track"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/stop"
+            android:src="@drawable/ic_pause"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:padding="36dp"
-            android:contentDescription="Stop Track" />
+            android:contentDescription="Pause Track" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

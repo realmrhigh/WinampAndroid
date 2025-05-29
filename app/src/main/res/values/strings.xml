@@ -3,9 +3,13 @@
     <string name="sort_alphabetical">Alphabetical (A-Z)</string>
     <string name="sort_date_newest">Date Added (Newest First)</string>
     <string name="sort_date_oldest">Date Added (Oldest First)</string>
+    <string name="sort_duration_shortest">Duration (Shortest First)</string>
+    <string name="sort_duration_longest">Duration (Longest First)</string>
     <string-array name="sort_options">
         <item>@string/sort_alphabetical</item>
         <item>@string/sort_date_newest</item>
         <item>@string/sort_date_oldest</item>
+        <item>@string/sort_duration_shortest</item>
+        <item>@string/sort_duration_longest</item>
     </string-array>
 </resources>

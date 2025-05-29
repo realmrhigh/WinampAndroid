@@ -4,7 +4,7 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
-import android.media.AudioManager
+import android.media.AudioManager // AudioManager import restored
 import android.os.Bundle
 import android.os.IBinder
 import android.util.Log
@@ -23,7 +23,7 @@ class PlayerFragment : Fragment() {
     private var _binding: FragmentPlayerBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var audioManager: AudioManager // Added AudioManager instance
+    private lateinit var audioManager: AudioManager // AudioManager instance restored
     private var musicService: MusicService? = null
     private var isBound: Boolean = false
 
@@ -34,19 +34,24 @@ class PlayerFragment : Fragment() {
             musicService = binder.getService()
             isBound = true
 
+            // Volume diagnostic code restored
             Log.d("PlayerFragment", "onServiceConnected: Diagnosing audio volume.")
             val maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
             val currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)
             Log.d("PlayerFragment", "Max volume: $maxVolume, Current volume: $currentVolume")
-
-            val targetVolume = maxVolume / 2 // Set to 50%
-            if (currentVolume == 0 && maxVolume > 0) { // also check maxVolume to avoid division by zero if something is weird
-                Log.d("PlayerFragment", "Current volume is 0. Setting to 50% ($targetVolume) for diagnosis.")
-                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, targetVolume, 0)
-                val newCurrentVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)
-                Log.d("PlayerFragment", "Volume after setting: $newCurrentVolume")
+            
+            if (maxVolume > 0) { // Ensure maxVolume is positive before division and setting
+                val targetVolume = maxVolume / 2 
+                if (currentVolume == 0) { 
+                    Log.d("PlayerFragment", "Current volume is 0. Setting to 50% ($targetVolume) for diagnosis.")
+                    audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, targetVolume, 0)
+                    val newCurrentVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)
+                    Log.d("PlayerFragment", "Volume after setting: $newCurrentVolume")
+                } else {
+                    Log.d("PlayerFragment", "Current volume is not 0. No diagnostic change made to volume by PlayerFragment.")
+                }
             } else {
-                Log.d("PlayerFragment", "Current volume is not 0 or maxVolume is 0. No diagnostic change made to volume by PlayerFragment.")
+                Log.d("PlayerFragment", "Max volume is 0, cannot set volume.")
             }
 
             updatePlayPauseButtonState()
@@ -68,7 +73,7 @@ class PlayerFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentPlayerBinding.inflate(inflater, container, false)
-        audioManager = requireContext().getSystemService(Context.AUDIO_SERVICE) as AudioManager // Initialize AudioManager
+        audioManager = requireContext().getSystemService(Context.AUDIO_SERVICE) as AudioManager // AudioManager initialization restored
         return binding.root
     }
 
@@ -100,10 +105,12 @@ class PlayerFragment : Fragment() {
 
         binding.btnStopTrack.setOnClickListener {
             if (isBound && musicService != null) {
-                musicService!!.stopTrack()
+                musicService!!.pauseTrack() // Changed from stopTrack()
                 // UI updates for track info and play/pause button will be handled by LiveData observers
+                // or call updatePlayPauseButtonState() if pauseTrack() doesn't trigger it.
+                Log.d("PlayerFragment", "Pause button (formerly Stop) clicked.")
             } else {
-                Log.d("PlayerFragment", "Stop button clicked, but service not bound.")
+                Log.d("PlayerFragment", "Pause button (formerly Stop) clicked, but service not bound.")
             }
         }
 

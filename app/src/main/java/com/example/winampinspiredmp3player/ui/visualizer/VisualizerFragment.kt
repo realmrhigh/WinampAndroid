@@ -26,6 +26,7 @@ class VisualizerFragment : Fragment() {
     private var musicService: MusicService? = null
     private var isBound: Boolean = false
     private var videoIsPrepared: Boolean = false
+    private var isVisualizerManuallyEnabled: Boolean = true // New state variable
 
     private val serviceConnection = object : ServiceConnection {
         override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
@@ -35,24 +36,10 @@ class VisualizerFragment : Fragment() {
             isBound = true
 
             musicService?.isPlayingState?.observe(viewLifecycleOwner) { isPlaying ->
-                Log.d("VisualizerFragment", "Music isPlayingState changed: $isPlaying, videoIsPrepared: $videoIsPrepared")
-                if (videoIsPrepared) {
-                    if (isPlaying) {
-                        binding.videoViewVisualizer.start()
-                    } else {
-                        binding.videoViewVisualizer.pause()
-                    }
-                }
+                Log.d("VisualizerFragment", "Music isPlayingState changed: $isPlaying")
+                updateVisualizerState() // Call the central logic
             }
-
-            // Immediately update video state based on current music state
-            if (videoIsPrepared) {
-                if (musicService?.isPlayingState?.value == true) {
-                    binding.videoViewVisualizer.start()
-                } else {
-                    binding.videoViewVisualizer.pause()
-                }
-            }
+            updateVisualizerState() // Initial update after service connection
         }
 
         override fun onServiceDisconnected(name: ComponentName?) {
@@ -88,14 +75,7 @@ class VisualizerFragment : Fragment() {
             videoIsPrepared = true
             mediaPlayer.isLooping = true
             mediaPlayer.setVolume(0f, 0f) // Mute the video
-
-            // Start video only if music is already playing when video becomes prepared
-            if (isBound && musicService?.isPlayingState?.value == true) {
-                binding.videoViewVisualizer.start()
-                Log.d("VisualizerFragment", "Video started on prepare because music is playing.")
-            } else {
-                Log.d("VisualizerFragment", "Video prepared, but music not playing or service not bound. Video will not start yet.")
-            }
+            updateVisualizerState() // Call the central logic
         }
 
         binding.videoViewVisualizer.setOnErrorListener { _, what, extra ->
@@ -105,36 +85,44 @@ class VisualizerFragment : Fragment() {
         }
 
         binding.videoViewVisualizer.setOnClickListener {
-            if (isBound && musicService != null) {
-                if (musicService!!.isPlaying()) {
-                    musicService!!.pauseTrack()
-                    Log.d("VisualizerFragment", "Visualizer touched: Pausing track.")
-                } else {
-                    if (musicService!!.currentTrack != null) {
-                        musicService!!.playTrackAtIndex(musicService!!.currentTrackIndex)
-                        Log.d("VisualizerFragment", "Visualizer touched: Playing current track.")
-                    } else {
-                        // TODO: Implement robust playCurrentOrFirstTrack logic in MusicService,
-                        // including getPlaylistSize, and uncomment/refine this block.
-                        // For now, if there's no current track, we just show a message.
-                        /*
-                        if (musicService!!.getPlaylistSize() > 0) { // This method needs to be implemented in MusicService
-                            musicService!!.playTrackAtIndex(0)
-                            Log.d("VisualizerFragment", "Visualizer touched: Playing first track.")
-                        } else {
-                            Log.d("VisualizerFragment", "Visualizer touched: No track available to play.")
-                            Toast.makeText(requireContext(), "No track to play", Toast.LENGTH_SHORT).show()
-                        }
-                        */
-                        Log.d("VisualizerFragment", "Visualizer touched: No current track. MusicService would need to decide to play first track.")
-                        Toast.makeText(requireContext(), "No track to play", Toast.LENGTH_SHORT).show()
-                    }
-                }
-            } else {
-                Log.d("VisualizerFragment", "Visualizer touched, but service not bound.")
-                Toast.makeText(requireContext(), "Service not connected", Toast.LENGTH_SHORT).show()
+            isVisualizerManuallyEnabled = !isVisualizerManuallyEnabled
+            updateVisualizerState()
+            Toast.makeText(requireContext(), "Visualizer ${if (isVisualizerManuallyEnabled) "On" else "Off"}", Toast.LENGTH_SHORT).show()
+            Log.d("VisualizerFragment", "Visualizer toggled: ${if (isVisualizerManuallyEnabled) "On" else "Off"}")
+        }
+    }
+
+    private fun updateVisualizerState() {
+        if (!isAdded || _binding == null) { // Check if fragment is added and binding is not null
+            Log.d("VisualizerFragment", "updateVisualizerState: Fragment not added or binding is null. Ensuring video is paused if prepared.")
+             // Ensure video is paused if it was playing and fragment/binding becomes invalid
+            if (_binding != null && videoIsPrepared && binding.videoViewVisualizer.isPlaying) {
+                 binding.videoViewVisualizer.pause()
+            }
+            return
+        }
+        
+        if (!isBound || musicService == null) {
+            Log.d("VisualizerFragment", "updateVisualizerState: Service not bound or null. Ensuring video is paused if prepared.")
+            if (videoIsPrepared && binding.videoViewVisualizer.isPlaying) {
+                 binding.videoViewVisualizer.pause()
+            }
+            return
+        }
+
+        val isMusicPlaying = musicService?.isPlayingState?.value == true
+        val shouldAnimate = isMusicPlaying && isVisualizerManuallyEnabled && videoIsPrepared
+
+        if (shouldAnimate) {
+            if (!binding.videoViewVisualizer.isPlaying) {
+                binding.videoViewVisualizer.start()
+            }
+        } else {
+            if (binding.videoViewVisualizer.isPlaying) {
+                binding.videoViewVisualizer.pause()
             }
         }
+        Log.d("VisualizerFragment", "updateVisualizerState: MusicPlaying=$isMusicPlaying, ManualEnable=$isVisualizerManuallyEnabled, Prepared=$videoIsPrepared, ShouldAnimate=$shouldAnimate, VideoViewPlaying=${if (_binding != null) binding.videoViewVisualizer.isPlaying else "N/A"}")
     }
 
     override fun onStart() {
@@ -148,19 +136,8 @@ class VisualizerFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        Log.d("VisualizerFragment", "onResume called. isBound: $isBound, musicPlaying: ${musicService?.isPlayingState?.value}, videoIsPrepared: $videoIsPrepared")
-        // VideoView might have been paused or stopped.
-        // Ensure it's playing if music is playing and video is prepared.
-        if (isBound && musicService?.isPlayingState?.value == true && videoIsPrepared) {
-            if (!binding.videoViewVisualizer.isPlaying) {
-                binding.videoViewVisualizer.start()
-                Log.d("VisualizerFragment", "Video explicitly started in onResume.")
-            }
-        } else if (videoIsPrepared && binding.videoViewVisualizer.isPlaying) {
-            // If music is not playing, but video is, pause it.
-            binding.videoViewVisualizer.pause()
-            Log.d("VisualizerFragment", "Video explicitly paused in onResume as music is not playing.")
-        }
+        Log.d("VisualizerFragment", "onResume called.")
+        updateVisualizerState()
     }
 
     override fun onPause() {

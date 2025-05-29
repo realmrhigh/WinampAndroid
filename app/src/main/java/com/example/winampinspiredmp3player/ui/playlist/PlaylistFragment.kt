@@ -33,7 +33,11 @@ class PlaylistFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var playlistAdapter: PlaylistAdapter
-    private val musicTracks = mutableListOf<Track>() // Keep this to hold scanned tracks before adapter update
+    private val musicTracks = mutableListOf<Track>() // This will be the working list (displayed, potentially shuffled)
+    private val originalMusicTracks: MutableList<Track> = mutableListOf() // Master list, always in scanned/sorted order (after filtering)
+    private val allScannedTracks: MutableList<Track> = mutableListOf() // Holds all tracks from MediaStore before any filtering
+    private var isShuffleEnabled: Boolean = false
+    private var filterShortTracksEnabled: Boolean = false
 
     // Service related variables
     private var musicService: MusicService? = null
@@ -79,6 +83,18 @@ class PlaylistFragment : Fragment() {
         binding.btnScanMusic.setOnClickListener {
             checkAndRequestPermission()
         }
+        binding.btnToggleShuffle.setOnClickListener {
+            toggleShuffle()
+        }
+        
+        binding.switchFilterShortTracks.isChecked = filterShortTracksEnabled
+        binding.switchFilterShortTracks.setOnCheckedChangeListener { _, isChecked ->
+            filterShortTracksEnabled = isChecked
+            Log.d("PlaylistFragment", "Filter switch toggled. Enabled: $filterShortTracksEnabled")
+            Toast.makeText(requireContext(), "Filter <1 min: ${if (filterShortTracksEnabled) "On" else "Off"}", Toast.LENGTH_SHORT).show()
+            applyFiltersAndRefreshList()
+        }
+
         checkAndRequestPermission() // Auto-scan on view created
         Log.d("PlaylistFragment", "onViewCreated: Called checkAndRequestPermission for auto-scan.");
     }
@@ -112,18 +128,41 @@ class PlaylistFragment : Fragment() {
     }
 
     private fun sortPlaylist(sortOption: String) {
+        // Sort originalMusicTracks
         when (sortOption) {
-            getString(R.string.sort_alphabetical) -> { // "Alphabetical (A-Z)"
-                musicTracks.sortBy { it.title?.lowercase() ?: it.fileName.lowercase() }
+            getString(R.string.sort_alphabetical) -> {
+                Log.d("PlaylistFragment", "Sorting original by alphabetical")
+                originalMusicTracks.sortBy { it.title?.lowercase() ?: it.fileName.lowercase() }
             }
-            getString(R.string.sort_date_newest) -> { // "Date Added (Newest First)"
-                musicTracks.sortByDescending { it.dateAdded }
+            getString(R.string.sort_date_newest) -> {
+                Log.d("PlaylistFragment", "Sorting original by date newest")
+                originalMusicTracks.sortByDescending { it.dateAdded }
             }
-            getString(R.string.sort_date_oldest) -> { // "Date Added (Oldest First)"
-                musicTracks.sortBy { it.dateAdded }
+            getString(R.string.sort_date_oldest) -> {
+                Log.d("PlaylistFragment", "Sorting original by date oldest")
+                originalMusicTracks.sortBy { it.dateAdded }
+            }
+            getString(R.string.sort_duration_shortest) -> {
+                Log.d("PlaylistFragment", "Sorting original by duration (shortest first)")
+                originalMusicTracks.sortBy { it.duration }
+            }
+            getString(R.string.sort_duration_longest) -> {
+                Log.d("PlaylistFragment", "Sorting original by duration (longest first)")
+                originalMusicTracks.sortByDescending { it.duration }
             }
         }
-        playlistAdapter.updateTracks(musicTracks) // Update adapter with sorted list
+
+        // Update musicTracks based on shuffle state
+        if (isShuffleEnabled) {
+            musicTracks.clear()
+            musicTracks.addAll(originalMusicTracks.shuffled())
+            Log.d("PlaylistFragment", "Applied shuffle to sorted original list.")
+        } else {
+            musicTracks.clear()
+            musicTracks.addAll(originalMusicTracks)
+            Log.d("PlaylistFragment", "Set musicTracks to sorted original list (shuffle off).")
+        }
+        playlistAdapter.updateTracks(musicTracks)
 
         // Notify MusicService about the playlist reordering
         // This is important if playback is ongoing or if the service maintains its own copy of the playlist order.
@@ -161,16 +200,21 @@ class PlaylistFragment : Fragment() {
                 }
             },
             { track, position -> // onRemoveClick
-                Log.d("PlaylistFragment", "Attempting to remove track: ${track.title} at position $position")
-                // Inform the service to remove the track from its own list and handle playback adjustments
+                val trackToRemove = musicTracks[position] // Get track object before adapter modifies musicTracks
+                Log.d("PlaylistFragment", "Attempting to remove track: ${trackToRemove.title} at displayed position $position")
+                
                 // TODO: Implement removeTrack(track: Track) in MusicService and uncomment this line
-                // musicService?.removeTrack(track) // Anticipate this method in MusicService
-
-                // Tell the adapter to remove the item from its view and internal list
-                // This will also modify 'musicTracks' in the fragment as they share the same list instance
-                playlistAdapter.removeItem(position)
-
-                Toast.makeText(requireContext(), "${track.title} removed", Toast.LENGTH_SHORT).show()
+                // musicService?.removeTrack(trackToRemove) 
+                
+                playlistAdapter.removeItem(position) // This removes from adapter's list (this.musicTracks)
+                
+                val removedFromOriginal = originalMusicTracks.remove(trackToRemove)
+                Log.d("PlaylistFragment", "Track ${trackToRemove.title} removed from originalMusicTracks: $removedFromOriginal")
+                
+                val removedFromAllScanned = allScannedTracks.remove(trackToRemove)
+                Log.d("PlaylistFragment", "Track ${trackToRemove.title} removed from allScannedTracks: $removedFromAllScanned")
+                
+                Toast.makeText(requireContext(), "${trackToRemove.title} removed", Toast.LENGTH_SHORT).show()
             }
         )
         binding.rvPlaylist.apply {
@@ -257,26 +301,62 @@ class PlaylistFragment : Fragment() {
             }
         }
         Log.d("PlaylistFragment", "scanForMusicFiles: Scan complete. Found ${currentTracks.size} tracks initially.");
-        // Update the fragment's own list (if needed for other purposes, though adapter now holds the primary list for click handling)
-        musicTracks.clear()
-        musicTracks.addAll(currentTracks)
-        Log.d("PlaylistFragment", "scanForMusicFiles: Updated fragment's musicTracks list. Size: ${musicTracks.size}");
-        // Update the adapter's list - This will now happen after sorting
-        // playlistAdapter.updateTracks(musicTracks) // Moved to after sortPlaylistBasedOnSpinner
+        
+        allScannedTracks.clear()
+        allScannedTracks.addAll(currentTracks) // Store all scanned tracks
+        Log.d("PlaylistFragment", "scanForMusicFiles: Stored ${allScannedTracks.size} tracks in allScannedTracks.")
 
-        if (currentTracks.isEmpty()) {
-            Toast.makeText(requireContext(), "No music files found.", Toast.LENGTH_SHORT).show()
-            Log.d("PlaylistFragment", "scanForMusicFiles: No music files found message displayed.");
-            playlistAdapter.updateTracks(musicTracks) // Update with empty list if needed
+        applyFiltersAndRefreshList() // New method call to apply filters and then sort/shuffle
+    }
+
+    private fun applyFiltersAndRefreshList() {
+        Log.d("PlaylistFragment", "applyFiltersAndRefreshList: Applying filter (enabled: $filterShortTracksEnabled)")
+        val filteredList = if (filterShortTracksEnabled) {
+            allScannedTracks.filter { it.duration >= 60000L } // 60000L for Long comparison
         } else {
-            Toast.makeText(requireContext(), "Found ${currentTracks.size} music files.", Toast.LENGTH_SHORT).show()
-            Log.d("PlaylistFragment", "scanForMusicFiles: Found ${currentTracks.size} music files message displayed.");
-            // Apply initial sort based on current spinner selection (or default)
-            // This ensures the list is sorted when first displayed after a scan.
-            sortPlaylistBasedOnSpinner()
-            // Log after sortPlaylistBasedOnSpinner calls playlistAdapter.updateTracks
-            Log.d("PlaylistFragment", "scanForMusicFiles: Called playlistAdapter.updateTracks via sortPlaylistBasedOnSpinner. Adapter item count: ${playlistAdapter.itemCount}");
+            ArrayList(allScannedTracks) // Create a new list instance from all scanned tracks
         }
+        Log.d("PlaylistFragment", "applyFiltersAndRefreshList: Filtered list size: ${filteredList.size}")
+
+        originalMusicTracks.clear()
+        originalMusicTracks.addAll(filteredList)
+        Log.d("PlaylistFragment", "applyFiltersAndRefreshList: originalMusicTracks updated. Size: ${originalMusicTracks.size}")
+
+        // Now call the existing method that sorts originalMusicTracks, applies shuffle to musicTracks, and updates adapter
+        sortPlaylistBasedOnSpinner() 
+
+        // Display toast based on the final musicTracks list (which is what the adapter shows)
+        if (musicTracks.isEmpty()) {
+            Toast.makeText(requireContext(), "No music files to display.", Toast.LENGTH_SHORT).show()
+            Log.d("PlaylistFragment", "applyFiltersAndRefreshList: No music files to display message shown.");
+        } else {
+            // Toast for scan completion is already shown in scanForMusicFiles, 
+            // this log is for after filtering/sorting.
+            Log.d("PlaylistFragment", "applyFiltersAndRefreshList: Playlist updated. Displaying ${musicTracks.size} tracks.");
+        }
+    }
+
+
+    private fun toggleShuffle() {
+        isShuffleEnabled = !isShuffleEnabled
+        // Update button appearance (e.g., tint if active) - TODO: Implement visual feedback for shuffle state
+        if (isShuffleEnabled) {
+            musicTracks.clear()
+            musicTracks.addAll(originalMusicTracks.shuffled())
+            Toast.makeText(requireContext(), "Shuffle On", Toast.LENGTH_SHORT).show()
+            Log.d("PlaylistFragment", "Shuffle enabled. musicTracks count: ${musicTracks.size}")
+        } else {
+            // Revert to current sort order from originalMusicTracks
+            musicTracks.clear()
+            musicTracks.addAll(originalMusicTracks) // originalMusicTracks should still be sorted as per last spinner selection
+            Toast.makeText(requireContext(), "Shuffle Off", Toast.LENGTH_SHORT).show()
+            Log.d("PlaylistFragment", "Shuffle disabled. Restored sorted list from original. musicTracks count: ${musicTracks.size}")
+        }
+        playlistAdapter.updateTracks(musicTracks)
+        
+        // TODO: Notify MusicService of new list order and possibly update current playing index
+        // musicService?.updatePlaylistOrder(ArrayList(this.musicTracks))
+        // Log.d("PlaylistFragment", "Notified MusicService of playlist reorder due to shuffle toggle.")
     }
 
     override fun onStart() {
