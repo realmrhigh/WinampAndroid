@@ -86,7 +86,7 @@ class PlaylistFragment : Fragment() {
         binding.btnToggleShuffle.setOnClickListener {
             toggleShuffle()
         }
-        
+
         binding.switchFilterShortTracks.isChecked = filterShortTracksEnabled
         binding.switchFilterShortTracks.setOnCheckedChangeListener { _, isChecked ->
             filterShortTracksEnabled = isChecked
@@ -202,18 +202,18 @@ class PlaylistFragment : Fragment() {
             { track, position -> // onRemoveClick
                 val trackToRemove = musicTracks[position] // Get track object before adapter modifies musicTracks
                 Log.d("PlaylistFragment", "Attempting to remove track: ${trackToRemove.title} at displayed position $position")
-                
+
                 // TODO: Implement removeTrack(track: Track) in MusicService and uncomment this line
-                // musicService?.removeTrack(trackToRemove) 
-                
+                // musicService?.removeTrack(trackToRemove)
+
                 playlistAdapter.removeItem(position) // This removes from adapter's list (this.musicTracks)
-                
+
                 val removedFromOriginal = originalMusicTracks.remove(trackToRemove)
                 Log.d("PlaylistFragment", "Track ${trackToRemove.title} removed from originalMusicTracks: $removedFromOriginal")
-                
+
                 val removedFromAllScanned = allScannedTracks.remove(trackToRemove)
                 Log.d("PlaylistFragment", "Track ${trackToRemove.title} removed from allScannedTracks: $removedFromAllScanned")
-                
+
                 Toast.makeText(requireContext(), "${trackToRemove.title} removed", Toast.LENGTH_SHORT).show()
             }
         )
@@ -301,7 +301,7 @@ class PlaylistFragment : Fragment() {
             }
         }
         Log.d("PlaylistFragment", "scanForMusicFiles: Scan complete. Found ${currentTracks.size} tracks initially.");
-        
+
         allScannedTracks.clear()
         allScannedTracks.addAll(currentTracks) // Store all scanned tracks
         Log.d("PlaylistFragment", "scanForMusicFiles: Stored ${allScannedTracks.size} tracks in allScannedTracks.")
@@ -323,14 +323,14 @@ class PlaylistFragment : Fragment() {
         Log.d("PlaylistFragment", "applyFiltersAndRefreshList: originalMusicTracks updated. Size: ${originalMusicTracks.size}")
 
         // Now call the existing method that sorts originalMusicTracks, applies shuffle to musicTracks, and updates adapter
-        sortPlaylistBasedOnSpinner() 
+        sortPlaylistBasedOnSpinner()
 
         // Display toast based on the final musicTracks list (which is what the adapter shows)
         if (musicTracks.isEmpty()) {
             Toast.makeText(requireContext(), "No music files to display.", Toast.LENGTH_SHORT).show()
             Log.d("PlaylistFragment", "applyFiltersAndRefreshList: No music files to display message shown.");
         } else {
-            // Toast for scan completion is already shown in scanForMusicFiles, 
+            // Toast for scan completion is already shown in scanForMusicFiles,
             // this log is for after filtering/sorting.
             Log.d("PlaylistFragment", "applyFiltersAndRefreshList: Playlist updated. Displaying ${musicTracks.size} tracks.");
         }
@@ -353,7 +353,7 @@ class PlaylistFragment : Fragment() {
             Log.d("PlaylistFragment", "Shuffle disabled. Restored sorted list from original. musicTracks count: ${musicTracks.size}")
         }
         playlistAdapter.updateTracks(musicTracks)
-        
+
         // TODO: Notify MusicService of new list order and possibly update current playing index
         // musicService?.updatePlaylistOrder(ArrayList(this.musicTracks))
         // Log.d("PlaylistFragment", "Notified MusicService of playlist reorder due to shuffle toggle.")

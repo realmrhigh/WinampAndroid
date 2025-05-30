@@ -29,25 +29,30 @@ class MainActivity : AppCompatActivity(), VisualizerFragment.VisualizerVisibilit
     }
 
     override fun setVisualizerContainerVisible(isVisible: Boolean) {
-        Log.d("MainActivity", "Setting visualizer container visibility: ${if (isVisible) "VISIBLE" else "GONE"}")
+        Log.d("MainActivity", "setVisualizerContainerVisible: Setting visualizer_container visibility to ${if (isVisible) "VISIBLE" else "GONE"}. Current visibility: ${binding.visualizerContainer.visibility}");
         binding.visualizerContainer.visibility = if (isVisible) View.VISIBLE else View.GONE
     }
 
     fun onUserToggledVisualizerPreference() {
         val prefs = getSharedPreferences(VisualizerFragment.VISUALIZER_PREFS_NAME, Context.MODE_PRIVATE)
         val currentState = prefs.getBoolean(VisualizerFragment.KEY_VISUALIZER_ENABLED, true) // Default true
+        Log.d("MainActivity", "onUserToggledVisualizerPreference: Current state from Prefs: $currentState");
         val newState = !currentState
+        Log.d("MainActivity", "onUserToggledVisualizerPreference: New state to save: $newState");
         prefs.edit().putBoolean(VisualizerFragment.KEY_VISUALIZER_ENABLED, newState).apply()
-        Log.d("MainActivity", "Visualizer preference toggled to: $newState by PlayerFragment button via MainActivity")
+        Log.d("MainActivity", "onUserToggledVisualizerPreference: Saved new state to Prefs.");
 
         // Update MainActivity's container for the visualizer
+        Log.d("MainActivity", "onUserToggledVisualizerPreference: Calling setVisualizerContainerVisible($newState).");
         setVisualizerContainerVisible(newState) // This method already exists
 
         // Notify PlayerFragment to update its button icon
+        Log.d("MainActivity", "onUserToggledVisualizerPreference: Calling playerFragment.updateVisualizerButtonFromMain($newState).");
         val playerFragment = supportFragmentManager.findFragmentById(R.id.player_controls_container) as? PlayerFragment
         playerFragment?.updateVisualizerButtonFromMain(newState)
 
         // Notify VisualizerFragment to refresh its internal state and view
+        Log.d("MainActivity", "onUserToggledVisualizerPreference: Calling visualizerFragment.refreshStateFromPreferences().");
         val visualizerFragment = supportFragmentManager.findFragmentById(R.id.visualizer_container) as? VisualizerFragment
         visualizerFragment?.refreshStateFromPreferences()
     }

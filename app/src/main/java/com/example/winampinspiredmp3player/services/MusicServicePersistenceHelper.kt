@@ -12,7 +12,7 @@ object MusicServicePersistenceHelper {
     private const val KEY_LAST_TRACK_URI = "lastTrackUri"
     private const val KEY_LAST_TRACK_POSITION = "lastTrackPosition"
     // Potentially add keys for other track metadata if needed for standalone URI restoration
-    // private const val KEY_LAST_TRACK_TITLE = "lastTrackTitle" 
+    // private const val KEY_LAST_TRACK_TITLE = "lastTrackTitle"
 
     data class LastPlayedState(val uri: Uri, val position: Int)
 

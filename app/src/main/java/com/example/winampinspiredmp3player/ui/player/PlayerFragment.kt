@@ -46,10 +46,10 @@ class PlayerFragment : Fragment() {
             val maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
             val currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)
             Log.d("PlayerFragment", "Max volume: $maxVolume, Current volume: $currentVolume")
-            
+
             if (maxVolume > 0) { // Ensure maxVolume is positive before division and setting
-                val targetVolume = maxVolume / 2 
-                if (currentVolume == 0) { 
+                val targetVolume = maxVolume / 2
+                if (currentVolume == 0) {
                     Log.d("PlayerFragment", "Current volume is 0. Setting to 50% ($targetVolume) for diagnosis.")
                     audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, targetVolume, 0)
                     val newCurrentVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)
@@ -137,6 +137,7 @@ class PlayerFragment : Fragment() {
         }
 
         binding.btnToggleVisualizer.setOnClickListener {
+            Log.d("PlayerFragment", "btn_toggle_visualizer clicked. Calling MainActivity.onUserToggledVisualizerPreference().");
             (activity as? MainActivity)?.onUserToggledVisualizerPreference()
             // Immediate button update might be slightly delayed if relying solely on onResume.
             // MainActivity will call back to updateVisualizerButtonFromMain for more immediate feedback.
@@ -144,19 +145,19 @@ class PlayerFragment : Fragment() {
     }
 
     fun updateVisualizerButtonFromMain(isEnabled: Boolean) { // New public method
-        Log.d("PlayerFragment", "Updating visualizer toggle button state from MainActivity: $isEnabled")
+        Log.d("PlayerFragment", "updateVisualizerButtonFromMain called by MainActivity. New state: $isEnabled. Updating button icon.");
         updateVisualizerToggleButtonState(isEnabled)
     }
 
     private fun updateVisualizerToggleButtonState(isEnabled: Boolean) {
         if (isEnabled) {
             // Assuming ic_menu_view is "on" state or use a specific "eye on" icon
-            binding.btnToggleVisualizer.setImageResource(android.R.drawable.ic_menu_view) 
+            binding.btnToggleVisualizer.setImageResource(android.R.drawable.ic_menu_view)
             // Or use alpha: binding.btnToggleVisualizer.imageAlpha = 255
         } else {
             // Use a different icon for "off" state, e.g., "eye off" or change tint/alpha
             binding.btnToggleVisualizer.setImageResource(android.R.drawable.ic_menu_close_clear_cancel) // Placeholder for "off"
-            // Or use alpha: binding.btnToggleVisualizer.imageAlpha = 128 
+            // Or use alpha: binding.btnToggleVisualizer.imageAlpha = 128
         }
     }
 
@@ -227,8 +228,9 @@ class PlayerFragment : Fragment() {
         // Update button state when fragment resumes, in case it was changed by other means or for initial setup
         val prefs = requireActivity().getSharedPreferences(com.example.winampinspiredmp3player.ui.visualizer.VisualizerFragment.VISUALIZER_PREFS_NAME, Context.MODE_PRIVATE)
         val visualizerIsEnabled = prefs.getBoolean(com.example.winampinspiredmp3player.ui.visualizer.VisualizerFragment.KEY_VISUALIZER_ENABLED, true)
+        Log.d("PlayerFragment", "onResume: Visualizer state from Prefs: $visualizerIsEnabled. Updating button icon.");
         updateVisualizerToggleButtonState(visualizerIsEnabled)
-        Log.d("PlayerFragment", "onResume: Updated visualizer toggle button state to: $visualizerIsEnabled from SharedPreferences.")
+        // Log.d("PlayerFragment", "onResume: Updated visualizer toggle button state to: $visualizerIsEnabled from SharedPreferences.") // Already logged essentially
     }
 
     override fun onStop() {
