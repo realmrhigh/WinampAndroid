@@ -12,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.winampinspiredmp3player.R // Import R class for drawable resources
 import com.example.winampinspiredmp3player.databinding.FragmentPlayerBinding
@@ -26,6 +27,11 @@ class PlayerFragment : Fragment() {
     private lateinit var audioManager: AudioManager // AudioManager instance restored
     private var musicService: MusicService? = null
     private var isBound: Boolean = false
+
+    private companion object {
+        private const val VISUALIZER_PREFS_NAME = "VisualizerPrefs"
+        private const val KEY_VISUALIZER_ENABLED = "isVisualizerManuallyEnabled"
+    }
 
     private val serviceConnection = object : ServiceConnection {
         override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
@@ -129,6 +135,27 @@ class PlayerFragment : Fragment() {
             }
         }
 
+        binding.btnToggleVisualizer.setOnClickListener {
+            val prefs = requireActivity().getSharedPreferences(VISUALIZER_PREFS_NAME, Context.MODE_PRIVATE)
+            val currentState = prefs.getBoolean(KEY_VISUALIZER_ENABLED, true) // Default true
+            val newState = !currentState
+            prefs.edit().putBoolean(KEY_VISUALIZER_ENABLED, newState).apply()
+            Log.d("PlayerFragment", "Visualizer enabled toggled to: $newState by button.")
+            Toast.makeText(requireContext(), "Visualizer ${if (newState) "On" else "Off"}", Toast.LENGTH_SHORT).show()
+            updateVisualizerToggleButtonState(newState)
+        }
+    }
+
+    private fun updateVisualizerToggleButtonState(isEnabled: Boolean) {
+        if (isEnabled) {
+            // Assuming ic_menu_view is "on" state or use a specific "eye on" icon
+            binding.btnToggleVisualizer.setImageResource(android.R.drawable.ic_menu_view) 
+            // Or use alpha: binding.btnToggleVisualizer.imageAlpha = 255
+        } else {
+            // Use a different icon for "off" state, e.g., "eye off" or change tint/alpha
+            binding.btnToggleVisualizer.setImageResource(android.R.drawable.ic_menu_close_clear_cancel) // Placeholder for "off"
+            // Or use alpha: binding.btnToggleVisualizer.imageAlpha = 128 
+        }
     }
 
     private fun setupTrackProgressSeekBar() {
@@ -191,6 +218,15 @@ class PlayerFragment : Fragment() {
         Intent(requireActivity(), MusicService::class.java).also { intent ->
             requireActivity().bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Update button state when fragment resumes, in case it was changed elsewhere
+        val prefs = requireActivity().getSharedPreferences(VISUALIZER_PREFS_NAME, Context.MODE_PRIVATE)
+        val visualizerIsEnabled = prefs.getBoolean(KEY_VISUALIZER_ENABLED, true)
+        updateVisualizerToggleButtonState(visualizerIsEnabled)
+        Log.d("PlayerFragment", "onResume: Updated visualizer toggle button state to: $visualizerIsEnabled")
     }
 
     override fun onStop() {

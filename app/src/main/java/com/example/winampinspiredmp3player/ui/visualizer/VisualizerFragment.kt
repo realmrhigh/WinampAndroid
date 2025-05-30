@@ -26,7 +26,39 @@ class VisualizerFragment : Fragment() {
     private var musicService: MusicService? = null
     private var isBound: Boolean = false
     private var videoIsPrepared: Boolean = false
-    private var isVisualizerManuallyEnabled: Boolean = true // New state variable
+    private var isVisualizerManuallyEnabled: Boolean = true // Initial default, will be overwritten in onCreate
+
+    companion object {
+        private const val VISUALIZER_PREFS_NAME = "VisualizerPrefs"
+        private const val KEY_VISUALIZER_ENABLED = "isVisualizerManuallyEnabled"
+    }
+
+    interface VisualizerVisibilityListener {
+        fun setVisualizerContainerVisible(isVisible: Boolean)
+    }
+    private var visibilityListener: VisualizerVisibilityListener? = null
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is VisualizerVisibilityListener) {
+            visibilityListener = context
+        } else {
+            throw RuntimeException("$context must implement VisualizerVisibilityListener")
+        }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        visibilityListener = null
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        // Load the persisted state for isVisualizerManuallyEnabled
+        val prefs = requireActivity().getSharedPreferences(VISUALIZER_PREFS_NAME, Context.MODE_PRIVATE)
+        isVisualizerManuallyEnabled = prefs.getBoolean(KEY_VISUALIZER_ENABLED, true) // Default to true (visible)
+        Log.d("VisualizerFragment", "onCreate: Loaded persisted isVisualizerManuallyEnabled: $isVisualizerManuallyEnabled")
+    }
 
     private val serviceConnection = object : ServiceConnection {
         override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
@@ -66,6 +98,13 @@ class VisualizerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.d("VisualizerFragment", "onViewCreated")
+
+        // Fragment's root is always visible for click handling. VideoView's visibility is toggled.
+        // binding.root.visibility = View.VISIBLE; // Default behavior, no need to set explicitly unless it was changed
+        binding.videoViewVisualizer.visibility = if (isVisualizerManuallyEnabled) View.VISIBLE else View.GONE
+        // Notify the activity of the initial state for the container, based on value loaded in onCreate
+        visibilityListener?.setVisualizerContainerVisible(isVisualizerManuallyEnabled)
+
         val videoUri =
             ("android.resource://" + requireActivity().packageName + "/" + R.raw.visualization_loop).toUri()
         binding.videoViewVisualizer.setVideoURI(videoUri)
@@ -84,12 +123,7 @@ class VisualizerFragment : Fragment() {
             true
         }
 
-        binding.videoViewVisualizer.setOnClickListener {
-            isVisualizerManuallyEnabled = !isVisualizerManuallyEnabled
-            updateVisualizerState()
-            Toast.makeText(requireContext(), "Visualizer ${if (isVisualizerManuallyEnabled) "On" else "Off"}", Toast.LENGTH_SHORT).show()
-            Log.d("VisualizerFragment", "Visualizer toggled: ${if (isVisualizerManuallyEnabled) "On" else "Off"}")
-        }
+        // Click listener on binding.root removed
     }
 
     private fun updateVisualizerState() {
@@ -136,8 +170,17 @@ class VisualizerFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        Log.d("VisualizerFragment", "onResume called.")
-        updateVisualizerState()
+        // Load the latest state from SharedPreferences, in case it was changed by PlayerFragment's button
+        val prefs = requireActivity().getSharedPreferences(VISUALIZER_PREFS_NAME, Context.MODE_PRIVATE)
+        isVisualizerManuallyEnabled = prefs.getBoolean(KEY_VISUALIZER_ENABLED, true) // Default true
+        Log.d("VisualizerFragment", "onResume: Reloaded isVisualizerManuallyEnabled: $isVisualizerManuallyEnabled")
+
+        binding.videoViewVisualizer.visibility = if (isVisualizerManuallyEnabled) View.VISIBLE else View.GONE
+        
+        // Inform MainActivity about the container visibility
+        visibilityListener?.setVisualizerContainerVisible(isVisualizerManuallyEnabled)
+        
+        updateVisualizerState() // Update animation based on potentially new state
     }
 
     override fun onPause() {

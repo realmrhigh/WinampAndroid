@@ -2,12 +2,14 @@ package com.example.winampinspiredmp3player
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import com.example.winampinspiredmp3player.databinding.ActivityMainBinding // Import ViewBinding class
 import com.example.winampinspiredmp3player.ui.player.PlayerFragment // Import PlayerFragment
 import com.example.winampinspiredmp3player.ui.playlist.PlaylistFragment // Import PlaylistFragment
 import com.example.winampinspiredmp3player.ui.visualizer.VisualizerFragment // Import VisualizerFragment
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), VisualizerFragment.VisualizerVisibilityListener {
 
     private lateinit var binding: ActivityMainBinding // Declare binding variable
 
@@ -23,5 +25,10 @@ class MainActivity : AppCompatActivity() {
                 .replace(R.id.visualizer_container, VisualizerFragment())
                 .commitNow() // or commit()
         }
+    }
+
+    override fun setVisualizerContainerVisible(isVisible: Boolean) {
+        Log.d("MainActivity", "Setting visualizer container visibility: ${if (isVisible) "VISIBLE" else "GONE"}")
+        binding.visualizerContainer.visibility = if (isVisible) View.VISIBLE else View.GONE
     }
 }
