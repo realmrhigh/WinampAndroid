@@ -8,6 +8,7 @@ import com.example.winampinspiredmp3player.databinding.ActivityMainBinding // Im
 import com.example.winampinspiredmp3player.ui.player.PlayerFragment // Import PlayerFragment
 import com.example.winampinspiredmp3player.ui.playlist.PlaylistFragment // Import PlaylistFragment
 import com.example.winampinspiredmp3player.ui.visualizer.VisualizerFragment // Import VisualizerFragment
+import android.content.Context // For SharedPreferences
 
 class MainActivity : AppCompatActivity(), VisualizerFragment.VisualizerVisibilityListener {
 
@@ -30,5 +31,24 @@ class MainActivity : AppCompatActivity(), VisualizerFragment.VisualizerVisibilit
     override fun setVisualizerContainerVisible(isVisible: Boolean) {
         Log.d("MainActivity", "Setting visualizer container visibility: ${if (isVisible) "VISIBLE" else "GONE"}")
         binding.visualizerContainer.visibility = if (isVisible) View.VISIBLE else View.GONE
+    }
+
+    fun onUserToggledVisualizerPreference() {
+        val prefs = getSharedPreferences(VisualizerFragment.VISUALIZER_PREFS_NAME, Context.MODE_PRIVATE)
+        val currentState = prefs.getBoolean(VisualizerFragment.KEY_VISUALIZER_ENABLED, true) // Default true
+        val newState = !currentState
+        prefs.edit().putBoolean(VisualizerFragment.KEY_VISUALIZER_ENABLED, newState).apply()
+        Log.d("MainActivity", "Visualizer preference toggled to: $newState by PlayerFragment button via MainActivity")
+
+        // Update MainActivity's container for the visualizer
+        setVisualizerContainerVisible(newState) // This method already exists
+
+        // Notify PlayerFragment to update its button icon
+        val playerFragment = supportFragmentManager.findFragmentById(R.id.player_controls_container) as? PlayerFragment
+        playerFragment?.updateVisualizerButtonFromMain(newState)
+
+        // Notify VisualizerFragment to refresh its internal state and view
+        val visualizerFragment = supportFragmentManager.findFragmentById(R.id.visualizer_container) as? VisualizerFragment
+        visualizerFragment?.refreshStateFromPreferences()
     }
 }

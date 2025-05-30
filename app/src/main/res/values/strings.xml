@@ -5,6 +5,7 @@
     <string name="sort_date_oldest">Date Added (Oldest First)</string>
     <string name="sort_duration_shortest">Duration (Shortest First)</string>
     <string name="sort_duration_longest">Duration (Longest First)</string>
+    <string name="hide_tracks_1_min">Hide tracks < 1 min</string> <!-- New string -->
     <string-array name="sort_options">
         <item>@string/sort_alphabetical</item>
         <item>@string/sort_date_newest</item>

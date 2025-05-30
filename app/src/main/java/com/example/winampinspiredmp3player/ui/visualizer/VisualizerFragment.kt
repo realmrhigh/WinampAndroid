@@ -29,8 +29,8 @@ class VisualizerFragment : Fragment() {
     private var isVisualizerManuallyEnabled: Boolean = true // Initial default, will be overwritten in onCreate
 
     companion object {
-        private const val VISUALIZER_PREFS_NAME = "VisualizerPrefs"
-        private const val KEY_VISUALIZER_ENABLED = "isVisualizerManuallyEnabled"
+        internal const val VISUALIZER_PREFS_NAME = "VisualizerPrefs"
+        internal const val KEY_VISUALIZER_ENABLED = "isVisualizerManuallyEnabled"
     }
 
     interface VisualizerVisibilityListener {
@@ -101,9 +101,9 @@ class VisualizerFragment : Fragment() {
 
         // Fragment's root is always visible for click handling. VideoView's visibility is toggled.
         // binding.root.visibility = View.VISIBLE; // Default behavior, no need to set explicitly unless it was changed
-        binding.videoViewVisualizer.visibility = if (isVisualizerManuallyEnabled) View.VISIBLE else View.GONE
-        // Notify the activity of the initial state for the container, based on value loaded in onCreate
-        visibilityListener?.setVisualizerContainerVisible(isVisualizerManuallyEnabled)
+        // Initial visibility and listener call will be handled by refreshStateFromPreferences()
+        // binding.videoViewVisualizer.visibility = if (isVisualizerManuallyEnabled) View.VISIBLE else View.GONE 
+        // visibilityListener?.setVisualizerContainerVisible(isVisualizerManuallyEnabled)
 
         val videoUri =
             ("android.resource://" + requireActivity().packageName + "/" + R.raw.visualization_loop).toUri()
@@ -124,6 +124,30 @@ class VisualizerFragment : Fragment() {
         }
 
         // Click listener on binding.root removed
+        refreshStateFromPreferences() // Call to set initial state based on prefs
+    }
+
+    fun refreshStateFromPreferences() { // New public method
+        if (!isAdded) {
+            Log.w("VisualizerFragment", "refreshStateFromPreferences called but fragment not added.")
+            return
+        }
+
+        val prefs = requireActivity().getSharedPreferences(VISUALIZER_PREFS_NAME, Context.MODE_PRIVATE)
+        val newIsEnabledState = prefs.getBoolean(KEY_VISUALIZER_ENABLED, true)
+        Log.d("VisualizerFragment", "refreshStateFromPreferences: Old state=$isVisualizerManuallyEnabled, New state=$newIsEnabledState")
+
+        isVisualizerManuallyEnabled = newIsEnabledState // Update the member variable
+
+        if (_binding != null) { // Ensure binding is available before accessing views
+            binding.videoViewVisualizer.visibility = if (isVisualizerManuallyEnabled) View.VISIBLE else View.GONE
+        }
+        
+        // Always inform the listener, as MainActivity's container might need an update
+        // even if isVisualizerManuallyEnabled didn't change for this fragment (e.g. during initial setup)
+        visibilityListener?.setVisualizerContainerVisible(isVisualizerManuallyEnabled)
+        
+        updateVisualizerState() // Handles animation based on the new (or same) state
     }
 
     private fun updateVisualizerState() {
@@ -170,17 +194,8 @@ class VisualizerFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        // Load the latest state from SharedPreferences, in case it was changed by PlayerFragment's button
-        val prefs = requireActivity().getSharedPreferences(VISUALIZER_PREFS_NAME, Context.MODE_PRIVATE)
-        isVisualizerManuallyEnabled = prefs.getBoolean(KEY_VISUALIZER_ENABLED, true) // Default true
-        Log.d("VisualizerFragment", "onResume: Reloaded isVisualizerManuallyEnabled: $isVisualizerManuallyEnabled")
-
-        binding.videoViewVisualizer.visibility = if (isVisualizerManuallyEnabled) View.VISIBLE else View.GONE
-        
-        // Inform MainActivity about the container visibility
-        visibilityListener?.setVisualizerContainerVisible(isVisualizerManuallyEnabled)
-        
-        updateVisualizerState() // Update animation based on potentially new state
+        Log.d("VisualizerFragment", "onResume: Calling refreshStateFromPreferences")
+        refreshStateFromPreferences()
     }
 
     override fun onPause() {

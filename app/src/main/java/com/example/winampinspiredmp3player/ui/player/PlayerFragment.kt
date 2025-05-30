@@ -28,10 +28,11 @@ class PlayerFragment : Fragment() {
     private var musicService: MusicService? = null
     private var isBound: Boolean = false
 
-    private companion object {
-        private const val VISUALIZER_PREFS_NAME = "VisualizerPrefs"
-        private const val KEY_VISUALIZER_ENABLED = "isVisualizerManuallyEnabled"
-    }
+    // SharedPreferences constants removed, will use VisualizerFragment's constants
+    // private companion object {
+    //     private const val VISUALIZER_PREFS_NAME = "VisualizerPrefs"
+    //     private const val KEY_VISUALIZER_ENABLED = "isVisualizerManuallyEnabled"
+    // }
 
     private val serviceConnection = object : ServiceConnection {
         override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
@@ -136,14 +137,15 @@ class PlayerFragment : Fragment() {
         }
 
         binding.btnToggleVisualizer.setOnClickListener {
-            val prefs = requireActivity().getSharedPreferences(VISUALIZER_PREFS_NAME, Context.MODE_PRIVATE)
-            val currentState = prefs.getBoolean(KEY_VISUALIZER_ENABLED, true) // Default true
-            val newState = !currentState
-            prefs.edit().putBoolean(KEY_VISUALIZER_ENABLED, newState).apply()
-            Log.d("PlayerFragment", "Visualizer enabled toggled to: $newState by button.")
-            Toast.makeText(requireContext(), "Visualizer ${if (newState) "On" else "Off"}", Toast.LENGTH_SHORT).show()
-            updateVisualizerToggleButtonState(newState)
+            (activity as? MainActivity)?.onUserToggledVisualizerPreference()
+            // Immediate button update might be slightly delayed if relying solely on onResume.
+            // MainActivity will call back to updateVisualizerButtonFromMain for more immediate feedback.
         }
+    }
+
+    fun updateVisualizerButtonFromMain(isEnabled: Boolean) { // New public method
+        Log.d("PlayerFragment", "Updating visualizer toggle button state from MainActivity: $isEnabled")
+        updateVisualizerToggleButtonState(isEnabled)
     }
 
     private fun updateVisualizerToggleButtonState(isEnabled: Boolean) {
@@ -222,11 +224,11 @@ class PlayerFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        // Update button state when fragment resumes, in case it was changed elsewhere
-        val prefs = requireActivity().getSharedPreferences(VISUALIZER_PREFS_NAME, Context.MODE_PRIVATE)
-        val visualizerIsEnabled = prefs.getBoolean(KEY_VISUALIZER_ENABLED, true)
+        // Update button state when fragment resumes, in case it was changed by other means or for initial setup
+        val prefs = requireActivity().getSharedPreferences(com.example.winampinspiredmp3player.ui.visualizer.VisualizerFragment.VISUALIZER_PREFS_NAME, Context.MODE_PRIVATE)
+        val visualizerIsEnabled = prefs.getBoolean(com.example.winampinspiredmp3player.ui.visualizer.VisualizerFragment.KEY_VISUALIZER_ENABLED, true)
         updateVisualizerToggleButtonState(visualizerIsEnabled)
-        Log.d("PlayerFragment", "onResume: Updated visualizer toggle button state to: $visualizerIsEnabled")
+        Log.d("PlayerFragment", "onResume: Updated visualizer toggle button state to: $visualizerIsEnabled from SharedPreferences.")
     }
 
     override fun onStop() {
