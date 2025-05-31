@@ -5,10 +5,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.DiffUtil // Import DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.winampinspiredmp3player.R
 import com.example.winampinspiredmp3player.data.Track
 import com.example.winampinspiredmp3player.databinding.ListItemTrackBinding
+import java.util.Locale // Added import for Locale
 import java.util.concurrent.TimeUnit
 
 class PlaylistAdapter(
@@ -46,18 +48,23 @@ class PlaylistAdapter(
     }
 
     fun updateTracks(newTracks: List<Track>) {
-        Log.d("PlaylistAdapter", "updateTracks: Updating tracks. New track count: ${newTracks.size}, Current internal track count before update: ${this.tracks.size}")
+        Log.d("PlaylistAdapter", "updateTracks: Updating tracks with DiffUtil. New track count: ${newTracks.size}, Current internal track count before update: ${this.tracks.size}")
 
-        // Create a copy to avoid issues if newTracks and this.tracks are the same instance
-        val tracksToAdd = ArrayList(newTracks)
+        val diffCallback = TrackDiffCallback(this.tracks, newTracks)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
 
         this.tracks.clear()
-        this.tracks.addAll(tracksToAdd) // Use the copy here
+        this.tracks.addAll(newTracks)
+        // No need to create a copy (ArrayList(newTracks)) if newTracks itself is a new list,
+        // which it should be if it's coming from a source like a LiveData update or a new scan.
+        // If newTracks could be the same instance as this.tracks, then a copy is needed before clearing.
+        // Assuming newTracks is indeed a new list.
 
         Log.d("PlaylistAdapter", "updateTracks: Internal tracks list updated. New size: ${this.tracks.size}")
-        selectedPosition = RecyclerView.NO_POSITION // Reset selection when list updates
-        notifyDataSetChanged()
-        Log.d("PlaylistAdapter", "updateTracks: notifyDataSetChanged called. Current selectedPosition: $selectedPosition")
+        diffResult.dispatchUpdatesTo(this)
+        Log.d("PlaylistAdapter", "updateTracks: dispatchUpdatesTo(this) called.")
+        selectedPosition = RecyclerView.NO_POSITION // Reset selection when list updates, this is still reasonable.
+        Log.d("PlaylistAdapter", "updateTracks: Current selectedPosition reset to: $selectedPosition")
     }
 
     fun removeItem(position: Int) {
@@ -134,7 +141,7 @@ class PlaylistAdapter(
             val minutes = TimeUnit.MILLISECONDS.toMinutes(millis)
             val seconds = TimeUnit.MILLISECONDS.toSeconds(millis) -
                     TimeUnit.MINUTES.toSeconds(minutes)
-            return String.format("%02d:%02d", minutes, seconds)
+            return String.format(Locale.US, "%02d:%02d", minutes, seconds)
         }
     }
 }

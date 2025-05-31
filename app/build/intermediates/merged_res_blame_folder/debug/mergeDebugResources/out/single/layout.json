@@ -1,26 +1,30 @@
 [
     {
-        "merged": "com.example.winampinspiredmp3player.app-mergeDebugResources-31:/layout/fragment_settings.xml",
-        "source": "com.example.winampinspiredmp3player.app-main-34:/layout/fragment_settings.xml"
+        "merged": "C:\\Users\\stant\\.gradle\\daemon\\8.12\\com.example.winampinspiredmp3player.app-mergeDebugResources-31:\\layout\\fragment_visualizer.xml",
+        "source": "C:\\Users\\stant\\.gradle\\daemon\\8.12\\com.example.winampinspiredmp3player.app-main-34:\\layout\\fragment_visualizer.xml"
     },
     {
-        "merged": "com.example.winampinspiredmp3player.app-mergeDebugResources-31:/layout/fragment_visualizer.xml",
-        "source": "com.example.winampinspiredmp3player.app-main-34:/layout/fragment_visualizer.xml"
+        "merged": "C:\\Users\\stant\\.gradle\\daemon\\8.12\\com.example.winampinspiredmp3player.app-mergeDebugResources-31:\\layout\\fragment_player.xml",
+        "source": "C:\\Users\\stant\\.gradle\\daemon\\8.12\\com.example.winampinspiredmp3player.app-main-34:\\layout\\fragment_player.xml"
     },
     {
-        "merged": "com.example.winampinspiredmp3player.app-mergeDebugResources-31:/layout/activity_main.xml",
-        "source": "com.example.winampinspiredmp3player.app-main-34:/layout/activity_main.xml"
+        "merged": "C:\\Users\\stant\\.gradle\\daemon\\8.12\\com.example.winampinspiredmp3player.app-mergeDebugResources-31:\\layout\\fragment_settings.xml",
+        "source": "C:\\Users\\stant\\.gradle\\daemon\\8.12\\com.example.winampinspiredmp3player.app-main-34:\\layout\\fragment_settings.xml"
     },
     {
-        "merged": "com.example.winampinspiredmp3player.app-mergeDebugResources-31:/layout/list_item_track.xml",
-        "source": "com.example.winampinspiredmp3player.app-main-34:/layout/list_item_track.xml"
+        "merged": "C:\\Users\\stant\\.gradle\\daemon\\8.12\\com.example.winampinspiredmp3player.app-mergeDebugResources-31:\\layout\\fragment_playlist.xml",
+        "source": "C:\\Users\\stant\\.gradle\\daemon\\8.12\\com.example.winampinspiredmp3player.app-main-34:\\layout\\fragment_playlist.xml"
     },
     {
-        "merged": "com.example.winampinspiredmp3player.app-mergeDebugResources-31:/layout/fragment_player.xml",
-        "source": "com.example.winampinspiredmp3player.app-main-34:/layout/fragment_player.xml"
+        "merged": "C:\\Users\\stant\\.gradle\\daemon\\8.12\\com.example.winampinspiredmp3player.app-mergeDebugResources-31:\\layout\\list_item_track.xml",
+        "source": "C:\\Users\\stant\\.gradle\\daemon\\8.12\\com.example.winampinspiredmp3player.app-main-34:\\layout\\list_item_track.xml"
     },
     {
         "merged": "com.example.winampinspiredmp3player.app-mergeDebugResources-31:/layout/fragment_playlist.xml",
         "source": "com.example.winampinspiredmp3player.app-main-34:/layout/fragment_playlist.xml"
+    },
+    {
+        "merged": "C:\\Users\\stant\\.gradle\\daemon\\8.12\\com.example.winampinspiredmp3player.app-mergeDebugResources-31:\\layout\\activity_main.xml",
+        "source": "C:\\Users\\stant\\.gradle\\daemon\\8.12\\com.example.winampinspiredmp3player.app-main-34:\\layout\\activity_main.xml"
     }
 ]
