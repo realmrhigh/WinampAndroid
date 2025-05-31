@@ -14,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
@@ -74,6 +75,12 @@ class SettingsFragment : Fragment() {
         setupVisualizerSwitch()
         setupAutoLoadMusicSwitch()
         setupAutoSaveStateSwitch()
+
+        // Setup Close Settings button
+        val closeButton = view.findViewById<Button>(R.id.btn_close_settings)
+        closeButton?.setOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
