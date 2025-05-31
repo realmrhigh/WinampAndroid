@@ -13,6 +13,7 @@ import com.example.winampinspiredmp3player.ui.playlist.PlaylistFragment // Impor
 import com.example.winampinspiredmp3player.ui.settings.SettingsFragment // Import SettingsFragment
 import com.example.winampinspiredmp3player.ui.visualizer.VisualizerFragment // Import VisualizerFragment
 import android.content.Context // For SharedPreferences
+import androidx.core.content.edit
 
 class MainActivity : AppCompatActivity(), VisualizerFragment.VisualizerVisibilityListener {
 
@@ -60,7 +61,7 @@ class MainActivity : AppCompatActivity(), VisualizerFragment.VisualizerVisibilit
     }
 
     override fun setVisualizerContainerVisible(isVisible: Boolean) {
-        Log.d("MainActivity", "setVisualizerContainerVisible: Setting visualizer_container visibility to ${if (isVisible) "VISIBLE" else "GONE"}. Current visibility: ${binding.visualizerContainer.visibility}");
+        Log.d("MainActivity", "setVisualizerContainerVisible: Setting visualizer_container visibility to ${if (isVisible) "VISIBLE" else "GONE"}. Current visibility: ${binding.visualizerContainer.visibility}")
         binding.visualizerContainer.visibility = if (isVisible) View.VISIBLE else View.GONE
     }
 
@@ -70,23 +71,23 @@ class MainActivity : AppCompatActivity(), VisualizerFragment.VisualizerVisibilit
         // though SettingsFragment is now responsible for initializing it to false.
         // For consistency in toggling, if it's missing, assuming it was 'false' (hidden) is safer.
         val currentState = prefs.getBoolean(VisualizerFragment.KEY_VISUALIZER_ENABLED, false) // Default false
-        Log.d("MainActivity", "onUserToggledVisualizerPreference: Current state from Prefs: $currentState");
+        Log.d("MainActivity", "onUserToggledVisualizerPreference: Current state from Prefs: $currentState")
         val newState = !currentState
-        Log.d("MainActivity", "onUserToggledVisualizerPreference: New state to save: $newState");
-        prefs.edit().putBoolean(VisualizerFragment.KEY_VISUALIZER_ENABLED, newState).apply()
-        Log.d("MainActivity", "onUserToggledVisualizerPreference: Saved new state to Prefs.");
+        Log.d("MainActivity", "onUserToggledVisualizerPreference: New state to save: $newState")
+        prefs.edit { putBoolean(VisualizerFragment.KEY_VISUALIZER_ENABLED, newState) }
+        Log.d("MainActivity", "onUserToggledVisualizerPreference: Saved new state to Prefs.")
 
         // Update MainActivity's container for the visualizer
-        Log.d("MainActivity", "onUserToggledVisualizerPreference: Calling setVisualizerContainerVisible($newState).");
+        Log.d("MainActivity", "onUserToggledVisualizerPreference: Calling setVisualizerContainerVisible($newState).")
         setVisualizerContainerVisible(newState) // This method already exists
 
         // Notify PlayerFragment to update its button icon
-        Log.d("MainActivity", "onUserToggledVisualizerPreference: Calling playerFragment.updateVisualizerButtonFromMain($newState).");
+        Log.d("MainActivity", "onUserToggledVisualizerPreference: Calling playerFragment.updateVisualizerButtonFromMain($newState).")
         val playerFragment = supportFragmentManager.findFragmentById(R.id.player_controls_container) as? PlayerFragment
         playerFragment?.updateVisualizerButtonFromMain(newState)
 
         // Notify VisualizerFragment to refresh its internal state and view
-        Log.d("MainActivity", "onUserToggledVisualizerPreference: Calling visualizerFragment.refreshStateFromPreferences().");
+        Log.d("MainActivity", "onUserToggledVisualizerPreference: Calling visualizerFragment.refreshStateFromPreferences().")
         val visualizerFragment = supportFragmentManager.findFragmentById(R.id.visualizer_container) as? VisualizerFragment
         visualizerFragment?.refreshStateFromPreferences()
     }

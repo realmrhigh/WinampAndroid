@@ -32,7 +32,7 @@ public final class FragmentPlayerBinding implements ViewBinding {
   public final ImageButton btnPreviousTrack;
 
   @NonNull
-  public final ImageButton btnStopTrack;
+  public final ImageButton btnToggleShufflePlayer;
 
   @NonNull
   public final ImageButton btnToggleVisualizer;
@@ -48,14 +48,14 @@ public final class FragmentPlayerBinding implements ViewBinding {
 
   private FragmentPlayerBinding(@NonNull ConstraintLayout rootView,
       @NonNull ImageButton btnNextTrack, @NonNull ImageButton btnPlayPause,
-      @NonNull ImageButton btnPreviousTrack, @NonNull ImageButton btnStopTrack,
+      @NonNull ImageButton btnPreviousTrack, @NonNull ImageButton btnToggleShufflePlayer,
       @NonNull ImageButton btnToggleVisualizer, @NonNull LinearLayout layoutPlayerControls,
       @NonNull SeekBar sbTrackProgress, @NonNull TextView tvCurrentTrackInfo) {
     this.rootView = rootView;
     this.btnNextTrack = btnNextTrack;
     this.btnPlayPause = btnPlayPause;
     this.btnPreviousTrack = btnPreviousTrack;
-    this.btnStopTrack = btnStopTrack;
+    this.btnToggleShufflePlayer = btnToggleShufflePlayer;
     this.btnToggleVisualizer = btnToggleVisualizer;
     this.layoutPlayerControls = layoutPlayerControls;
     this.sbTrackProgress = sbTrackProgress;
@@ -107,9 +107,9 @@ public final class FragmentPlayerBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.btn_stop_track;
-      ImageButton btnStopTrack = ViewBindings.findChildViewById(rootView, id);
-      if (btnStopTrack == null) {
+      id = R.id.btn_toggle_shuffle_player;
+      ImageButton btnToggleShufflePlayer = ViewBindings.findChildViewById(rootView, id);
+      if (btnToggleShufflePlayer == null) {
         break missingId;
       }
 
@@ -138,7 +138,7 @@ public final class FragmentPlayerBinding implements ViewBinding {
       }
 
       return new FragmentPlayerBinding((ConstraintLayout) rootView, btnNextTrack, btnPlayPause,
-          btnPreviousTrack, btnStopTrack, btnToggleVisualizer, layoutPlayerControls,
+          btnPreviousTrack, btnToggleShufflePlayer, btnToggleVisualizer, layoutPlayerControls,
           sbTrackProgress, tvCurrentTrackInfo);
     }
     String missingId = rootView.getResources().getResourceName(id);

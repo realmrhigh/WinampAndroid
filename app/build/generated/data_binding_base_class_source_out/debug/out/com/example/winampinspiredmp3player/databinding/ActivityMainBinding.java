@@ -5,9 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
+import android.widget.ImageButton;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.example.winampinspiredmp3player.R;
@@ -17,7 +18,10 @@ import java.lang.String;
 
 public final class ActivityMainBinding implements ViewBinding {
   @NonNull
-  private final LinearLayout rootView;
+  private final ConstraintLayout rootView;
+
+  @NonNull
+  public final ImageButton btnMainSettings;
 
   @NonNull
   public final FrameLayout playerControlsContainer;
@@ -28,10 +32,11 @@ public final class ActivityMainBinding implements ViewBinding {
   @NonNull
   public final FrameLayout visualizerContainer;
 
-  private ActivityMainBinding(@NonNull LinearLayout rootView,
-      @NonNull FrameLayout playerControlsContainer, @NonNull FrameLayout playlistContainer,
-      @NonNull FrameLayout visualizerContainer) {
+  private ActivityMainBinding(@NonNull ConstraintLayout rootView,
+      @NonNull ImageButton btnMainSettings, @NonNull FrameLayout playerControlsContainer,
+      @NonNull FrameLayout playlistContainer, @NonNull FrameLayout visualizerContainer) {
     this.rootView = rootView;
+    this.btnMainSettings = btnMainSettings;
     this.playerControlsContainer = playerControlsContainer;
     this.playlistContainer = playlistContainer;
     this.visualizerContainer = visualizerContainer;
@@ -39,7 +44,7 @@ public final class ActivityMainBinding implements ViewBinding {
 
   @Override
   @NonNull
-  public LinearLayout getRoot() {
+  public ConstraintLayout getRoot() {
     return rootView;
   }
 
@@ -64,6 +69,12 @@ public final class ActivityMainBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
+      id = R.id.btn_main_settings;
+      ImageButton btnMainSettings = ViewBindings.findChildViewById(rootView, id);
+      if (btnMainSettings == null) {
+        break missingId;
+      }
+
       id = R.id.player_controls_container;
       FrameLayout playerControlsContainer = ViewBindings.findChildViewById(rootView, id);
       if (playerControlsContainer == null) {
@@ -82,8 +93,8 @@ public final class ActivityMainBinding implements ViewBinding {
         break missingId;
       }
 
-      return new ActivityMainBinding((LinearLayout) rootView, playerControlsContainer,
-          playlistContainer, visualizerContainer);
+      return new ActivityMainBinding((ConstraintLayout) rootView, btnMainSettings,
+          playerControlsContainer, playlistContainer, visualizerContainer);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

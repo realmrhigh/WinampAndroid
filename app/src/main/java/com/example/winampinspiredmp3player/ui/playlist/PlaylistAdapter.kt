@@ -20,14 +20,14 @@ class PlaylistAdapter(
     private var selectedPosition = RecyclerView.NO_POSITION
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackViewHolder {
-        Log.d("PlaylistAdapter", "onCreateViewHolder: Creating new view holder.");
+        Log.d("PlaylistAdapter", "onCreateViewHolder: Creating new view holder.")
         val binding = ListItemTrackBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return TrackViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: TrackViewHolder, position: Int) {
         val track = tracks[position]
-        Log.d("PlaylistAdapter", "onBindViewHolder: Binding view holder for position $position, Track: ${track.title}");
+        Log.d("PlaylistAdapter", "onBindViewHolder: Binding view holder for position $position, Track: ${track.title}")
         holder.bind(track, position == selectedPosition)
 
         holder.itemView.setOnClickListener {
@@ -41,12 +41,12 @@ class PlaylistAdapter(
     }
 
     override fun getItemCount(): Int {
-        Log.d("PlaylistAdapter", "getItemCount: Returning ${tracks.size}");
+        Log.d("PlaylistAdapter", "getItemCount: Returning ${tracks.size}")
         return tracks.size
     }
 
     fun updateTracks(newTracks: List<Track>) {
-        Log.d("PlaylistAdapter", "updateTracks: Updating tracks. New track count: ${newTracks.size}, Current internal track count before update: ${this.tracks.size}");
+        Log.d("PlaylistAdapter", "updateTracks: Updating tracks. New track count: ${newTracks.size}, Current internal track count before update: ${this.tracks.size}")
 
         // Create a copy to avoid issues if newTracks and this.tracks are the same instance
         val tracksToAdd = ArrayList(newTracks)
@@ -54,10 +54,10 @@ class PlaylistAdapter(
         this.tracks.clear()
         this.tracks.addAll(tracksToAdd) // Use the copy here
 
-        Log.d("PlaylistAdapter", "updateTracks: Internal tracks list updated. New size: ${this.tracks.size}");
+        Log.d("PlaylistAdapter", "updateTracks: Internal tracks list updated. New size: ${this.tracks.size}")
         selectedPosition = RecyclerView.NO_POSITION // Reset selection when list updates
         notifyDataSetChanged()
-        Log.d("PlaylistAdapter", "updateTracks: notifyDataSetChanged called. Current selectedPosition: $selectedPosition");
+        Log.d("PlaylistAdapter", "updateTracks: notifyDataSetChanged called. Current selectedPosition: $selectedPosition")
     }
 
     fun removeItem(position: Int) {

@@ -5,6 +5,7 @@ import android.content.ContentUris
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
@@ -15,6 +16,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.winampinspiredmp3player.MainActivity
@@ -23,6 +25,7 @@ import com.example.winampinspiredmp3player.data.Track // Assuming Track data cla
 import com.example.winampinspiredmp3player.databinding.FragmentSettingsBinding
 import com.example.winampinspiredmp3player.ui.playlist.PlaylistFragment // For accessing its constants
 import com.example.winampinspiredmp3player.ui.visualizer.VisualizerFragment // For accessing its constants
+import androidx.core.content.edit
 
 class SettingsFragment : Fragment() {
 
@@ -57,6 +60,7 @@ class SettingsFragment : Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -72,6 +76,7 @@ class SettingsFragment : Fragment() {
         setupAutoSaveStateSwitch()
     }
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private fun setupScanMusicButton() {
         binding.btnScanMusicSettings.setOnClickListener {
             checkAndRequestPermission()
@@ -99,7 +104,7 @@ class SettingsFragment : Fragment() {
         binding.spinnerSortOptionsSettings.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                 val selectedOption = parent.getItemAtPosition(position).toString()
-                playlistPrefs.edit().putString(PlaylistFragment.KEY_SORT_OPTION, selectedOption).apply()
+                playlistPrefs.edit { putString(PlaylistFragment.KEY_SORT_OPTION, selectedOption) }
                 Log.d("SettingsFragment", "Saved sort option: $selectedOption")
             }
 
@@ -116,7 +121,12 @@ class SettingsFragment : Fragment() {
 
         // Set listener for state changes
         binding.switchVisualizerEnabled.setOnCheckedChangeListener { _, isChecked ->
-            visualizerPrefs.edit().putBoolean(VisualizerFragment.KEY_VISUALIZER_ENABLED, isChecked).apply()
+            visualizerPrefs.edit {
+                putBoolean(
+                    VisualizerFragment.KEY_VISUALIZER_ENABLED,
+                    isChecked
+                )
+            }
             Log.d("SettingsFragment", "Saved visualizer enabled: $isChecked")
             (activity as? MainActivity)?.onUserToggledVisualizerPreference()
         }
@@ -129,7 +139,7 @@ class SettingsFragment : Fragment() {
 
         // Set listener for state changes
         binding.switchAutoLoadMusic.setOnCheckedChangeListener { _, isChecked ->
-            playlistPrefs.edit().putBoolean(PlaylistFragment.KEY_AUTO_SCAN_ON_STARTUP, isChecked).apply()
+            playlistPrefs.edit { putBoolean(PlaylistFragment.KEY_AUTO_SCAN_ON_STARTUP, isChecked) }
             Log.d("SettingsFragment", "Saved auto-load music: $isChecked")
         }
     }
@@ -141,11 +151,12 @@ class SettingsFragment : Fragment() {
 
         // Set listener for state changes
         binding.switchAutoSaveState.setOnCheckedChangeListener { _, isChecked ->
-            playerPrefs.edit().putBoolean(KEY_AUTO_SAVE_STATE, isChecked).apply()
+            playerPrefs.edit { putBoolean(KEY_AUTO_SAVE_STATE, isChecked) }
             Log.d("SettingsFragment", "Saved auto-save state: $isChecked")
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private fun checkAndRequestPermission() {
         when {
             ContextCompat.checkSelfPermission(

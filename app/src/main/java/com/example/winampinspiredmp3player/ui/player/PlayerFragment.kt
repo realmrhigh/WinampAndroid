@@ -141,7 +141,7 @@ class PlayerFragment : Fragment() {
         }
 
         binding.btnToggleVisualizer.setOnClickListener {
-            Log.d("PlayerFragment", "btn_toggle_visualizer clicked. Calling MainActivity.onUserToggledVisualizerPreference().");
+            Log.d("PlayerFragment", "btn_toggle_visualizer clicked. Calling MainActivity.onUserToggledVisualizerPreference().")
             (activity as? MainActivity)?.onUserToggledVisualizerPreference()
             // Immediate button update might be slightly delayed if relying solely on onResume.
             // MainActivity will call back to updateVisualizerButtonFromMain for more immediate feedback.
@@ -149,7 +149,7 @@ class PlayerFragment : Fragment() {
     }
 
     fun updateVisualizerButtonFromMain(isEnabled: Boolean) { // New public method
-        Log.d("PlayerFragment", "updateVisualizerButtonFromMain called by MainActivity. New state: $isEnabled. Updating button icon.");
+        Log.d("PlayerFragment", "updateVisualizerButtonFromMain called by MainActivity. New state: $isEnabled. Updating button icon.")
         updateVisualizerToggleButtonState(isEnabled)
     }
 
@@ -232,7 +232,7 @@ class PlayerFragment : Fragment() {
         // Update button state when fragment resumes, in case it was changed by other means or for initial setup
         val prefs = requireActivity().getSharedPreferences(com.example.winampinspiredmp3player.ui.visualizer.VisualizerFragment.VISUALIZER_PREFS_NAME, Context.MODE_PRIVATE)
         val visualizerIsEnabled = prefs.getBoolean(com.example.winampinspiredmp3player.ui.visualizer.VisualizerFragment.KEY_VISUALIZER_ENABLED, false) // Default changed to false
-        Log.d("PlayerFragment", "onResume: Visualizer state from Prefs: $visualizerIsEnabled. Updating button icon.");
+        Log.d("PlayerFragment", "onResume: Visualizer state from Prefs: $visualizerIsEnabled. Updating button icon.")
         updateVisualizerToggleButtonState(visualizerIsEnabled)
 
         // Update shuffle button state on resume

@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
 import android.provider.MediaStore
@@ -18,6 +19,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -90,7 +92,7 @@ class PlaylistFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        Log.d("PlaylistFragment", "onViewCreated: View creation started.");
+        Log.d("PlaylistFragment", "onViewCreated: View creation started.")
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView() // Initialize adapter here
         // setupSortSpinner() // Removed
@@ -107,15 +109,17 @@ class PlaylistFragment : Fragment() {
         }
 
         // checkAndRequestPermission() // Removed direct call, will be handled in onResume based on preference
-        Log.d("PlaylistFragment", "onViewCreated: Basic setup complete. Preference-based actions in onResume.");
+        Log.d("PlaylistFragment", "onViewCreated: Basic setup complete. Preference-based actions in onResume.")
     }
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onResume() {
         super.onResume()
         Log.d("PlaylistFragment", "onResume: Loading preferences and updating playlist.")
         loadPreferencesAndApply()
     }
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private fun loadPreferencesAndApply() {
         val prefs = requireActivity().getSharedPreferences(PLAYLIST_PREFS_NAME, Context.MODE_PRIVATE)
 
@@ -220,10 +224,11 @@ class PlaylistFragment : Fragment() {
             adapter = playlistAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
-        Log.d("PlaylistFragment", "setupRecyclerView: PlaylistAdapter initialized. Initial item count from musicTracks: ${musicTracks.size}");
-        Log.d("PlaylistFragment", "setupRecyclerView: RecyclerView setup complete. Adapter item count: ${binding.rvPlaylist.adapter?.itemCount}");
+        Log.d("PlaylistFragment", "setupRecyclerView: PlaylistAdapter initialized. Initial item count from musicTracks: ${musicTracks.size}")
+        Log.d("PlaylistFragment", "setupRecyclerView: RecyclerView setup complete. Adapter item count: ${binding.rvPlaylist.adapter?.itemCount}")
     }
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private fun checkAndRequestPermission() {
         when {
             ContextCompat.checkSelfPermission(
@@ -259,7 +264,7 @@ class PlaylistFragment : Fragment() {
         val selection: String? = null
         val selectionArgs: Array<String>? = null
 
-        Log.d("PlaylistFragment", "scanForMusicFiles: Starting scan. URI: ${MediaStore.Audio.Media.EXTERNAL_CONTENT_URI}");
+        Log.d("PlaylistFragment", "scanForMusicFiles: Starting scan. URI: ${MediaStore.Audio.Media.EXTERNAL_CONTENT_URI}")
         val query = requireContext().contentResolver.query(
             MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
             projection,
@@ -291,7 +296,7 @@ class PlaylistFragment : Fragment() {
                 )
                 val track = Track(contentUri, title, artist, duration, fileName, dateAdded)
                 currentTracks.add(track)
-                Log.d("PlaylistFragment", "scanForMusicFiles: Found track: ${track.title} - ${track.fileName}, DateAdded: ${track.dateAdded}");
+                Log.d("PlaylistFragment", "scanForMusicFiles: Found track: ${track.title} - ${track.fileName}, DateAdded: ${track.dateAdded}")
 
                 if (tracksLogged < 3) { // Log first 3 tracks for verification
                     Log.d("PlaylistFragment", "Sample Track ${tracksLogged + 1}: URI=${track.uri}, Title=${track.title}, Artist=${track.artist}, Duration=${track.duration}, FileName=${track.fileName}, DateAdded=${track.dateAdded}")
@@ -299,7 +304,7 @@ class PlaylistFragment : Fragment() {
                 }
             }
         }
-        Log.d("PlaylistFragment", "scanForMusicFiles: Scan complete. Found ${currentTracks.size} tracks initially.");
+        Log.d("PlaylistFragment", "scanForMusicFiles: Scan complete. Found ${currentTracks.size} tracks initially.")
 
         allScannedTracks.clear()
         allScannedTracks.addAll(currentTracks) // Store all scanned tracks
@@ -327,11 +332,11 @@ class PlaylistFragment : Fragment() {
         // Display toast based on the final musicTracks list (which is what the adapter shows)
         if (musicTracks.isEmpty()) {
             Toast.makeText(requireContext(), "No music files to display.", Toast.LENGTH_SHORT).show()
-            Log.d("PlaylistFragment", "applyFiltersAndRefreshList: No music files to display message shown.");
+            Log.d("PlaylistFragment", "applyFiltersAndRefreshList: No music files to display message shown.")
         } else {
             // Toast for scan completion is already shown in scanForMusicFiles,
             // this log is for after filtering/sorting.
-            Log.d("PlaylistFragment", "applyFiltersAndRefreshList: Playlist updated. Displaying ${musicTracks.size} tracks.");
+            Log.d("PlaylistFragment", "applyFiltersAndRefreshList: Playlist updated. Displaying ${musicTracks.size} tracks.")
         }
     }
 

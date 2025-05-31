@@ -4,8 +4,6 @@ package com.example.winampinspiredmp3player.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.Spinner;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SwitchCompat;
@@ -23,29 +21,15 @@ public final class FragmentPlaylistBinding implements ViewBinding {
   private final ConstraintLayout rootView;
 
   @NonNull
-  public final ImageButton btnScanMusic;
-
-  @NonNull
-  public final ImageButton btnToggleShuffle;
-
-  @NonNull
   public final RecyclerView rvPlaylist;
-
-  @NonNull
-  public final Spinner spinnerSortOptions;
 
   @NonNull
   public final SwitchCompat switchFilterShortTracks;
 
   private FragmentPlaylistBinding(@NonNull ConstraintLayout rootView,
-      @NonNull ImageButton btnScanMusic, @NonNull ImageButton btnToggleShuffle,
-      @NonNull RecyclerView rvPlaylist, @NonNull Spinner spinnerSortOptions,
-      @NonNull SwitchCompat switchFilterShortTracks) {
+      @NonNull RecyclerView rvPlaylist, @NonNull SwitchCompat switchFilterShortTracks) {
     this.rootView = rootView;
-    this.btnScanMusic = btnScanMusic;
-    this.btnToggleShuffle = btnToggleShuffle;
     this.rvPlaylist = rvPlaylist;
-    this.spinnerSortOptions = spinnerSortOptions;
     this.switchFilterShortTracks = switchFilterShortTracks;
   }
 
@@ -76,27 +60,9 @@ public final class FragmentPlaylistBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
-      id = R.id.btn_scan_music;
-      ImageButton btnScanMusic = ViewBindings.findChildViewById(rootView, id);
-      if (btnScanMusic == null) {
-        break missingId;
-      }
-
-      id = R.id.btn_toggle_shuffle;
-      ImageButton btnToggleShuffle = ViewBindings.findChildViewById(rootView, id);
-      if (btnToggleShuffle == null) {
-        break missingId;
-      }
-
       id = R.id.rv_playlist;
       RecyclerView rvPlaylist = ViewBindings.findChildViewById(rootView, id);
       if (rvPlaylist == null) {
-        break missingId;
-      }
-
-      id = R.id.spinner_sort_options;
-      Spinner spinnerSortOptions = ViewBindings.findChildViewById(rootView, id);
-      if (spinnerSortOptions == null) {
         break missingId;
       }
 
@@ -106,8 +72,8 @@ public final class FragmentPlaylistBinding implements ViewBinding {
         break missingId;
       }
 
-      return new FragmentPlaylistBinding((ConstraintLayout) rootView, btnScanMusic,
-          btnToggleShuffle, rvPlaylist, spinnerSortOptions, switchFilterShortTracks);
+      return new FragmentPlaylistBinding((ConstraintLayout) rootView, rvPlaylist,
+          switchFilterShortTracks);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

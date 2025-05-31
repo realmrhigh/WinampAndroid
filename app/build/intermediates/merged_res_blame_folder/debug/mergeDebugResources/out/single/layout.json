@@ -1,5 +1,9 @@
 [
     {
+        "merged": "com.example.winampinspiredmp3player.app-mergeDebugResources-31:/layout/fragment_settings.xml",
+        "source": "com.example.winampinspiredmp3player.app-main-34:/layout/fragment_settings.xml"
+    },
+    {
         "merged": "com.example.winampinspiredmp3player.app-mergeDebugResources-31:/layout/fragment_visualizer.xml",
         "source": "com.example.winampinspiredmp3player.app-main-34:/layout/fragment_visualizer.xml"
     },

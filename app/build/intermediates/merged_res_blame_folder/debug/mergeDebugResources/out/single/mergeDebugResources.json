@@ -20,8 +20,16 @@
         "source": "com.example.winampinspiredmp3player.app-main-34:/drawable/eject.png"
     },
     {
+        "merged": "com.example.winampinspiredmp3player.app-debug-32:/layout_fragment_settings.xml.flat",
+        "source": "com.example.winampinspiredmp3player.app-main-34:/layout/fragment_settings.xml"
+    },
+    {
         "merged": "com.example.winampinspiredmp3player.app-debug-32:/layout_fragment_player.xml.flat",
         "source": "com.example.winampinspiredmp3player.app-main-34:/layout/fragment_player.xml"
+    },
+    {
+        "merged": "com.example.winampinspiredmp3player.app-debug-32:/menu_main_menu.xml.flat",
+        "source": "com.example.winampinspiredmp3player.app-main-34:/menu/main_menu.xml"
     },
     {
         "merged": "com.example.winampinspiredmp3player.app-debug-32:/mipmap-anydpi-v26_ic_launcher.xml.flat",

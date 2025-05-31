@@ -73,13 +73,13 @@
             android:contentDescription="Next Track" />
 
         <ImageButton
-            android:id="@+id/btn_stop_track"
+            android:id="@+id/btn_toggle_shuffle_player"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_pause"
+            android:src="@android:drawable/ic_menu_rotate"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:padding="36dp"
-            android:contentDescription="Pause Track" />
+            android:contentDescription="Toggle Shuffle" />
 
         <ImageButton
             android:id="@+id/btn_toggle_visualizer"

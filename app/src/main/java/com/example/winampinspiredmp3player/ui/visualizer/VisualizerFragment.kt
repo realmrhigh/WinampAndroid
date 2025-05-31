@@ -57,7 +57,7 @@ class VisualizerFragment : Fragment() {
         // Load the persisted state for isVisualizerManuallyEnabled
         val prefs = requireActivity().getSharedPreferences(VISUALIZER_PREFS_NAME, Context.MODE_PRIVATE)
         isVisualizerManuallyEnabled = prefs.getBoolean(KEY_VISUALIZER_ENABLED, false) // Default to false (hidden)
-        Log.d("VisualizerFragment", "onCreate: Initial isVisualizerManuallyEnabled loaded from Prefs: $isVisualizerManuallyEnabled");
+        Log.d("VisualizerFragment", "onCreate: Initial isVisualizerManuallyEnabled loaded from Prefs: $isVisualizerManuallyEnabled")
     }
 
     private val serviceConnection = object : ServiceConnection {
@@ -104,7 +104,7 @@ class VisualizerFragment : Fragment() {
         // Initial visibility and listener call will be handled by refreshStateFromPreferences()
         // binding.videoViewVisualizer.visibility = if (isVisualizerManuallyEnabled) View.VISIBLE else View.GONE
         // visibilityListener?.setVisualizerContainerVisible(isVisualizerManuallyEnabled)
-        Log.d("VisualizerFragment", "onViewCreated: Will call refreshStateFromPreferences for initial setup. isVisualizerManuallyEnabled from onCreate: $isVisualizerManuallyEnabled");
+        Log.d("VisualizerFragment", "onViewCreated: Will call refreshStateFromPreferences for initial setup. isVisualizerManuallyEnabled from onCreate: $isVisualizerManuallyEnabled")
 
         val videoUri =
             ("android.resource://" + requireActivity().packageName + "/" + R.raw.visualization_loop).toUri()
@@ -129,7 +129,7 @@ class VisualizerFragment : Fragment() {
     }
 
     fun refreshStateFromPreferences() { // New public method
-        Log.d("VisualizerFragment", "refreshStateFromPreferences called.");
+        Log.d("VisualizerFragment", "refreshStateFromPreferences called.")
         if (!isAdded) {
             Log.w("VisualizerFragment", "refreshStateFromPreferences called but fragment not added.")
             return
@@ -137,19 +137,19 @@ class VisualizerFragment : Fragment() {
 
         val prefs = requireActivity().getSharedPreferences(VISUALIZER_PREFS_NAME, Context.MODE_PRIVATE)
         val newIsEnabledState = prefs.getBoolean(KEY_VISUALIZER_ENABLED, false) // Default to false (hidden)
-        Log.d("VisualizerFragment", "refreshStateFromPreferences: State from Prefs: $newIsEnabledState. Current field val: $isVisualizerManuallyEnabled");
+        Log.d("VisualizerFragment", "refreshStateFromPreferences: State from Prefs: $newIsEnabledState. Current field val: $isVisualizerManuallyEnabled")
 
         isVisualizerManuallyEnabled = newIsEnabledState // Update the member variable
-        Log.d("VisualizerFragment", "refreshStateFromPreferences: isVisualizerManuallyEnabled field updated to: $isVisualizerManuallyEnabled");
+        Log.d("VisualizerFragment", "refreshStateFromPreferences: isVisualizerManuallyEnabled field updated to: $isVisualizerManuallyEnabled")
 
         if (_binding != null) { // Ensure binding is available before accessing views
-            Log.d("VisualizerFragment", "refreshStateFromPreferences: Setting VideoView visibility based on: $isVisualizerManuallyEnabled");
+            Log.d("VisualizerFragment", "refreshStateFromPreferences: Setting VideoView visibility based on: $isVisualizerManuallyEnabled")
             binding.videoViewVisualizer.visibility = if (isVisualizerManuallyEnabled) View.VISIBLE else View.GONE
         }
 
         // Always inform the listener, as MainActivity's container might need an update
         // even if isVisualizerManuallyEnabled didn't change for this fragment (e.g. during initial setup)
-        Log.d("VisualizerFragment", "refreshStateFromPreferences: Calling visibilityListener.setVisualizerContainerVisible($isVisualizerManuallyEnabled)");
+        Log.d("VisualizerFragment", "refreshStateFromPreferences: Calling visibilityListener.setVisualizerContainerVisible($isVisualizerManuallyEnabled)")
         visibilityListener?.setVisualizerContainerVisible(isVisualizerManuallyEnabled)
 
         updateVisualizerState() // Handles animation based on the new (or same) state
@@ -199,7 +199,7 @@ class VisualizerFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        Log.d("VisualizerFragment", "onResume: Will call refreshStateFromPreferences.");
+        Log.d("VisualizerFragment", "onResume: Will call refreshStateFromPreferences.")
         refreshStateFromPreferences()
     }
 
