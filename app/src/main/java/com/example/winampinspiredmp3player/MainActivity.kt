@@ -3,10 +3,14 @@ package com.example.winampinspiredmp3player
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import com.example.winampinspiredmp3player.databinding.ActivityMainBinding // Import ViewBinding class
 import com.example.winampinspiredmp3player.ui.player.PlayerFragment // Import PlayerFragment
 import com.example.winampinspiredmp3player.ui.playlist.PlaylistFragment // Import PlaylistFragment
+import com.example.winampinspiredmp3player.ui.settings.SettingsFragment // Import SettingsFragment
 import com.example.winampinspiredmp3player.ui.visualizer.VisualizerFragment // Import VisualizerFragment
 import android.content.Context // For SharedPreferences
 
@@ -26,6 +30,33 @@ class MainActivity : AppCompatActivity(), VisualizerFragment.VisualizerVisibilit
                 .replace(R.id.visualizer_container, VisualizerFragment())
                 .commitNow() // or commit()
         }
+
+        binding.btnMainSettings.setOnClickListener {
+            navigateToSettings()
+        }
+    }
+
+    private fun navigateToSettings() {
+        supportFragmentManager.beginTransaction()
+            .replace(android.R.id.content, SettingsFragment())
+            .addToBackStack(null) // Optional: Add to back stack
+            .commit()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.main_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_settings -> {
+                navigateToSettings()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     override fun setVisualizerContainerVisible(isVisible: Boolean) {
@@ -35,7 +66,10 @@ class MainActivity : AppCompatActivity(), VisualizerFragment.VisualizerVisibilit
 
     fun onUserToggledVisualizerPreference() {
         val prefs = getSharedPreferences(VisualizerFragment.VISUALIZER_PREFS_NAME, Context.MODE_PRIVATE)
-        val currentState = prefs.getBoolean(VisualizerFragment.KEY_VISUALIZER_ENABLED, true) // Default true
+        // The default value here should reflect the new default if the preference is somehow missing,
+        // though SettingsFragment is now responsible for initializing it to false.
+        // For consistency in toggling, if it's missing, assuming it was 'false' (hidden) is safer.
+        val currentState = prefs.getBoolean(VisualizerFragment.KEY_VISUALIZER_ENABLED, false) // Default false
         Log.d("MainActivity", "onUserToggledVisualizerPreference: Current state from Prefs: $currentState");
         val newState = !currentState
         Log.d("MainActivity", "onUserToggledVisualizerPreference: New state to save: $newState");

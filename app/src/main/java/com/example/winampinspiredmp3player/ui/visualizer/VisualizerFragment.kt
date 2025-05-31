@@ -56,7 +56,7 @@ class VisualizerFragment : Fragment() {
         super.onCreate(savedInstanceState)
         // Load the persisted state for isVisualizerManuallyEnabled
         val prefs = requireActivity().getSharedPreferences(VISUALIZER_PREFS_NAME, Context.MODE_PRIVATE)
-        isVisualizerManuallyEnabled = prefs.getBoolean(KEY_VISUALIZER_ENABLED, true) // Default to true (visible)
+        isVisualizerManuallyEnabled = prefs.getBoolean(KEY_VISUALIZER_ENABLED, false) // Default to false (hidden)
         Log.d("VisualizerFragment", "onCreate: Initial isVisualizerManuallyEnabled loaded from Prefs: $isVisualizerManuallyEnabled");
     }
 
@@ -136,7 +136,7 @@ class VisualizerFragment : Fragment() {
         }
 
         val prefs = requireActivity().getSharedPreferences(VISUALIZER_PREFS_NAME, Context.MODE_PRIVATE)
-        val newIsEnabledState = prefs.getBoolean(KEY_VISUALIZER_ENABLED, true)
+        val newIsEnabledState = prefs.getBoolean(KEY_VISUALIZER_ENABLED, false) // Default to false (hidden)
         Log.d("VisualizerFragment", "refreshStateFromPreferences: State from Prefs: $newIsEnabledState. Current field val: $isVisualizerManuallyEnabled");
 
         isVisualizerManuallyEnabled = newIsEnabledState // Update the member variable

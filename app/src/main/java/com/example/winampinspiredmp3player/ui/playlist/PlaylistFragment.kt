@@ -38,6 +38,20 @@ class PlaylistFragment : Fragment() {
     private val allScannedTracks: MutableList<Track> = mutableListOf() // Holds all tracks from MediaStore before any filtering
     private var isShuffleEnabled: Boolean = false
     private var filterShortTracksEnabled: Boolean = false
+    private var currentSortOption: String = "" // To store the loaded sort option
+
+    // SharedPreferences constants
+    companion object {
+        const val PLAYLIST_PREFS_NAME = "playlist_prefs"
+        const val KEY_SORT_OPTION = "key_sort_option"
+        const val KEY_AUTO_SCAN_ON_STARTUP = "key_auto_scan_on_startup"
+        // Define sort option constants to be used with SharedPreferences
+        const val SORT_ALPHABETICAL = "alphabetical"
+        const val SORT_DATE_NEWEST = "date_newest"
+        const val SORT_DATE_OLDEST = "date_oldest"
+        const val SORT_DURATION_SHORTEST = "duration_shortest"
+        const val SORT_DURATION_LONGEST = "duration_longest"
+    }
 
     // Service related variables
     private var musicService: MusicService? = null
@@ -79,10 +93,9 @@ class PlaylistFragment : Fragment() {
         Log.d("PlaylistFragment", "onViewCreated: View creation started.");
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView() // Initialize adapter here
-        setupSortSpinner() // Setup spinner for sorting
-        binding.btnScanMusic.setOnClickListener {
-            checkAndRequestPermission()
-        }
+        // setupSortSpinner() // Removed
+        // binding.btnScanMusic.setOnClickListener // Removed
+
         binding.btnToggleShuffle.setOnClickListener {
             toggleShuffle()
         }
@@ -95,60 +108,65 @@ class PlaylistFragment : Fragment() {
             applyFiltersAndRefreshList()
         }
 
-        checkAndRequestPermission() // Auto-scan on view created
-        Log.d("PlaylistFragment", "onViewCreated: Called checkAndRequestPermission for auto-scan.");
+        // checkAndRequestPermission() // Removed direct call, will be handled in onResume based on preference
+        Log.d("PlaylistFragment", "onViewCreated: Basic setup complete. Preference-based actions in onResume.");
     }
 
-    private fun setupSortSpinner() {
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter.createFromResource(
-            requireContext(),
-            R.array.sort_options,
-            android.R.layout.simple_spinner_item
-        ).also { adapter ->
-            // Specify the layout to use when the list of choices appears
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            // Apply the adapter to the spinner
-            binding.spinnerSortOptions.adapter = adapter
-        }
+    override fun onResume() {
+        super.onResume()
+        Log.d("PlaylistFragment", "onResume: Loading preferences and updating playlist.")
+        loadPreferencesAndApply()
+    }
 
-        binding.spinnerSortOptions.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-                view?.let { // Ensure view is not null, to prevent potential issues with item styling
-                    val selectedOption = parent.getItemAtPosition(position).toString()
-                    Log.d("PlaylistFragment", "Sort option selected: $selectedOption")
-                    sortPlaylist(selectedOption)
-                }
-            }
+    private fun loadPreferencesAndApply() {
+        val prefs = requireActivity().getSharedPreferences(PLAYLIST_PREFS_NAME, Context.MODE_PRIVATE)
 
-            override fun onNothingSelected(parent: AdapterView<*>) {
-                // Another interface callback
-            }
+        // Load sort preference
+        val defaultSortOption = SORT_ALPHABETICAL // Or use R.string resource if defined for this constant
+        currentSortOption = prefs.getString(KEY_SORT_OPTION, defaultSortOption) ?: defaultSortOption
+        Log.d("PlaylistFragment", "Loaded sort option: $currentSortOption")
+        sortPlaylist(currentSortOption) // Apply sort (this also updates adapter)
+
+        // Load "Auto Load Music on Startup" preference
+        val autoScanEnabled = prefs.getBoolean(KEY_AUTO_SCAN_ON_STARTUP, true) // Default true
+        Log.d("PlaylistFragment", "Loaded auto-scan preference: $autoScanEnabled")
+        if (autoScanEnabled && allScannedTracks.isEmpty()) { // Only scan if list is empty to avoid rescanning on every resume
+            Log.d("PlaylistFragment", "Auto-scan enabled and no tracks loaded, initiating scan.")
+            checkAndRequestPermission()
+        } else {
+            Log.d("PlaylistFragment", "Auto-scan disabled or tracks already loaded. Current track count: ${allScannedTracks.size}")
         }
     }
 
-    private fun sortPlaylist(sortOption: String) {
+    // Made public
+    fun sortPlaylist(sortOption: String) {
+        currentSortOption = sortOption // Store the current sort option
+        Log.d("PlaylistFragment", "sortPlaylist called with: $sortOption")
         // Sort originalMusicTracks
         when (sortOption) {
-            getString(R.string.sort_alphabetical) -> {
+            SORT_ALPHABETICAL, getString(R.string.sort_alphabetical) -> { // Accept both internal const and string resource for robustness
                 Log.d("PlaylistFragment", "Sorting original by alphabetical")
                 originalMusicTracks.sortBy { it.title?.lowercase() ?: it.fileName.lowercase() }
             }
-            getString(R.string.sort_date_newest) -> {
+            SORT_DATE_NEWEST, getString(R.string.sort_date_newest) -> {
                 Log.d("PlaylistFragment", "Sorting original by date newest")
                 originalMusicTracks.sortByDescending { it.dateAdded }
             }
-            getString(R.string.sort_date_oldest) -> {
+            SORT_DATE_OLDEST, getString(R.string.sort_date_oldest) -> {
                 Log.d("PlaylistFragment", "Sorting original by date oldest")
                 originalMusicTracks.sortBy { it.dateAdded }
             }
-            getString(R.string.sort_duration_shortest) -> {
+            SORT_DURATION_SHORTEST, getString(R.string.sort_duration_shortest) -> {
                 Log.d("PlaylistFragment", "Sorting original by duration (shortest first)")
                 originalMusicTracks.sortBy { it.duration }
             }
-            getString(R.string.sort_duration_longest) -> {
+            SORT_DURATION_LONGEST, getString(R.string.sort_duration_longest) -> {
                 Log.d("PlaylistFragment", "Sorting original by duration (longest first)")
                 originalMusicTracks.sortByDescending { it.duration }
+            }
+            else -> {
+                Log.w("PlaylistFragment", "Unknown sort option: $sortOption, defaulting to alphabetical.")
+                originalMusicTracks.sortBy { it.title?.lowercase() ?: it.fileName.lowercase() }
             }
         }
 
@@ -165,25 +183,14 @@ class PlaylistFragment : Fragment() {
         playlistAdapter.updateTracks(musicTracks)
 
         // Notify MusicService about the playlist reordering
-        // This is important if playback is ongoing or if the service maintains its own copy of the playlist order.
         if (isBound && musicService != null) {
-            // TODO: Implement updatePlaylistOrder in MusicService and uncomment this line
             // musicService?.updatePlaylistOrder(ArrayList(musicTracks)) // Pass a copy
             Log.d("PlaylistFragment", "Notified MusicService of playlist reorder for sort: $sortOption (currently commented out)")
         }
     }
 
-    private fun sortPlaylistBasedOnSpinner() {
-        if (binding.spinnerSortOptions.adapter != null && binding.spinnerSortOptions.selectedItemPosition != AdapterView.INVALID_POSITION) {
-            val selectedOption = binding.spinnerSortOptions.selectedItem.toString()
-            sortPlaylist(selectedOption)
-        } else {
-            // Default sort if spinner not ready or nothing selected (e.g. alphabetical)
-            // This case might occur if scan finishes before spinner is fully initialized, though unlikely with current setup.
-            sortPlaylist(getString(R.string.sort_alphabetical))
-        }
-    }
-
+    // Removed setupSortSpinner()
+    // Removed sortPlaylistBasedOnSpinner()
 
     private fun setupRecyclerView() {
         // Initialize adapter with the click listener
@@ -322,8 +329,8 @@ class PlaylistFragment : Fragment() {
         originalMusicTracks.addAll(filteredList)
         Log.d("PlaylistFragment", "applyFiltersAndRefreshList: originalMusicTracks updated. Size: ${originalMusicTracks.size}")
 
-        // Now call the existing method that sorts originalMusicTracks, applies shuffle to musicTracks, and updates adapter
-        sortPlaylistBasedOnSpinner()
+        // Now call the public sortPlaylist method with the currentSortOption
+        sortPlaylist(currentSortOption)
 
         // Display toast based on the final musicTracks list (which is what the adapter shows)
         if (musicTracks.isEmpty()) {

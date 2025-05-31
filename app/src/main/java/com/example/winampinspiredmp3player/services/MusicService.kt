@@ -34,6 +34,9 @@ class MusicService : Service() {
     companion object {
         const val NOTIFICATION_CHANNEL_ID = "com.example.winampinspiredmp3player.playback_channel"
         const val NOTIFICATION_ID = 1
+        // Constants for player preferences, mirroring SettingsFragment
+        const val PLAYER_PREFS_NAME = "player_prefs" // Same as SettingsFragment.PLAYER_PREFS_NAME
+        const val KEY_AUTO_SAVE_STATE = "key_auto_save_state" // Same as SettingsFragment.KEY_AUTO_SAVE_STATE
     }
 
     private var mediaPlayer: MediaPlayer? = null
@@ -383,6 +386,7 @@ class MusicService : Service() {
                 it.pause()
                 isPlayingState.postValue(false)
                 handler.removeCallbacks(updateProgressRunnable)
+                saveCurrentPlaybackStateIfNeeded() // Save state on pause
                 updatePlaybackState() // This will trigger notification update
                 stopForeground(false) // Keep notification, but service is not foreground
                 // notificationManager.notify(NOTIFICATION_ID, buildNotification()) // updatePlaybackState should handle this
@@ -399,6 +403,7 @@ class MusicService : Service() {
             it.reset()
             Log.d("MusicService", "MediaPlayer reset after stop")
         }
+        saveCurrentPlaybackStateIfNeeded() // Save state on stop (which effectively resets position to 0 for next load)
         currentTrack = null
         currentPlayingTrack.postValue(null)
         isPlayingState.postValue(false)
@@ -536,11 +541,44 @@ class MusicService : Service() {
     override fun onDestroy() {
         super.onDestroy()
         Log.d("MusicService", "Service Destroyed, MediaPlayer and MediaSession Released")
+        saveCurrentPlaybackStateIfNeeded() // Save state on destroy
         handler.removeCallbacks(updateProgressRunnable)
         mediaPlayer?.release()
         mediaPlayer = null
         mediaSession.release()
         Log.d("MusicService", "Abandoning audio focus in onDestroy.")
         audioManager.abandonAudioFocus(audioFocusChangeListener)
+    }
+
+    private fun saveCurrentPlaybackStateIfNeeded() {
+        val playerPrefs = applicationContext.getSharedPreferences(PLAYER_PREFS_NAME, Context.MODE_PRIVATE)
+        val autoSaveEnabled = playerPrefs.getBoolean(KEY_AUTO_SAVE_STATE, true) // Default true
+
+        if (autoSaveEnabled) {
+            if (currentTrack != null && mediaPlayer != null) {
+                // If stopping, currentPosition might be 0 or unreliable.
+                // If pausing, it's the correct pause position.
+                // If track just finished (completion listener), it's end of track.
+                // Consider the context of where this is called.
+                // For onDestroy or stopTrack, saving position might be less relevant if track is considered "finished"
+                // For pauseTrack, it's essential.
+                val positionToSave = if (mediaPlayer!!.isPlaying || isPlayingState.value == true) {
+                    mediaPlayer!!.currentPosition
+                } else if (currentTrack != null && playbackPosition.value != null && playbackPosition.value!! > 0 && playbackPosition.value!! < currentTrackDuration.value!!) {
+                    // If paused and there's a valid last known position
+                    playbackPosition.value
+                } else {
+                    0 // Default to 0 if stopped or at the very end.
+                }
+                MusicServicePersistenceHelper.savePlaybackState(applicationContext, currentTrack, positionToSave)
+                Log.d("MusicService", "Auto-save enabled, playback state saved for track: ${currentTrack?.title} at $positionToSave ms.")
+            } else {
+                 // If there's no current track, we might want to clear the saved state
+                MusicServicePersistenceHelper.savePlaybackState(applicationContext, null, 0)
+                Log.d("MusicService", "Auto-save enabled, no current track, cleared playback state.")
+            }
+        } else {
+            Log.d("MusicService", "Auto-save disabled, playback state not saved.")
+        }
     }
 }
