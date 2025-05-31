@@ -92,18 +92,19 @@ class SettingsFragment : Fragment() {
 
     private fun setupSortOptionsSpinner() {
         // Populate spinner
-        ArrayAdapter.createFromResource(
+        val sortOptionsArray = resources.getStringArray(R.array.sort_options)
+        val adapter = ArrayAdapter(
             requireContext(),
-            R.array.sort_options, // Make sure this array exists in strings.xml
-            android.R.layout.simple_spinner_item
-        ).also { adapter ->
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            binding.spinnerSortOptionsSettings.adapter = adapter
-        }
+            R.layout.spinner_item_white, // Use custom layout for the selected item
+            sortOptionsArray
+        )
+        // The android:dropDownItemLayout in XML should handle the dropdown, but setting it here ensures consistency.
+        adapter.setDropDownViewResource(R.layout.spinner_item_white)
+        binding.spinnerSortOptionsSettings.adapter = adapter
 
         // Load current sort preference and set spinner selection
         val currentSortOption = playlistPrefs.getString(PlaylistFragment.KEY_SORT_OPTION, PlaylistFragment.SORT_ALPHABETICAL)
-        val sortOptionsArray = resources.getStringArray(R.array.sort_options)
+        // val sortOptionsArray = resources.getStringArray(R.array.sort_options) // Already fetched
         val currentPosition = sortOptionsArray.indexOf(currentSortOption).takeIf { it >= 0 } ?: 0
         binding.spinnerSortOptionsSettings.setSelection(currentPosition)
 
