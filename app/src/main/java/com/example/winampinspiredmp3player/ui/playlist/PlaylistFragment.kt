@@ -36,7 +36,7 @@ class PlaylistFragment : Fragment() {
     private val musicTracks = mutableListOf<Track>() // This will be the working list (displayed, potentially shuffled)
     private val originalMusicTracks: MutableList<Track> = mutableListOf() // Master list, always in scanned/sorted order (after filtering)
     private val allScannedTracks: MutableList<Track> = mutableListOf() // Holds all tracks from MediaStore before any filtering
-    private var isShuffleEnabled: Boolean = false
+    // private var isShuffleEnabled: Boolean = false // Removed
     private var filterShortTracksEnabled: Boolean = false
     private var currentSortOption: String = "" // To store the loaded sort option
 
@@ -96,9 +96,7 @@ class PlaylistFragment : Fragment() {
         // setupSortSpinner() // Removed
         // binding.btnScanMusic.setOnClickListener // Removed
 
-        binding.btnToggleShuffle.setOnClickListener {
-            toggleShuffle()
-        }
+        // binding.btnToggleShuffle.setOnClickListener removed
 
         binding.switchFilterShortTracks.isChecked = filterShortTracksEnabled
         binding.switchFilterShortTracks.setOnCheckedChangeListener { _, isChecked ->
@@ -170,16 +168,10 @@ class PlaylistFragment : Fragment() {
             }
         }
 
-        // Update musicTracks based on shuffle state
-        if (isShuffleEnabled) {
-            musicTracks.clear()
-            musicTracks.addAll(originalMusicTracks.shuffled())
-            Log.d("PlaylistFragment", "Applied shuffle to sorted original list.")
-        } else {
-            musicTracks.clear()
-            musicTracks.addAll(originalMusicTracks)
-            Log.d("PlaylistFragment", "Set musicTracks to sorted original list (shuffle off).")
-        }
+        // Update musicTracks directly from originalMusicTracks (shuffle logic removed from here)
+        musicTracks.clear()
+        musicTracks.addAll(originalMusicTracks)
+        Log.d("PlaylistFragment", "Set musicTracks to sorted original list.")
         playlistAdapter.updateTracks(musicTracks)
 
         // Notify MusicService about the playlist reordering
@@ -343,28 +335,7 @@ class PlaylistFragment : Fragment() {
         }
     }
 
-
-    private fun toggleShuffle() {
-        isShuffleEnabled = !isShuffleEnabled
-        // Update button appearance (e.g., tint if active) - TODO: Implement visual feedback for shuffle state
-        if (isShuffleEnabled) {
-            musicTracks.clear()
-            musicTracks.addAll(originalMusicTracks.shuffled())
-            Toast.makeText(requireContext(), "Shuffle On", Toast.LENGTH_SHORT).show()
-            Log.d("PlaylistFragment", "Shuffle enabled. musicTracks count: ${musicTracks.size}")
-        } else {
-            // Revert to current sort order from originalMusicTracks
-            musicTracks.clear()
-            musicTracks.addAll(originalMusicTracks) // originalMusicTracks should still be sorted as per last spinner selection
-            Toast.makeText(requireContext(), "Shuffle Off", Toast.LENGTH_SHORT).show()
-            Log.d("PlaylistFragment", "Shuffle disabled. Restored sorted list from original. musicTracks count: ${musicTracks.size}")
-        }
-        playlistAdapter.updateTracks(musicTracks)
-
-        // TODO: Notify MusicService of new list order and possibly update current playing index
-        // musicService?.updatePlaylistOrder(ArrayList(this.musicTracks))
-        // Log.d("PlaylistFragment", "Notified MusicService of playlist reorder due to shuffle toggle.")
-    }
+    // toggleShuffle() method removed
 
     override fun onStart() {
         super.onStart()

@@ -111,14 +111,17 @@ class PlayerFragment : Fragment() {
             }
         }
 
-        binding.btnStopTrack.setOnClickListener {
+        // binding.btnStopTrack.setOnClickListener removed
+
+        binding.btnToggleShufflePlayer.setOnClickListener {
             if (isBound && musicService != null) {
-                musicService!!.pauseTrack() // Changed from stopTrack()
-                // UI updates for track info and play/pause button will be handled by LiveData observers
-                // or call updatePlayPauseButtonState() if pauseTrack() doesn't trigger it.
-                Log.d("PlayerFragment", "Pause button (formerly Stop) clicked.")
+                musicService!!.toggleShuffleMode()
+                val shuffleEnabled = musicService!!.isShuffleEnabled()
+                binding.btnToggleShufflePlayer.alpha = if (shuffleEnabled) 1.0f else 0.5f
+                Toast.makeText(requireContext(), if (shuffleEnabled) "Shuffle On" else "Shuffle Off", Toast.LENGTH_SHORT).show()
+                Log.d("PlayerFragment", "Toggle Shuffle clicked. Shuffle is now: $shuffleEnabled")
             } else {
-                Log.d("PlayerFragment", "Pause button (formerly Stop) clicked, but service not bound.")
+                Log.d("PlayerFragment", "Toggle Shuffle clicked, but service not bound.")
             }
         }
 
@@ -228,10 +231,16 @@ class PlayerFragment : Fragment() {
         super.onResume()
         // Update button state when fragment resumes, in case it was changed by other means or for initial setup
         val prefs = requireActivity().getSharedPreferences(com.example.winampinspiredmp3player.ui.visualizer.VisualizerFragment.VISUALIZER_PREFS_NAME, Context.MODE_PRIVATE)
-        val visualizerIsEnabled = prefs.getBoolean(com.example.winampinspiredmp3player.ui.visualizer.VisualizerFragment.KEY_VISUALIZER_ENABLED, true)
+        val visualizerIsEnabled = prefs.getBoolean(com.example.winampinspiredmp3player.ui.visualizer.VisualizerFragment.KEY_VISUALIZER_ENABLED, false) // Default changed to false
         Log.d("PlayerFragment", "onResume: Visualizer state from Prefs: $visualizerIsEnabled. Updating button icon.");
         updateVisualizerToggleButtonState(visualizerIsEnabled)
-        // Log.d("PlayerFragment", "onResume: Updated visualizer toggle button state to: $visualizerIsEnabled from SharedPreferences.") // Already logged essentially
+
+        // Update shuffle button state on resume
+        if (isBound && musicService != null) {
+            val shuffleEnabled = musicService!!.isShuffleEnabled()
+            binding.btnToggleShufflePlayer.alpha = if (shuffleEnabled) 1.0f else 0.5f
+            Log.d("PlayerFragment", "onResume: Shuffle state from service: $shuffleEnabled. Updated button alpha.")
+        }
     }
 
     override fun onStop() {

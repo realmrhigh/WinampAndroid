@@ -46,6 +46,7 @@ class MusicService : Service() {
     private lateinit var audioManager: AudioManager
     private lateinit var audioFocusChangeListener: AudioManager.OnAudioFocusChangeListener
     private var pausedByTransientLoss: Boolean = false
+    private var isShuffleEnabled: Boolean = false
 
 
     // Member variables
@@ -421,11 +422,33 @@ class MusicService : Service() {
         return mediaPlayer?.isPlaying ?: false
     }
 
+    fun toggleShuffleMode() {
+        isShuffleEnabled = !isShuffleEnabled
+        Log.d("MusicService", "Shuffle mode toggled. Enabled: $isShuffleEnabled")
+        // Actual playlist shuffling or random track picking will be handled in playNextTrack
+    }
+
+    fun isShuffleEnabled(): Boolean {
+        return isShuffleEnabled
+    }
+
     fun playNextTrack() {
         if (trackList.isNotEmpty()) {
-            currentTrackIndex++
-            if (currentTrackIndex >= trackList.size) {
-                currentTrackIndex = 0
+            if (isShuffleEnabled) {
+                var randomIndex = kotlin.random.Random.nextInt(trackList.size)
+                if (trackList.size > 1) { // Avoid infinite loop if only one track
+                    while (randomIndex == currentTrackIndex) {
+                        randomIndex = kotlin.random.Random.nextInt(trackList.size)
+                    }
+                }
+                currentTrackIndex = randomIndex
+                Log.d("MusicService", "Shuffle is ON. Playing random track at index: $currentTrackIndex")
+            } else {
+                currentTrackIndex++
+                if (currentTrackIndex >= trackList.size) {
+                    currentTrackIndex = 0 // Loop back to the start
+                }
+                Log.d("MusicService", "Shuffle is OFF. Playing next track sequentially at index: $currentTrackIndex")
             }
             playTrackAtIndex(currentTrackIndex)
         } else {

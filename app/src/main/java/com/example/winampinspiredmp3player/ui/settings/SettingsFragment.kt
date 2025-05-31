@@ -1,7 +1,5 @@
 package com.example.winampinspiredmp3player.ui.settings
 
-package com.example.winampinspiredmp3player.ui.settings
-
 import android.Manifest
 import android.content.ContentUris
 import android.content.Context
