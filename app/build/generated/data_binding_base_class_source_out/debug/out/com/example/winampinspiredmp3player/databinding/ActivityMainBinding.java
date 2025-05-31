@@ -4,38 +4,42 @@ package com.example.winampinspiredmp3player.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
-import androidx.viewpager2.widget.ViewPager2;
 import com.example.winampinspiredmp3player.R;
-import com.google.android.material.tabs.TabLayout;
 import java.lang.NullPointerException;
 import java.lang.Override;
 import java.lang.String;
 
 public final class ActivityMainBinding implements ViewBinding {
   @NonNull
-  private final ConstraintLayout rootView;
+  private final LinearLayout rootView;
 
   @NonNull
-  public final TabLayout tabLayout;
+  public final FrameLayout playerControlsContainer;
 
   @NonNull
-  public final ViewPager2 viewPager;
+  public final FrameLayout playlistContainer;
 
-  private ActivityMainBinding(@NonNull ConstraintLayout rootView, @NonNull TabLayout tabLayout,
-      @NonNull ViewPager2 viewPager) {
+  @NonNull
+  public final FrameLayout visualizerContainer;
+
+  private ActivityMainBinding(@NonNull LinearLayout rootView,
+      @NonNull FrameLayout playerControlsContainer, @NonNull FrameLayout playlistContainer,
+      @NonNull FrameLayout visualizerContainer) {
     this.rootView = rootView;
-    this.tabLayout = tabLayout;
-    this.viewPager = viewPager;
+    this.playerControlsContainer = playerControlsContainer;
+    this.playlistContainer = playlistContainer;
+    this.visualizerContainer = visualizerContainer;
   }
 
   @Override
   @NonNull
-  public ConstraintLayout getRoot() {
+  public LinearLayout getRoot() {
     return rootView;
   }
 
@@ -60,19 +64,26 @@ public final class ActivityMainBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
-      id = R.id.tab_layout;
-      TabLayout tabLayout = ViewBindings.findChildViewById(rootView, id);
-      if (tabLayout == null) {
+      id = R.id.player_controls_container;
+      FrameLayout playerControlsContainer = ViewBindings.findChildViewById(rootView, id);
+      if (playerControlsContainer == null) {
         break missingId;
       }
 
-      id = R.id.view_pager;
-      ViewPager2 viewPager = ViewBindings.findChildViewById(rootView, id);
-      if (viewPager == null) {
+      id = R.id.playlist_container;
+      FrameLayout playlistContainer = ViewBindings.findChildViewById(rootView, id);
+      if (playlistContainer == null) {
         break missingId;
       }
 
-      return new ActivityMainBinding((ConstraintLayout) rootView, tabLayout, viewPager);
+      id = R.id.visualizer_container;
+      FrameLayout visualizerContainer = ViewBindings.findChildViewById(rootView, id);
+      if (visualizerContainer == null) {
+        break missingId;
+      }
+
+      return new ActivityMainBinding((LinearLayout) rootView, playerControlsContainer,
+          playlistContainer, visualizerContainer);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

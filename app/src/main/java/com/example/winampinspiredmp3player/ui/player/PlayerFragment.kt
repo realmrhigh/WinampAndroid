@@ -14,6 +14,7 @@ import android.view.ViewGroup
 import android.widget.SeekBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.winampinspiredmp3player.MainActivity
 import com.example.winampinspiredmp3player.R // Import R class for drawable resources
 import com.example.winampinspiredmp3player.databinding.FragmentPlayerBinding
 import com.example.winampinspiredmp3player.services.MusicService

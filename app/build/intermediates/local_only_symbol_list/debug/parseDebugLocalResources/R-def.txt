@@ -1,5 +1,6 @@
 R_DEF: Internal format may change without notice
 local
+array sort_options
 color black
 color purple_200
 color purple_500
@@ -34,23 +35,27 @@ drawable volsliderbar
 drawable volsliderthumb
 drawable winamp_btn_pause
 drawable winamp_btn_play
-id btn_eject
 id btn_next_track
 id btn_play_pause
 id btn_previous_track
+id btn_remove_track
 id btn_scan_music
 id btn_stop_track
+id btn_toggle_shuffle
+id btn_toggle_visualizer
 id layout_player_controls
+id player_controls_container
+id playlist_container
 id rv_playlist
 id sb_track_progress
-id sb_volume_control
-id tab_layout
+id spinner_sort_options
+id switch_filter_short_tracks
 id tv_current_track_info
 id tv_track_artist
 id tv_track_duration
 id tv_track_title
 id video_view_visualizer
-id view_pager
+id visualizer_container
 layout activity_main
 layout fragment_player
 layout fragment_playlist
@@ -60,4 +65,10 @@ mipmap ic_launcher
 mipmap ic_launcher_round
 raw visualization_loop
 string app_name
+string hide_tracks_1_min
+string sort_alphabetical
+string sort_date_newest
+string sort_date_oldest
+string sort_duration_longest
+string sort_duration_shortest
 style Theme.WinampInspiredMP3Player

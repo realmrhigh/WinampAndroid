@@ -1,6 +1,7 @@
 package com.example.winampinspiredmp3player.ui.playlist
 
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat

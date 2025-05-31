@@ -1,9 +1,5 @@
 [
     {
-        "merged": "com.example.winampinspiredmp3player.app-mergeDebugResources-31:/layout/playlist_item_selected_bg.xml",
-        "source": "com.example.winampinspiredmp3player.app-main-34:/layout/playlist_item_selected_bg.xml"
-    },
-    {
         "merged": "com.example.winampinspiredmp3player.app-mergeDebugResources-31:/layout/fragment_visualizer.xml",
         "source": "com.example.winampinspiredmp3player.app-main-34:/layout/fragment_visualizer.xml"
     },

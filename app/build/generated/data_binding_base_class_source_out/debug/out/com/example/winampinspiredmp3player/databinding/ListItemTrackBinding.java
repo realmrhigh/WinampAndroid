@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,6 +21,9 @@ public final class ListItemTrackBinding implements ViewBinding {
   private final FrameLayout rootView;
 
   @NonNull
+  public final ImageButton btnRemoveTrack;
+
+  @NonNull
   public final TextView tvTrackArtist;
 
   @NonNull
@@ -28,9 +32,11 @@ public final class ListItemTrackBinding implements ViewBinding {
   @NonNull
   public final TextView tvTrackTitle;
 
-  private ListItemTrackBinding(@NonNull FrameLayout rootView, @NonNull TextView tvTrackArtist,
-      @NonNull TextView tvTrackDuration, @NonNull TextView tvTrackTitle) {
+  private ListItemTrackBinding(@NonNull FrameLayout rootView, @NonNull ImageButton btnRemoveTrack,
+      @NonNull TextView tvTrackArtist, @NonNull TextView tvTrackDuration,
+      @NonNull TextView tvTrackTitle) {
     this.rootView = rootView;
+    this.btnRemoveTrack = btnRemoveTrack;
     this.tvTrackArtist = tvTrackArtist;
     this.tvTrackDuration = tvTrackDuration;
     this.tvTrackTitle = tvTrackTitle;
@@ -63,6 +69,12 @@ public final class ListItemTrackBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
+      id = R.id.btn_remove_track;
+      ImageButton btnRemoveTrack = ViewBindings.findChildViewById(rootView, id);
+      if (btnRemoveTrack == null) {
+        break missingId;
+      }
+
       id = R.id.tv_track_artist;
       TextView tvTrackArtist = ViewBindings.findChildViewById(rootView, id);
       if (tvTrackArtist == null) {
@@ -81,8 +93,8 @@ public final class ListItemTrackBinding implements ViewBinding {
         break missingId;
       }
 
-      return new ListItemTrackBinding((FrameLayout) rootView, tvTrackArtist, tvTrackDuration,
-          tvTrackTitle);
+      return new ListItemTrackBinding((FrameLayout) rootView, btnRemoveTrack, tvTrackArtist,
+          tvTrackDuration, tvTrackTitle);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

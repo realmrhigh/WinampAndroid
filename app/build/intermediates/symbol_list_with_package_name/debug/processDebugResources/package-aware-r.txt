@@ -77,6 +77,7 @@ animator mtrl_fab_hide_motion_spec
 animator mtrl_fab_show_motion_spec
 animator mtrl_fab_transformation_sheet_collapse_spec
 animator mtrl_fab_transformation_sheet_expand_spec
+array sort_options
 attr SharedValue
 attr SharedValueId
 attr actionBarDivider
@@ -3171,12 +3172,14 @@ id bounce
 id bounceBoth
 id bounceEnd
 id bounceStart
-id btn_eject
 id btn_next_track
 id btn_play_pause
 id btn_previous_track
+id btn_remove_track
 id btn_scan_music
 id btn_stop_track
+id btn_toggle_shuffle
+id btn_toggle_visualizer
 id buttonPanel
 id cache_measures
 id callMeasure
@@ -3432,6 +3435,8 @@ id pathRelative
 id peekHeight
 id percent
 id pin
+id player_controls_container
+id playlist_container
 id position
 id postLayout
 id pressed
@@ -3453,7 +3458,6 @@ id save_non_transition_alpha
 id save_overlay_view
 id sawtooth
 id sb_track_progress
-id sb_volume_control
 id scale
 id screen
 id scroll
@@ -3491,6 +3495,7 @@ id snapMargins
 id south
 id spacer
 id special_effects_controller_view_tag
+id spinner_sort_options
 id spline
 id split_action_bar
 id spread
@@ -3513,8 +3518,8 @@ id stretch
 id submenuarrow
 id submit_area
 id supportScrollUp
+id switch_filter_short_tracks
 id tabMode
-id tab_layout
 id tag_accessibility_actions
 id tag_accessibility_clickable_spans
 id tag_accessibility_heading
@@ -3572,7 +3577,6 @@ id useLogo
 id vertical_only
 id video_view_visualizer
 id view_offset_helper
-id view_pager
 id view_transition
 id view_tree_lifecycle_owner
 id view_tree_on_back_pressed_dispatcher_owner
@@ -3580,6 +3584,7 @@ id view_tree_saved_state_registry_owner
 id view_tree_view_model_store_owner
 id visible
 id visible_removing_fragment_view_tag
+id visualizer_container
 id west
 id withText
 id with_icon
@@ -3844,6 +3849,7 @@ string exposed_dropdown_menu_content_description
 string fab_transformation_scrim_behavior
 string fab_transformation_sheet_behavior
 string hide_bottom_view_on_scroll_behavior
+string hide_tracks_1_min
 string icon_content_description
 string item_view_role_description
 string m3_exceed_max_badge_text_suffix
@@ -3957,6 +3963,11 @@ string searchview_clear_text_content_description
 string searchview_navigation_content_description
 string side_sheet_accessibility_pane_title
 string side_sheet_behavior
+string sort_alphabetical
+string sort_date_newest
+string sort_date_oldest
+string sort_duration_longest
+string sort_duration_shortest
 string status_bar_notification_info_overflow
 style AlertDialog_AppCompat
 style AlertDialog_AppCompat_Light
